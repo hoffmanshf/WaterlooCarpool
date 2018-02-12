@@ -1,1 +1,9 @@
+target/
 .idea
+.project
+.settings/
+.classpath
+.springBeans
+bin/
+.metadata
+.DS_Store
