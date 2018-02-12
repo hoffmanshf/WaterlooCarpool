@@ -1,25 +1,42 @@
 package com.hoffman.carpool.domain;
 
+import javax.persistence.*;
 import java.util.Date;
 
-public class Booking {
+@Entity
+public class RiderBooking {
 
-    private String bookingId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long riderBookingId;
     private String bookingStatus;
     private Date date;
     private String departureLocation;
     private String arrivalLocation;
     private String description;
 
-    private DriverAccount driverAccount;
+    @ManyToOne
+    @JoinColumn(name = "rider_account_id")
     private RiderAccount riderAccount;
 
-    public String getBookingId() {
-        return bookingId;
+    public RiderBooking() {
     }
 
-    public void setBookingId(String bookingId) {
-        this.bookingId = bookingId;
+    public RiderBooking(String bookingStatus, Date date, String departureLocation, String arrivalLocation, String description, RiderAccount riderAccount) {
+        this.bookingStatus = bookingStatus;
+        this.date = date;
+        this.departureLocation = departureLocation;
+        this.arrivalLocation = arrivalLocation;
+        this.description = description;
+        this.riderAccount = riderAccount;
+    }
+
+    public Long getRiderBookingId() {
+        return riderBookingId;
+    }
+
+    public void setRiderBookingId(Long riderBookingId) {
+        this.riderBookingId = riderBookingId;
     }
 
     public String getBookingStatus() {
@@ -60,14 +77,6 @@ public class Booking {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public DriverAccount getDriverAccount() {
-        return driverAccount;
-    }
-
-    public void setDriverAccount(DriverAccount driverAccount) {
-        this.driverAccount = driverAccount;
     }
 
     public RiderAccount getRiderAccount() {

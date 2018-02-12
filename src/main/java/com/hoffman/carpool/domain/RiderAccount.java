@@ -1,12 +1,22 @@
 package com.hoffman.carpool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.List;
 
+@Entity
 public class RiderAccount {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "riderAccountId", unique = true)
     private Long riderAccountId;
     private int accountNumber;
-    private List<Booking> bookingList;
+
+    @OneToMany(mappedBy = "riderAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<RiderBooking> riderBookingList;
 
     public Long getRiderAccountId() {
         return riderAccountId;
@@ -24,11 +34,11 @@ public class RiderAccount {
         this.accountNumber = accountNumber;
     }
 
-    public List<Booking> getBookingList() {
-        return bookingList;
+    public List<RiderBooking> getRiderBookingList() {
+        return riderBookingList;
     }
 
-    public void setBookingList(List<Booking> bookingList) {
-        this.bookingList = bookingList;
+    public void setRiderBookingList(List<RiderBooking> riderBookingList) {
+        this.riderBookingList = riderBookingList;
     }
 }

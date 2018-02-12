@@ -1,20 +1,28 @@
 package com.hoffman.carpool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
+
+@Entity
 public class Car {
 
-    private String carId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "id", unique = true)
+    private long id;
     private String carManufacturer;
     private String carModel;
     private String carColour;
     private String carYear;
     private String carLicensePlateNumber;
 
-    public String getCarId() {
-        return carId;
+    public long getId() {
+        return id;
     }
 
-    public void setCarId(String carId) {
-        this.carId = carId;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getCarManufacturer() {
