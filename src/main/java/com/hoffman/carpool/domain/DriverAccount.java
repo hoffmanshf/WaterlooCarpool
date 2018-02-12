@@ -15,6 +15,7 @@ public class DriverAccount {
     private String username;
     private String email;
     private String phone;
+
     @OneToOne
     private Car car;
 

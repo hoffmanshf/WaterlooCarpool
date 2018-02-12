@@ -1,7 +1,5 @@
 package com.hoffman.carpool.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 @Entity
