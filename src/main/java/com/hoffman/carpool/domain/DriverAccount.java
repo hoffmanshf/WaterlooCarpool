@@ -12,14 +12,15 @@ public class DriverAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "driverAccountId", unique = true)
     private Long driverAccountId;
-    private int accountNumber;
-
+    private String username;
+    private String email;
+    private String phone;
     @OneToOne
     private Car car;
 
     @OneToMany(mappedBy = "driverAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<DriverBooking> driverBookingList;
+    private List<BookingReference> bookingReferences;
 
     public Long getDriverAccountId() {
         return driverAccountId;
@@ -29,20 +30,28 @@ public class DriverAccount {
         this.driverAccountId = driverAccountId;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public List<DriverBooking> getDriverBookingList() {
-        return driverBookingList;
+    public String getEmail() {
+        return email;
     }
 
-    public void setDriverBookingList(List<DriverBooking> driverBookingList) {
-        this.driverBookingList = driverBookingList;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public Car getCar() {
@@ -51,5 +60,13 @@ public class DriverAccount {
 
     public void setCar(Car car) {
         this.car = car;
+    }
+
+    public List<BookingReference> getBookingReferences() {
+        return bookingReferences;
+    }
+
+    public void setBookingReferences(List<BookingReference> bookingReferences) {
+        this.bookingReferences = bookingReferences;
     }
 }

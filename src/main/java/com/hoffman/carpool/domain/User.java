@@ -1,7 +1,6 @@
 package com.hoffman.carpool.domain;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
 public class User {
@@ -22,11 +21,9 @@ public class User {
 
     @OneToOne
     private DriverAccount driverAccount;
+
     @OneToOne
     private RiderAccount riderAccount;
-
-//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-//    private List<Car> carList;
 
     public Long getUserId() {
         return userId;
@@ -99,15 +96,6 @@ public class User {
     public void setRiderAccount(RiderAccount riderAccount) {
         this.riderAccount = riderAccount;
     }
-
-//    public List<Car> getCarList() {
-//        return carList;
-//    }
-//
-//    public void setCarList(List<Car> carList) {
-//        this.carList = carList;
-//    }
-//
 
     @Override
     public String toString() {

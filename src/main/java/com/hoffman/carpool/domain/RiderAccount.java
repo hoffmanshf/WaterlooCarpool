@@ -12,11 +12,13 @@ public class RiderAccount {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "riderAccountId", unique = true)
     private Long riderAccountId;
-    private int accountNumber;
+    private String username;
+    private String email;
+    private String phone;
 
     @OneToMany(mappedBy = "riderAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
-    private List<RiderBooking> riderBookingList;
+    private List<BookingReference> bookingReferences;
 
     public Long getRiderAccountId() {
         return riderAccountId;
@@ -26,19 +28,35 @@ public class RiderAccount {
         this.riderAccountId = riderAccountId;
     }
 
-    public int getAccountNumber() {
-        return accountNumber;
+    public String getUsername() {
+        return username;
     }
 
-    public void setAccountNumber(int accountNumber) {
-        this.accountNumber = accountNumber;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
-    public List<RiderBooking> getRiderBookingList() {
-        return riderBookingList;
+    public String getEmail() {
+        return email;
     }
 
-    public void setRiderBookingList(List<RiderBooking> riderBookingList) {
-        this.riderBookingList = riderBookingList;
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public List<BookingReference> getBookingReferences() {
+        return bookingReferences;
+    }
+
+    public void setBookingReferences(List<BookingReference> bookingReferences) {
+        this.bookingReferences = bookingReferences;
     }
 }

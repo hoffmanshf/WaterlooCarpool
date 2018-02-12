@@ -4,39 +4,33 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-public class RiderBooking {
+public class BookingReference {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long riderBookingId;
+    private long bookingReferenceId;
     private String bookingStatus;
     private Date date;
+    private String passengerNumber;
     private String departureLocation;
     private String arrivalLocation;
-    private String description;
+    private String paymentMethod;
+    private String notes;
+
+    @ManyToOne
+    @JoinColumn(name = "driver_account_id")
+    private DriverAccount driverAccount;
 
     @ManyToOne
     @JoinColumn(name = "rider_account_id")
     private RiderAccount riderAccount;
 
-    public RiderBooking() {
+    public long getBookingReferenceId() {
+        return bookingReferenceId;
     }
 
-    public RiderBooking(String bookingStatus, Date date, String departureLocation, String arrivalLocation, String description, RiderAccount riderAccount) {
-        this.bookingStatus = bookingStatus;
-        this.date = date;
-        this.departureLocation = departureLocation;
-        this.arrivalLocation = arrivalLocation;
-        this.description = description;
-        this.riderAccount = riderAccount;
-    }
-
-    public Long getRiderBookingId() {
-        return riderBookingId;
-    }
-
-    public void setRiderBookingId(Long riderBookingId) {
-        this.riderBookingId = riderBookingId;
+    public void setBookingReferenceId(long bookingReferenceId) {
+        this.bookingReferenceId = bookingReferenceId;
     }
 
     public String getBookingStatus() {
@@ -55,6 +49,14 @@ public class RiderBooking {
         this.date = date;
     }
 
+    public String getPassengerNumber() {
+        return passengerNumber;
+    }
+
+    public void setPassengerNumber(String passengerNumber) {
+        this.passengerNumber = passengerNumber;
+    }
+
     public String getDepartureLocation() {
         return departureLocation;
     }
@@ -71,12 +73,28 @@ public class RiderBooking {
         this.arrivalLocation = arrivalLocation;
     }
 
-    public String getDescription() {
-        return description;
+    public String getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPaymentMethod(String paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public String getNotes() {
+        return notes;
+    }
+
+    public void setNotes(String notes) {
+        this.notes = notes;
+    }
+
+    public DriverAccount getDriverAccount() {
+        return driverAccount;
+    }
+
+    public void setDriverAccount(DriverAccount driverAccount) {
+        this.driverAccount = driverAccount;
     }
 
     public RiderAccount getRiderAccount() {
