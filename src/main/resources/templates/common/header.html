@@ -62,18 +62,20 @@
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Available Rides <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Rides <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/thread/riderRequest}">Trip Request</a></li>
-                        <li><a th:href="@{/thread/driverPost}">Drive Post</a></li>
+                        <li><a th:href="@{/booking/riderCreate}">Rider Request</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/thread/edit}">Add/Edit Ride</a></li>
+                        <li><a th:href="@{/booking/driverCreate}">Driver Post</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/booking/edit}">Edit Ride</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/schedule/trip}">View Trip Schedule </a></li>
+                        <li role="separator" class="divider"></li>
                         <li><a th:href="@{/schedule/drive}">View Drive Schedule </a></li>
                     </ul>
                 </li>

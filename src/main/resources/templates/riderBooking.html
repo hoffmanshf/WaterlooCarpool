@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main">
+    <div class="row">
+        <div class="col-md-6">
+            <h3>Create new trip</h3>
+            <form th:action="@{/booking/riderCreate}" method="post" id="bookingForm">
+                <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
+
+                <div class="form-group">
+                    <label for="dateString">Pick a Date and Time:</label>
+                    <div class="input-append date form_datetime input-group" data-date="2016-10-21T15:25:00Z">
+                        <input class="form-control" type="text" value="" readonly="readonly"
+                               th:value="${dateString}" name="dateString"
+                               id="dateString" required="required"/>
+                        <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="departureLocation">Pick your departure location:</label>
+                    <select class="form-control" th:value="${bookingReference.departureLocation}" name="departureLocation" id="departureLocation">
+                        <option disabled="disabled" selected="selected" > -- select the location --</option>
+                        <option>Waterloo Plaza</option>
+                        <option>Blair House</option>
+                        <option>Fergus House</option>
+                        <option>ICON</option>
+                        <option>Toronto Downtown</option>
+                        <option>Markham</option>
+                        <option>North York</option>
+                        <option>Scarborough</option>
+                        <option>Pearson Airport</option>
+                        <option>Pacific Mall</option>
+                        <option>Niagara Falls</option>
+                        <option>Blue Mountain</option>
+                        <option>-- Other --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="arrivalLocation">Pick your arrival location:</label>
+                    <select class="form-control" th:value="${bookingReference.arrivalLocation}" name="arrivalLocation" id="arrivalLocation">
+                        <option disabled="disabled" selected="selected" > -- select the location --</option>
+                        <option>Toronto Downtown</option>
+                        <option>Markham</option>
+                        <option>North York</option>
+                        <option>Scarborough</option>
+                        <option>Pearson Airport</option>
+                        <option>Pacific Mall</option>
+                        <option>Niagara Falls</option>
+                        <option>Blue Mountain</option>
+                        <option>Waterloo Plaza</option>
+                        <option>Blair House</option>
+                        <option>Fergus House</option>
+                        <option>ICON</option>
+                        <option>-- Other --</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="passengerNumber">Choose number of passengers:</label>
+                    <select class="form-control" th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber">
+                        <option disabled="disabled" selected="selected" > -- select the number --</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5+</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="passengerNumber">Choose your payment method:</label>
+                    <select class="form-control" th:value="${bookingReference.paymentMethod}" name="paymentMethod" id="paymentMethod">
+                        <option disabled="disabled" selected="selected" > -- select the method --</option>
+                        <option>Cash</option>
+                        <option>e-Transfer</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="notes">Notes:</label>
+                    <textarea th:value="${bookingReference.notes}" class="form-control" name="notes" id="notes" placeholder="Notes" ></textarea>
+                </div>
+
+
+                <input type="hidden"
+                       name="${_csrf.parameterName}"
+                       value="${_csrf.token}"/>
+
+                <a class="btn btn-primary" id="submitBooking">Submit Booking</a>
+            </form>
+
+            <div class="col-md-6">
+            </div>
+        </div>
+    </div>
+    <br/>
+</div>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

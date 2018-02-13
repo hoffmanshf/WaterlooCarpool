@@ -46,8 +46,8 @@
 $(document).ready(function() {
     var confirm = function() {
         bootbox.confirm({
-            title: "Appointment Confirmation",
-            message: "Do you really want to schedule this appointment?",
+            title: "Booking Confirmation",
+            message: "Do you really want to schedule this booking?",
             buttons: {
                 cancel: {
                     label: '<i class="fa fa-times"></i> Cancel'
@@ -58,7 +58,7 @@ $(document).ready(function() {
             },
             callback: function (result) {
                 if (result == true) {
-                    $('#appointmentForm').submit();
+                    $('#bookingForm').submit();
                 } else {
                     console.log("Scheduling cancelled.");
                 }
@@ -81,7 +81,7 @@ $(document).ready(function() {
         minuteStep: 10
     });
 
-    $('#submitAppointment').click(function () {
+    $('#submitBooking').click(function () {
         confirm();
     });
 

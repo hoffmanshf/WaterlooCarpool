@@ -17,6 +17,8 @@ public class BookingReference {
     private String paymentMethod;
     private String notes;
 
+    private String accountType;
+
     @ManyToOne
     @JoinColumn(name = "driver_account_id")
     private DriverAccount driverAccount;
@@ -87,6 +89,14 @@ public class BookingReference {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
     }
 
     public DriverAccount getDriverAccount() {
