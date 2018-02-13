@@ -70,15 +70,15 @@ public class HomeController {
         }
     }
 
-//    @RequestMapping("/userFront")
-//    public String userFront(Principal principal, Model model) {
-//        User user = userService.findByUsername(principal.getName());
-//        DriverAccount driverAccount = user.getDriverAccount();
-//        RiderAccount riderAccount = user.getRiderAccount();
-//
-//        model.addAttribute("driverAccount", driverAccount);
-//        model.addAttribute("riderAccount", riderAccount);
-//
-//        return "userFront";
-//    }
+    @RequestMapping("/userFront")
+    public String userFront(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        DriverAccount driverAccount = user.getDriverAccount();
+        RiderAccount riderAccount = user.getRiderAccount();
+
+        model.addAttribute("driverAccount", driverAccount);
+        model.addAttribute("riderAccount", riderAccount);
+
+        return "userFront";
+    }
 }

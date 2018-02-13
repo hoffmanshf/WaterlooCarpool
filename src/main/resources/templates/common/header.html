@@ -56,24 +56,25 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accounts <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/account/primaryAccount}">Primary</a></li>
+                        <li><a th:href="@{/account/riderAccount}">Rider</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/account/savingsAccount}">Savings</a></li>
+                        <li><a th:href="@{/account/driverAccount}">Driver</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Transfer <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Available Rides <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/transfer/betweenAccounts}">Between Accounts</a></li>
-                        <li><a th:href="@{/transfer/toSomeoneElse}">To Someone Else</a></li>
+                        <li><a th:href="@{/thread/riderRequest}">Trip Request</a></li>
+                        <li><a th:href="@{/thread/driverPost}">Drive Post</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/transfer/recipient}">Add/Edit Recipient</a></li>
+                        <li><a th:href="@{/thread/edit}">Add/Edit Ride</a></li>
                     </ul>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Appointment <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a th:href="@{/appointment/create}">Schedule an Appointment</a></li>
+                        <li><a th:href="@{/schedule/trip}">View Trip Schedule </a></li>
+                        <li><a th:href="@{/schedule/drive}">View Drive Schedule </a></li>
                     </ul>
                 </li>
             </ul>

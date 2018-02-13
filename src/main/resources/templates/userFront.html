@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main">
+    <div class="row">
+        <div class="col-lg-12">
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>
+    <!-- /.row -->
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <div class="panel panel-info">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h2>Rider Account</h2>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <h1><i class="fa fa-user" aria-hidden="true"></i></h1>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/account/riderAccount}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+            <div class="panel panel-success">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <h2>Driver Account</h2>
+                        </div>
+                        <div class="col-xs-6 text-right">
+                            <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/account/driverAccount}">
+                    <div class="panel-footer">
+                        <span class="pull-left">View Details</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-yellow">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-suitcase fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div>As Rider</div>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/account/newRide}">
+                    <div class="panel-footer">
+                        <span class="pull-left">Create new trip</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+        <div class="col-lg-3 col-md-6">
+            <div class="panel panel-red">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-3">
+                            <i class="fa fa-road fa-5x"></i>
+                        </div>
+                        <div class="col-xs-9 text-right">
+                            <div>As Driver</div>
+                        </div>
+                    </div>
+                </div>
+                <a th:href="@{/account/newDrive}">
+                    <div class="panel-footer">
+                        <span class="pull-left">Create new drive</span>
+                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <div class="clearfix"></div>
+                    </div>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- /.row -->
+
+
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>
