@@ -10,7 +10,7 @@ public class RiderAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "riderAccountId", unique = true)
+    @Column(name = "riderAccountId")
     private Long riderAccountId;
     private String username;
     private String email;

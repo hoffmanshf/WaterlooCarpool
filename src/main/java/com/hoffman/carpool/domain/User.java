@@ -1,9 +1,18 @@
 package com.hoffman.carpool.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.hoffman.carpool.domain.security.Authority;
+import com.hoffman.carpool.domain.security.UserRole;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
 import javax.persistence.*;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-public class User {
+public class User implements UserDetails{
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -19,11 +28,17 @@ public class User {
     private String email;
     private String phone;
 
+    private boolean enabled=true;
+
     @OneToOne
     private DriverAccount driverAccount;
 
     @OneToOne
     private RiderAccount riderAccount;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @JsonIgnore
+    private Set<UserRole> userRoles = new HashSet<>();
 
     public Long getUserId() {
         return userId;
@@ -33,6 +48,7 @@ public class User {
         this.userId = userId;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -41,6 +57,7 @@ public class User {
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -81,6 +98,10 @@ public class User {
         this.phone = phone;
     }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
     public DriverAccount getDriverAccount() {
         return driverAccount;
     }
@@ -97,6 +118,14 @@ public class User {
         this.riderAccount = riderAccount;
     }
 
+    public Set<UserRole> getUserRoles() {
+        return userRoles;
+    }
+
+    public void setUserRoles(Set<UserRole> userRoles) {
+        this.userRoles = userRoles;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -107,8 +136,42 @@ public class User {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
+                ", enabled=" + enabled +
                 ", driverAccount=" + driverAccount +
                 ", riderAccount=" + riderAccount +
+                ", userRoles=" + userRoles +
                 '}';
     }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        Set<GrantedAuthority> authorities = new HashSet<>();
+        userRoles.forEach(ur -> authorities.add(new Authority(ur.getRole().getName())));
+        return authorities;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        // TODO Auto-generated method stub
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+
 }

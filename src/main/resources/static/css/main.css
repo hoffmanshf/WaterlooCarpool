@@ -253,7 +253,8 @@ html {
 body {
 	padding: 0 2em;
 	font-family: Arial, sans-serif;
-	color: #024457;
+	font-size: 16.5px;
+	color: #003C4D;
 	/*background: #f2f2f2;*/
 }
 
