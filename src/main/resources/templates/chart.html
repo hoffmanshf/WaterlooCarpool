@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="card">
+    <!-- Custom information -->
+    <div class="about">
+        <h3>Chart.js</h3>
+        <p class="lead">Blend mode: multiply</p>
+        <div class="legends">
+            <div class="info">
+                <span class="legend legend--this"></span>
+                <p>This week</p>
+            </div>
+            <div class="info">
+                <span class="legend legend--prev"></span>
+                <p>Previous week</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Canvas for Chart.js -->
+    <canvas id="canvas"></canvas>
+
+    <!-- Custom Axis -->
+    <div class="axis">
+        <div class="tick">
+            MON
+            <span class="value value--this">24</span>
+            <span class="value value--prev">20</span>
+        </div>
+        <div class="tick">
+            TUE
+            <span class="value value--this">18</span>
+            <span class="value value--prev">22</span>
+        </div>
+        <div class="tick">
+            WED
+            <span class="value value--this">16</span>
+            <span class="value value--prev">30</span>
+        </div>
+        <div class="tick">
+            THU
+            <span class="value value--this">18</span>
+            <span class="value value--prev">22</span>
+        </div>
+        <div class="tick">
+            FRI
+            <span class="value value--this">24</span>
+            <span class="value value--prev">18</span>
+        </div>
+        <div class="tick">
+            SAT
+            <span class="value value--this">36</span>
+            <span class="value value--prev">22</span>
+        </div>
+        <div class="tick">
+            SUN
+            <span class="value value--this">28</span>
+            <span class="value value--prev">30</span>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+</body>
+</html>

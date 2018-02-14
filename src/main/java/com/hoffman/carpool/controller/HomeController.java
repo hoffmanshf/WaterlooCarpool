@@ -81,4 +81,8 @@ public class HomeController {
 
         return "userFront";
     }
+    @RequestMapping(value = "/chart")
+    public String showChart() {
+        return "chart";
+    }
 }
