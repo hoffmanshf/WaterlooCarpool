@@ -70,6 +70,7 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
     public User createUser(User user, Set<UserRole> userRoles) {
         User localUser = userDao.findByUsername(user.getUsername());
 

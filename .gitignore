@@ -7,3 +7,5 @@ target/
 bin/
 .metadata
 .DS_Store
+.iml
+
