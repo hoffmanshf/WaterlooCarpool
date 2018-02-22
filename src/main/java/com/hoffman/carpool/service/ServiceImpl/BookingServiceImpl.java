@@ -15,7 +15,7 @@ public class BookingServiceImpl implements BookingService {
     BookingReferenceDao bookingReferenceDao;
 
     @Override
-    public BookingReference createRiderBooking(BookingReference bookingReference) {
+    public BookingReference createBooking(BookingReference bookingReference) {
         return bookingReferenceDao.save(bookingReference);
     }
 

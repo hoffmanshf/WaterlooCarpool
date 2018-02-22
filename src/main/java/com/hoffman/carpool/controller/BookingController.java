@@ -52,7 +52,7 @@ public class BookingController {
         RiderAccount riderAccount = user.getRiderAccount();
 
         bookingReference.setRiderAccount(riderAccount);
-        bookingService.createRiderBooking(bookingReference);
+        bookingService.createBooking(bookingReference);
 
         return "redirect:/userFront";
     }
@@ -78,7 +78,7 @@ public class BookingController {
         DriverAccount driverAccount = user.getDriverAccount();
 
         bookingReference.setDriverAccount(driverAccount);
-        bookingService.createRiderBooking(bookingReference);
+        bookingService.createBooking(bookingReference);
 
         return "redirect:/userFront";
     }

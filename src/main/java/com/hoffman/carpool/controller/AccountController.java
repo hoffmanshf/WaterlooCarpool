@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -28,7 +29,7 @@ public class AccountController {
     @Autowired
     private BookingService bookingService;
 
-    @RequestMapping("/riderAccount")
+    @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
     public String riderAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
@@ -45,7 +46,7 @@ public class AccountController {
         return "riderAccount";
     }
 
-    @RequestMapping("/driverAccount")
+    @RequestMapping(value = "/driverAccount", method = RequestMethod.GET)
     public String driverAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
