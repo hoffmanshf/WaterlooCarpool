@@ -21,24 +21,6 @@
         })
     };
 
-    $.transferDisplay = function () {
-        $("#transferFrom").change(function() {
-            if ($("#transferFrom").val() == 'Primary') {
-                $('#transferTo').val('Savings');
-            } else if ($("#transferFrom").val() == 'Savings') {
-                $('#transferTo').val('Primary');
-            }
-        });
-
-        $("#transferTo").change(function() {
-            if ($("#transferTo").val() == 'Primary') {
-                $('#transferFrom').val('Savings');
-            } else if ($("#transferTo").val() == 'Savings') {
-                $('#transferFrom').val('Primary');
-            }
-        });
-    };
-
 
 
 }(jQuery));
@@ -73,35 +55,30 @@ $(document).ready(function() {
 
     $.transferDisplay();
 
-    $(".form_datetime").datetimepicker({
-        format: "yyyy-mm-dd hh:mm",
-        autoclose: true,
-        todayBtn: true,
-        startDate: "2013-02-14 10:00",
-        minuteStep: 10
-    });
-
     $('#submitBooking').click(function () {
         confirm();
     });
 
-    $(function() {
-
-        var checkbox = $("#switch");
-        var hidden = $("#hidden-fields");
-
-        hidden.hide();
-        checkbox.change(function() {
-            if (checkbox.is(':checked')) {
-                hidden.show();
-            } else {
-                hidden.hide();
-            }
-        });
-    });
-
 });
 
+$(function() {
 
+    var checkbox = $("#switch");
+    var hidden = $("#hidden-fields");
+
+    hidden.hide();
+    checkbox.change(function() {
+        if (checkbox.is(':checked')) {
+            hidden.show();
+        } else {
+            hidden.hide();
+        }
+    });
+});
+
+$(".form_datetime[data-view='hour']").datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
+    autoclose: true
+});
 
 
