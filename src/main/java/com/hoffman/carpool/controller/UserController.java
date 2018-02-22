@@ -28,17 +28,30 @@ public class UserController {
     }
 
     @RequestMapping(value = "/profile", method = RequestMethod.POST)
-    public String profilePost(@ModelAttribute("user") User newUser, Model model) {
-        User user = userService.findByUsername(newUser.getUsername());
-        user.setUsername(newUser.getUsername());
+    public String profilePost(@ModelAttribute("user") User newUser, Principal principal, Model model) {
+
+        User user = userService.findByUsername(principal.getName());
+        final String newUserEmail = newUser.getEmail();
+
+        if (userService.checkEmailExists(newUserEmail)) {
+
+            if (!user.getEmail().equalsIgnoreCase(newUserEmail)) {
+                model.addAttribute("emailExists", true);
+                return "profile";
+            }
+
+        }
+
+        user.setEmail(newUser.getEmail());
         user.setFirstName(newUser.getFirstName());
         user.setLastName(newUser.getLastName());
-        user.setEmail(newUser.getEmail());
         user.setPhone(newUser.getPhone());
 
         model.addAttribute("user", user);
 
         userService.saveUser(user);
+
+        model.addAttribute("success", true);
 
         return "profile";
     }

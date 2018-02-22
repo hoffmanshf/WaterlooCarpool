@@ -85,6 +85,21 @@ $(document).ready(function() {
         confirm();
     });
 
+    $(function() {
+
+        var checkbox = $("#switch");
+        var hidden = $("#hidden-fields");
+
+        hidden.hide();
+        checkbox.change(function() {
+            if (checkbox.is(':checked')) {
+                hidden.show();
+            } else {
+                hidden.hide();
+            }
+        });
+    });
+
 });
 
 

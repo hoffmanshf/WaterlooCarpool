@@ -15,6 +15,7 @@
 <div class="container">
     <div class="row main">
         <div class="col-md-6">
+            <span class="bg-success" th:if="${success}">Your changes have been successfully saved.</span>
             <h2 class="title">My Profile</h2>
             <hr/>
             <form method="post" th:action="@{/user/profile}">
@@ -56,8 +57,8 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label><span
-                        class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                    <span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
                     <div class="cols-sm-10">
                         <div class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-envelope fa"
@@ -69,14 +70,35 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="username" class="cols-sm-2 control-label">Username</label><span
-                        class="bg-danger pull-right" th:if="${usernameExists}">Username already exists</span>
+                    <label for="switch" class="cols-sm-2 control-label">Car Register</label>
                     <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.username}" id="username"
-                                   name="username" roleId="username" placeholder="Enter your Username"
-                                   required="required"/>
+                        <div class="checkbox">
+                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-target="switch" id="switch" name="switch"/>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="hidden-fields" class="panel-collapse collapse">
+                    <div class="form-group">
+                        <label for="lastName" class="cols-sm-2 control-label">Last Name</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" th:value="${user.lastName}" id="try"
+                                       name="lastName" roleId="lastName" placeholder="Enter your last name"
+                                       required="required"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone" class="cols-sm-2 control-label">Phone</label>
+                        <div class="cols-sm-10">
+                            <div class="input-group">
+                                <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                <input type="text" class="form-control" th:value="${user.phone}" id="hi" name="phone"
+                                       roleId="phone" placeholder="xxx-xxx-xxxx" required="required"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -85,28 +107,8 @@
                     <button type="submit" class="btn btn-primary btn-block ">Update Profile
                     </button>
                 </div>
-
             </form>
         </div>
-        <!--<div class="col-md-6">-->
-            <!--<div class="panel-heading">-->
-                <!--<div class="panel-title text-center">-->
-                    <!--<h1 class="title">Your Account Information</h1>-->
-                    <!--<hr/>-->
-                <!--</div>-->
-                <!--<table class="responstable">-->
-                    <!--<tr>-->
-                        <!--<th>Primary Account Number</th>-->
-                        <!--<th>Savings Account Number</th>-->
-                    <!--</tr>-->
-
-                    <!--<tr>-->
-                        <!--<td data-th-text="${user.driverAccount.driverAccountId}">...</td>-->
-                        <!--<td data-th-text="${user.riderAccount.riderAccountId}">...</td>-->
-                    <!--</tr>-->
-                <!--</table>-->
-            <!--</div>-->
-        <!--</div>-->
     </div>
 </div>
 
