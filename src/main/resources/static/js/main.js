@@ -49,7 +49,6 @@ $(document).ready(function() {
         control: "#showPassword"
     });
 
-    $.transferDisplay();
 
     $('#submitBooking').click(function () {
         confirm();
