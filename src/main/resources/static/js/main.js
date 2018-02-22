@@ -1,7 +1,3 @@
-/**
- * Created by z00382545 on 10/20/16.
- */
-
 (function ($) {
     $.toggleShowPassword = function (options) {
         var settings = $.extend({
@@ -19,24 +15,6 @@
                 field.attr('type', 'password');
             }
         })
-    };
-
-    $.transferDisplay = function () {
-        $("#transferFrom").change(function() {
-            if ($("#transferFrom").val() == 'Primary') {
-                $('#transferTo').val('Savings');
-            } else if ($("#transferFrom").val() == 'Savings') {
-                $('#transferTo').val('Primary');
-            }
-        });
-
-        $("#transferTo").change(function() {
-            if ($("#transferTo").val() == 'Primary') {
-                $('#transferFrom').val('Savings');
-            } else if ($("#transferTo").val() == 'Savings') {
-                $('#transferFrom').val('Primary');
-            }
-        });
     };
 
 
@@ -71,15 +49,6 @@ $(document).ready(function() {
         control: "#showPassword"
     });
 
-    $.transferDisplay();
-
-    $(".form_datetime").datetimepicker({
-        format: "yyyy-mm-dd hh:mm",
-        autoclose: true,
-        todayBtn: true,
-        startDate: "2013-02-14 10:00",
-        minuteStep: 10
-    });
 
     $('#submitBooking').click(function () {
         confirm();
@@ -87,6 +56,26 @@ $(document).ready(function() {
 
 });
 
+$(function() {
 
+    var checkbox = $("#switch");
+    var hidden = $("#hidden-fields");
+
+    hidden.hide();
+    checkbox.change(function() {
+        if (checkbox.is(':checked')) {
+            hidden.show();
+        } else {
+            hidden.hide();
+        }
+    });
+});
+
+$(".form_datetime[data-view='hour']").datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
+    autoclose: true,
+    todayBtn: true,
+    minuteStep: 10
+});
 
 
