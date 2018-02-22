@@ -20,9 +20,14 @@
                 <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
 
                 <div class="form-group">
-                    <div class="input-append date form_datetime" data-view="hour">
-                        <input size="16" type="text" value="" readonly="" placeholder="2017-11-15 16:35"/><span class="add-on"><i class="fa fa-calendar"></i></span>
-                    </div><br/><br/>
+                    <label for="dateString">Pick a Date and Time:</label>
+                    <div class="input-append date form_datetime input-group" data-view="hour">
+                        <input class="form-control" type="text" value="" readonly="readonly"
+                               th:value="${dateString}" name="dateString"
+                               id="dateString" required="required"/>
+                        <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                    </div>
                 </div>
 
                 <div class="form-group">

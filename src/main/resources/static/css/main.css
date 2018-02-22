@@ -286,24 +286,3 @@ hr {
 	background: #333;
 	background-image: linear-gradient(to right, #ccc, #333, #ccc);
 }
-
-.date {
-	display: inline-block;
-	border-radius: 4px;
-	border: 1px solid #CCE0DE;
-	position: relative;
-}
-
-
-.date input {
-	display: inline-block;
-	border: none;
-	padding: 5px;
-	border-radius: 4px;
-
-}
-.date i {
-	font-size: 15px;
-	margin: 7px;
-	cursor: pointer;
-}
