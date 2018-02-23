@@ -52,9 +52,10 @@
             <thead>
             <tr>
                 <th>Travel Date</th>
+                <th>User</th>
                 <th>Departure</th>
                 <th>Arrival</th>
-                <th>Passenger Number</th>
+                <th>Passenger #</th>
                 <th>Payment Method</th>
                 <th>Additional Notes</th>
                 <th>Status</th>
@@ -63,6 +64,7 @@
             <tbody>
             <tr data-th-each="bookingReference : ${bookingReferences}">
                 <td data-th-text="${bookingReference.date}">...</td>
+                <td data-th-text="${bookingReference.author}">...</td>
                 <td data-th-text="${bookingReference.departureLocation}">...</td>
                 <td data-th-text="${bookingReference.arrivalLocation}">...</td>
                 <td data-th-text="${bookingReference.passengerNumber}">...</td>

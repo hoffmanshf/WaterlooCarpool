@@ -18,6 +18,7 @@ public class BookingReference {
     private String notes;
 
     private String accountType;
+    private String author;
 
     @ManyToOne
     @JoinColumn(name = "driver_account_id")
@@ -113,5 +114,13 @@ public class BookingReference {
 
     public void setRiderAccount(RiderAccount riderAccount) {
         this.riderAccount = riderAccount;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }

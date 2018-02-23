@@ -12,6 +12,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.security.Principal;
 import java.text.ParseException;
@@ -50,8 +51,11 @@ public class BookingController {
 
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-
         bookingReference.setRiderAccount(riderAccount);
+
+        final String author = riderAccount.getUsername();
+        bookingReference.setAuthor(author);
+
         bookingService.createBooking(bookingReference);
 
         return "redirect:/userFront";
@@ -76,10 +80,20 @@ public class BookingController {
 
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
-
         bookingReference.setDriverAccount(driverAccount);
-        bookingService.createBooking(bookingReference);
 
+        final String author = driverAccount.getUsername();
+        bookingReference.setAuthor(author);
+
+        bookingService.createBooking(bookingReference);
         return "redirect:/userFront";
+    }
+
+    @RequestMapping(value="/info", method = RequestMethod.GET)
+    public String getUserInfo(@RequestParam(value = "author") String author, Model model, Principal principal) {
+        User user = userService.findByUsername(author);
+        model.addAttribute("user", user);
+
+        return "userInfo";
     }
 }
