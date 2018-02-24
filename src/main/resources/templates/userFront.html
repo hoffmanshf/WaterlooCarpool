@@ -36,7 +36,7 @@
                 <a th:href="@{/booking/riderCreate}">
                     <div class="panel-footer">
                         <span class="pull-left">Create new trip as Rider</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -60,7 +60,7 @@
                 <a th:href="@{/booking/driverCreate}">
                     <div class="panel-footer">
                         <span class="pull-left">Create new trip as Driver</span>
-                        <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
                         <div class="clearfix"></div>
                     </div>
                 </a>
@@ -116,52 +116,72 @@
 
     <!-- /.row -->
     <div class="row">
+        <!--<div class="col-md-4">-->
+            <!--<section class="panel b-a">-->
+                <!--<div class="panel-heading b-b">-->
+                    <!--<span class="badge pull-right">12</span>-->
+                    <!--<span class="label bg-success">New</span>-->
+                    <!--<a href="#" class="font-bold">HTML Courses</a>-->
+                <!--</div>-->
+                <!--<div class="panel-body">-->
+                    <!--<a href="#" class="block h4 font-bold m-b text-black">Get started with Bootstrap</a>-->
+                    <!--<div class="r b bg-warning-ltest wrapper m-b">-->
+                        <!--There are a few easy ways to quickly get started with Bootstrap...-->
+                    <!--</div>-->
+                    <!--<div class="m-b">-->
+                        <!--<a href="#" class="avatar thumb-sm">-->
+                            <!--<img src="images/a0.png" alt="..."/>-->
+                            <!--<i class="on b-white"></i>-->
+                        <!--</a>-->
+                        <!--<a href="#" class="avatar thumb-sm">-->
+                            <!--<img src="images/a1.png" alt="..."/>-->
+                            <!--<i class="busy b-white"></i>-->
+                        <!--</a>-->
+                        <!--<a href="#" class="avatar thumb-sm">-->
+                            <!--<img src="images/a2.png" alt="..."/>-->
+                            <!--<i class="away b-white"></i>-->
+                        <!--</a>-->
+                        <!--<a href="#" class="avatar thumb-sm">-->
+                            <!--<img src="images/a3.png" alt="..."/>-->
+                            <!--<i class="off b-white"></i>-->
+                        <!--</a>-->
+                        <!--<a href="#" class="btn btn-info btn-rounded font-bold">-->
+                            <!--+152-->
+                        <!--</a>-->
+                    <!--</div>-->
+                    <!--<p class="text-sm">Start at 2:00 PM, 12/5/2016</p>-->
+                    <!--<a href="#" class="btn btn-default btn-sm btn-rounded m-b-xs"><i class="fa fa-plus"></i> Take me in</a>-->
+                <!--</div>-->
+                <!--<div class="clearfix panel-footer">-->
+                    <!--<small class="text-muted pull-right">5m ago</small>-->
+                    <!--<a href="#" class="thumb-sm pull-left m-r">-->
+                        <!--<img src="images/a0.png" alt="..." class="img-circle"/>-->
+                    <!--</a>-->
+                    <!--<div class="clear">-->
+                        <!--<a href="#"><strong>Jonathan Omish</strong></a>-->
+                        <!--<small class="block text-muted">San Francisco, USA</small>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</section>-->
+        <!--</div>-->
         <div class="col-md-4">
-            <section class="panel b-a">
-                <div class="panel-heading b-b">
-                    <span class="badge pull-right">12</span>
-                    <span class="label bg-success">New</span>
-                    <a href="#" class="font-bold">HTML Courses</a>
-                </div>
-                <div class="panel-body">
-                    <a href="#" class="block h4 font-bold m-b text-black">Get started with Bootstrap</a>
-                    <div class="r b bg-warning-ltest wrapper m-b">
-                        There are a few easy ways to quickly get started with Bootstrap...
-                    </div>
-                    <div class="m-b">
-                        <a href="#" class="avatar thumb-sm">
-                            <img src="images/a0.png" alt="..."/>
-                            <i class="on b-white"></i>
-                        </a>
-                        <a href="#" class="avatar thumb-sm">
-                            <img src="images/a1.png" alt="..."/>
-                            <i class="busy b-white"></i>
-                        </a>
-                        <a href="#" class="avatar thumb-sm">
-                            <img src="images/a2.png" alt="..."/>
-                            <i class="away b-white"></i>
-                        </a>
-                        <a href="#" class="avatar thumb-sm">
-                            <img src="images/a3.png" alt="..."/>
-                            <i class="off b-white"></i>
-                        </a>
-                        <a href="#" class="btn btn-info btn-rounded font-bold">
-                            +152
-                        </a>
-                    </div>
-                    <p class="text-sm">Start at 2:00 PM, 12/5/2016</p>
-                    <a href="#" class="btn btn-default btn-sm btn-rounded m-b-xs"><i class="fa fa-plus"></i> Take me in</a>
-                </div>
-                <div class="clearfix panel-footer">
-                    <small class="text-muted pull-right">5m ago</small>
-                    <a href="#" class="thumb-sm pull-left m-r">
-                        <img src="images/a0.png" alt="..." class="img-circle"/>
-                    </a>
-                    <div class="clear">
-                        <a href="#"><strong>Jonathan Omish</strong></a>
-                        <small class="block text-muted">San Francisco, USA</small>
+            <section class="panel panel-default">
+                <header class="panel-heading">
+                    Conversion
+                </header>
+                <div class="panel-body text-center">
+                    <h4>62.5<small> hrs</small></h4>
+                    <small class="text-muted block">Updated at 2 minutes ago</small>
+                    <div class="inline">
+                        <div class="easypiechart" data-percent="75" data-bar-color="#fcc633" data-line-width="16" data-loop="false" data-size="188">
+                            <div>
+                                <span class="h2 m-l-sm step">75</span>%
+                                <div class="text text-sm">new</div>
+                            </div>
+                        </div>
                     </div>
                 </div>
+                <div class="panel-footer"><small>% of avarage rate of the Conversion</small></div>
             </section>
         </div>
 

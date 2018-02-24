@@ -15,7 +15,7 @@
 <div class="container">
     <div class="row main">
         <div class="col-md-6">
-            <span class="bg-success" th:if="${success}">Your changes have been successfully saved.</span>
+            <span class="alert alert-success" th:if="${success}">Your changes have been successfully saved.</span>
             <h2 class="title">My Profile</h2>
             <hr/>
             <form method="post" th:action="@{/user/profile}">

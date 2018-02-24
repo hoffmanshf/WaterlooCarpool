@@ -16,10 +16,10 @@
     <div class="container">
         <div class="row ">
             <div class="main-center ">
-                <div class="bg-danger" th:if="${param.error}">
-                    Invalid username and secret.
+                <div class="alert alert-danger" th:if="${param.error}">
+                    Invalid username and password.
                 </div>
-                <div class="bg-danger" th:if="${param.logout}">
+                <div class="alert alert-danger" th:if="${param.logout}">
                     You have been logged out.
                 </div>
                 <form class="form-signin" th:action="@{/index}" method="post">
