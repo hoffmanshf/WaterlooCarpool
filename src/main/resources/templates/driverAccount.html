@@ -28,7 +28,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-6">
-                            <h2>Driver Account</h2>
+                            <h2>Driver Posting</h2>
                         </div>
                         <div class="col-xs-6 text-right">
                             <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
@@ -64,13 +64,13 @@
             <tbody>
             <tr data-th-each="bookingReference : ${bookingReferences}">
                 <td data-th-text="${bookingReference.date}">...</td>
-                <td><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></td>
+                <th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>
                 <td data-th-text="${bookingReference.departureLocation}">...</td>
                 <td data-th-text="${bookingReference.arrivalLocation}">...</td>
                 <td data-th-text="${bookingReference.passengerNumber}">...</td>
                 <td data-th-text="${bookingReference.paymentMethod}">...</td>
                 <td data-th-text="${bookingReference.notes}">...</td>
-                <td data-th-text="${bookingReference.bookingStatus}">...</td>
+                <th data-th-text="${bookingReference.bookingStatus}">...</th>
             </tr>
             </tbody>
         </table>
