@@ -27,19 +27,23 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-6">
-                            <h2>Driver Posting</h2>
-                        </div>
-                        <div class="col-xs-6 text-right">
-                            <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
-                        </div>
+                        <a th:href="@{/account/driverAccount}">
+                            <div class="col-xs-6">
+                                <h2>Welcome</h2>
+                            </div>
+                            <div class="col-xs-6 text-right">
+                                <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
+                            </div>
+                        </a>
                     </div>
                 </div>
+                <a th:href="@{/booking/driverCreate}">
                     <div class="panel-footer">
-                        <span class="pull-left">Welcome</span>
-                        <span class="pull-right"><i class="fa fa-cog"></i></span>
+                        <span class="pull-left">Create new trip as Driver</span>
+                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
                         <div class="clearfix"></div>
                     </div>
+                </a>
             </div>
         </div>
     </div>
