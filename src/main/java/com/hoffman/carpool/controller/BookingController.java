@@ -1,9 +1,6 @@
 package com.hoffman.carpool.controller;
 
-import com.hoffman.carpool.domain.BookingReference;
-import com.hoffman.carpool.domain.DriverAccount;
-import com.hoffman.carpool.domain.RiderAccount;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +52,7 @@ public class BookingController {
 
         final String author = riderAccount.getUsername();
         bookingReference.setAuthor(author);
+        bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
 
         bookingService.createBooking(bookingReference);
 
@@ -84,6 +82,7 @@ public class BookingController {
 
         final String author = driverAccount.getUsername();
         bookingReference.setAuthor(author);
+        bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
 
         bookingService.createBooking(bookingReference);
         return "redirect:/userFront";
