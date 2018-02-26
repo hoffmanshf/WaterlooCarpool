@@ -8,4 +8,5 @@ public interface BookingService {
     BookingReference createBooking(BookingReference bookingReference);
     BookingReference findBookingReference(Long id);
     List<BookingReference> findAll();
+    BookingReference saveBooking(BookingReference bookingReference);
 }

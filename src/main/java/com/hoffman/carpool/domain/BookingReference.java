@@ -15,6 +15,7 @@ public class BookingReference {
     private String departureLocation;
     private String arrivalLocation;
     private String paymentMethod;
+    private String price;
     private String notes;
 
     private String accountType;
@@ -82,6 +83,14 @@ public class BookingReference {
 
     public void setPaymentMethod(String paymentMethod) {
         this.paymentMethod = paymentMethod;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
     }
 
     public String getNotes() {

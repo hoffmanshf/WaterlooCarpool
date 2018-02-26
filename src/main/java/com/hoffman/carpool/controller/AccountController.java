@@ -37,6 +37,9 @@ public class AccountController {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
             if (reference.getAccountType().equalsIgnoreCase(riderAccountType)) {
+                if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+                    model.addAttribute("owner", true);
+                }
                 bookingReferences.add(reference);
             }
         }

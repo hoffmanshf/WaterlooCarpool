@@ -46,7 +46,7 @@
                     <label class="cols-sm-2 control-label" for="passengerNumber">Passenger number:</label>
                     <div class="cols-sm-5">
                         <input type="text" class="slider slider-horizontal form-control" value=""
-                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="7" data-slider-orientation="horizontal"
+                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
                                th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber"/>
                     </div>
                 </div>
@@ -57,6 +57,7 @@
                         <option disabled="disabled" selected="selected" > -- select the method --</option>
                         <option>Cash</option>
                         <option>e-Transfer</option>
+                        <option>WeChat Pay</option>
                     </select>
                 </div>
 

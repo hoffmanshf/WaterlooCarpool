@@ -46,8 +46,17 @@
                     <label class="cols-sm-2 control-label" for="passengerNumber">Passenger number:</label>
                     <div class="cols-sm-5">
                         <input type="text" class="slider slider-horizontal form-control" value=""
-                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="7" data-slider-orientation="horizontal"
+                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
                                th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="cols-sm-2 control-label" for="price">Price per seat:</label>
+                    <div class="cols-sm-5">
+                        <input type="text" class="slider slider-horizontal form-control" value=""
+                               data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="10" data-slider-orientation="horizontal"
+                               th:value="${bookingReference.price}" name="price" id="price"/>
                     </div>
                 </div>
 
@@ -57,6 +66,7 @@
                         <option disabled="disabled" selected="selected" > -- select the method --</option>
                         <option>Cash</option>
                         <option>e-Transfer</option>
+                        <option>WeChat Pay</option>
                     </select>
                 </div>
 

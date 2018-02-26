@@ -60,8 +60,9 @@
                 <th>Departure</th>
                 <th>Arrival</th>
                 <th>Passenger</th>
+                <th>Price per-seat</th>
                 <th>Payment Method</th>
-                <th>Additional Notes</th>
+                <th>Notes</th>
                 <th>Status</th>
             </tr>
             </thead>
@@ -72,6 +73,7 @@
                 <td data-th-text="${bookingReference.departureLocation}">...</td>
                 <td data-th-text="${bookingReference.arrivalLocation}">...</td>
                 <td data-th-text="${bookingReference.passengerNumber}">...</td>
+                <td data-th-text="${bookingReference.price}">...</td>
                 <td data-th-text="${bookingReference.paymentMethod}">...</td>
                 <td data-th-text="${bookingReference.notes}">...</td>
                 <th data-th-text="${bookingReference.bookingStatus}">...</th>
