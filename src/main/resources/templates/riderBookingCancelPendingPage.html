@@ -76,7 +76,7 @@
                     </div>
                 </div>
 
-                <h2 class="title">Contact Info</h2>
+                <h2 class="title">Passenger Contact Info</h2>
                 <hr/>
 
                 <div class="form-group">
@@ -84,7 +84,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.phone}" id="phone"
+                            <input type="text" class="form-control" th:value="${bookingReference.riderAccount.phone}" id="phone"
                                    name="phone" roleId="phone" readonly="readonly"/>
                         </div>
                     </div>
@@ -95,7 +95,7 @@
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.email}" id="email"
+                            <input type="text" class="form-control" th:value="${bookingReference.riderAccount.email}" id="email"
                                    name="email" roleId="email" readonly="readonly"/>
                         </div>
                     </div>

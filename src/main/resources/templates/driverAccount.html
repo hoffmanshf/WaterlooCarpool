@@ -28,10 +28,11 @@
                 <div class="panel-heading">
                     <div class="row">
                         <a th:href="@{/account/driverAccount}">
-                            <div class="col-xs-6">
-                                <h2>Welcome</h2>
+                            <div class="col-xs-8">
+                                <h2>Hi
+                                <td data-th-text="${driverAccount.username}">...</td></h2>
                             </div>
-                            <div class="col-xs-6 text-right">
+                            <div class="col-xs-4 text-right">
                                 <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
                             </div>
                         </a>

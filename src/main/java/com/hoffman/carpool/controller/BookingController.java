@@ -98,6 +98,7 @@ public class BookingController {
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         final String author = bookingReference.getAuthor();
         User user = userService.findByUsername(author);
+        DriverAccount driverAccount = bookingReference.getDriverAccount();
 
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("user", user);
@@ -106,8 +107,8 @@ public class BookingController {
             return "riderBookingAcceptPage";
         }
 
-        if (bookingReference.getDriverAccount() != null) {
-            final String driverName = bookingReference.getDriverAccount().getUsername();
+        if (driverAccount != null) {
+            final String driverName = driverAccount.getUsername();
             if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && driverName.equalsIgnoreCase(principal.getName())) {
                 return "riderBookingCompletePage";
             }
@@ -154,9 +155,9 @@ public class BookingController {
         model.addAttribute("user", user);
 
         if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
-            return "riderBookingCancelPage";
+            return "riderBookingCancelPendingPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
-            return "riderBookingCancelPage";
+            return "riderBookingCancelProgressPage";
         } else {
             return "redirect:/account/riderAccount";
         }
