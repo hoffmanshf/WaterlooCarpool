@@ -1,6 +1,7 @@
 package com.hoffman.carpool.controller;
 
 import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,11 +37,21 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
-    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String date, Model model, Principal principal) throws ParseException {
+    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date d1 = format.parse( date );
-        bookingReference.setDate(d1);
+        Date date = null;
+
+        try {
+            if (!source.isEmpty() && source != null) {
+                date = format.parse(source);
+            } else {
+                date = new Date();
+            }
+        } catch (ParseException e) {
+            throw new UServiceException("TXN_101","", "Date parse error", e);
+        }
+        bookingReference.setDate(date);
         bookingReference.setAccountType(riderAccountType);
 
         User user = userService.findByUsername(principal.getName());
@@ -66,11 +77,21 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
-    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String date, Model model, Principal principal) throws ParseException {
+    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date d1 = format.parse( date );
-        bookingReference.setDate(d1);
+        Date date = null;
+
+        try {
+            if (!source.isEmpty() && source != null) {
+                date = format.parse(source);
+            } else {
+                date = new Date();
+            }
+        } catch (ParseException e) {
+            throw new UServiceException("TXN_101","", "Date parse error", e);
+        }
+        bookingReference.setDate(date);
         bookingReference.setAccountType(driverAccountType);
 
         User user = userService.findByUsername(principal.getName());

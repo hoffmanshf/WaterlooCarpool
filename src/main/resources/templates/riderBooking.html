@@ -32,13 +32,13 @@
 
                 <div class="form-group autocomplete">
                     <label for="autocomplete">Pick your departure location:</label>
-                    <input type="text" class="form-control" th:value="${bookingReference.departureLocation}" id="autocomplete"
+                    <input type="text" required="required" class="form-control" th:value="${bookingReference.departureLocation}" id="autocomplete"
                            name="departureLocation" placeholder="Enter your address" onFocus="geolocate()"/>
                 </div>
 
                 <div class="form-group autocomplete">
                     <label for="autocomplete2">Pick your arrival location:</label>
-                    <input type="text" class="form-control" th:value="${bookingReference.arrivalLocation}" id="autocomplete2"
+                    <input type="text" required="required" class="form-control" th:value="${bookingReference.arrivalLocation}" id="autocomplete2"
                            name="arrivalLocation" placeholder="Enter your address" onFocus="geolocate()"/>
                 </div>
 
@@ -52,7 +52,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="passengerNumber">Choose your payment method:</label>
+                    <label for="paymentMethod">Choose your payment method:</label>
                     <select class="form-control" th:value="${bookingReference.paymentMethod}" name="paymentMethod" id="paymentMethod">
                         <option disabled="disabled" selected="selected" > -- select the method --</option>
                         <option>Cash</option>
@@ -71,7 +71,11 @@
                        name="${_csrf.parameterName}"
                        value="${_csrf.token}"/>
 
-                <a class="btn btn-primary" id="submitBooking">Submit Booking</a>
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary ">Submit Booking
+                    </button>
+                </div>
+
             </form>
 
             <div class="col-md-6">
