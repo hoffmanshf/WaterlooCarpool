@@ -33,16 +33,8 @@ public class AccountController {
     public String riderAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-        List<BookingReference> UserBookingReferences = bookingService.findAll();
-        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(riderAccountType)) {
-                if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-                    reference.setOwner(true);
-                }
-                bookingReferences.add(reference);
-            }
-        }
+
+        List<BookingReference> bookingReferences = BookingReferenceProcessor(riderAccountType, user);
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", bookingReferences);
 
@@ -53,16 +45,25 @@ public class AccountController {
     public String driverAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
-        List<BookingReference> UserBookingReferences = bookingService.findAll();
-        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(driverAccountType)) {
-                bookingReferences.add(reference);
-            }
-        }
+
+        List<BookingReference> bookingReferences = BookingReferenceProcessor(driverAccountType, user);
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", bookingReferences);
         return "driverAccount";
+    }
+
+    private List<BookingReference> BookingReferenceProcessor(final String accountType, final User user) {
+        List<BookingReference> UserBookingReferences = bookingService.findAll();
+        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
+        for (final BookingReference reference: UserBookingReferences) {
+            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
+                if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+                    reference.setOwner(true);
+                }
+                bookingReferences.add(reference);
+            }
+        }
+        return bookingReferences;
     }
 
 }

@@ -190,4 +190,85 @@ public class BookingController {
 
         return "redirect:/account/riderAccount";
     }
+
+    @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)
+    public String getDriverBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final String author = bookingReference.getAuthor();
+        User user = userService.findByUsername(author);
+        RiderAccount riderAccount = bookingReference.getRiderAccount();
+
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+
+        if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
+            return "driverBookingAcceptPage";
+        }
+
+        if (riderAccount != null) {
+            final String driverName = riderAccount.getUsername();
+            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && driverName.equalsIgnoreCase(principal.getName())) {
+                return "driverBookingCancelProgressPage";
+            }
+        }
+
+        return "redirect:/account/driverAccount";
+    }
+
+    @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
+    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+
+        User user = userService.findByUsername(principal.getName());
+        RiderAccount riderAccount = user.getRiderAccount();
+
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
+        bookingReference.setRiderAccount(riderAccount);
+        model.addAttribute("bookingReference", bookingReference);
+
+        bookingService.saveBooking(bookingReference);
+
+        return "redirect:/account/driverAccount";
+    }
+
+    @RequestMapping(value= "/driverBooking/complete", method = RequestMethod.POST)
+    public String completeDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        bookingReference.setBookingStatus(BookingReferenceStatus.COMPLETE);
+        model.addAttribute("bookingReference", bookingReference);
+
+        bookingService.saveBooking(bookingReference);
+
+        return "redirect:/account/driverAccount";
+    }
+
+    @RequestMapping(value= "/driverBooking/author/view", method = RequestMethod.GET)
+    public String getDriverBookingAuthorView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+
+        final String author = bookingReference.getAuthor();
+        User user = userService.findByUsername(author);
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+
+        if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
+            return "driverBookingCancelPendingPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
+            return "driverBookingCompletePage";
+        } else {
+            return "redirect:/account/driverAccount";
+        }
+    }
+
+    @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.POST)
+    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
+        model.addAttribute("bookingReference", bookingReference);
+
+        bookingService.saveBooking(bookingReference);
+
+        return "redirect:/account/driverAccount";
+    }
 }

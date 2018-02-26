@@ -6,10 +6,6 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 
 public class UServiceException extends RuntimeException {
-    private static final long serialVersionUID = -1978923219660413610L;
-
-    public static final String ATTR_REQUEST = "REQUEST";
-    public static final String ATTR_RESPONSE = "RESPONSE";
 
     private String context;
     private final String code;
