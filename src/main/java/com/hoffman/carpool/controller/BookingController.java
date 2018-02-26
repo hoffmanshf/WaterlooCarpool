@@ -129,7 +129,7 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/userFront";
+        return "redirect:/account/riderAccount";
     }
 
     @RequestMapping(value= "/riderBooking/complete", method = RequestMethod.POST)
@@ -141,7 +141,7 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/userFront";
+        return "redirect:/account/riderAccount";
     }
 
     @RequestMapping(value= "/riderBooking/author/view", method = RequestMethod.GET)
@@ -164,17 +164,12 @@ public class BookingController {
 
     @RequestMapping(value= "/riderBooking/cancel", method = RequestMethod.POST)
     public String cancelRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
-
-        User user = userService.findByUsername(principal.getName());
-        DriverAccount driverAccount = user.getDriverAccount();
-
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
-        bookingReference.setDriverAccount(driverAccount);
         model.addAttribute("bookingReference", bookingReference);
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/userFront";
+        return "redirect:/account/riderAccount";
     }
 }

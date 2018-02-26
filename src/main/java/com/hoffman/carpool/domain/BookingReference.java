@@ -21,6 +21,8 @@ public class BookingReference {
     private String accountType;
     private String author;
 
+    private Boolean owner;
+
     @ManyToOne
     @JoinColumn(name = "driver_account_id")
     private DriverAccount driverAccount;
@@ -131,5 +133,13 @@ public class BookingReference {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public Boolean getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Boolean owner) {
+        this.owner = owner;
     }
 }
