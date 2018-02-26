@@ -15,9 +15,13 @@ public class BookingReference {
     private String departureLocation;
     private String arrivalLocation;
     private String paymentMethod;
+    private String price;
     private String notes;
 
     private String accountType;
+    private String author;
+
+    private Boolean owner;
 
     @ManyToOne
     @JoinColumn(name = "driver_account_id")
@@ -83,6 +87,14 @@ public class BookingReference {
         this.paymentMethod = paymentMethod;
     }
 
+    public String getPrice() {
+        return price;
+    }
+
+    public void setPrice(String price) {
+        this.price = price;
+    }
+
     public String getNotes() {
         return notes;
     }
@@ -113,5 +125,21 @@ public class BookingReference {
 
     public void setRiderAccount(RiderAccount riderAccount) {
         this.riderAccount = riderAccount;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
+    }
+
+    public Boolean getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Boolean owner) {
+        this.owner = owner;
     }
 }

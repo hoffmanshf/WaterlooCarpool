@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.security.Principal;
 import java.util.ArrayList;
@@ -28,37 +29,41 @@ public class AccountController {
     @Autowired
     private BookingService bookingService;
 
-    @RequestMapping("/riderAccount")
+    @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
     public String riderAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-        List<BookingReference> UserBookingReferences = bookingService.findAll();
-        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(riderAccountType)) {
-                bookingReferences.add(reference);
-            }
-        }
+
+        List<BookingReference> bookingReferences = BookingReferenceProcessor(riderAccountType, user);
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", bookingReferences);
 
         return "riderAccount";
     }
 
-    @RequestMapping("/driverAccount")
+    @RequestMapping(value = "/driverAccount", method = RequestMethod.GET)
     public String driverAccount(Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
-        List<BookingReference> UserBookingReferences = bookingService.findAll();
-        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(driverAccountType)) {
-                bookingReferences.add(reference);
-            }
-        }
+
+        List<BookingReference> bookingReferences = BookingReferenceProcessor(driverAccountType, user);
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", bookingReferences);
         return "driverAccount";
+    }
+
+    private List<BookingReference> BookingReferenceProcessor(final String accountType, final User user) {
+        List<BookingReference> UserBookingReferences = bookingService.findAll();
+        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
+        for (final BookingReference reference: UserBookingReferences) {
+            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
+                if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+                    reference.setOwner(true);
+                }
+                bookingReferences.add(reference);
+            }
+        }
+        return bookingReferences;
     }
 
 }

@@ -12,11 +12,12 @@
     <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Website Font style -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!-- Google Fonts -->
     <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css' />
     <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css' />
+    <link href="css/font.css" rel="stylesheet" type="text/css" />
 
     <!--bootstrap date-time picker-->
     <link href='https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.css' rel='stylesheet'/>
@@ -27,6 +28,18 @@
 
     <!--toggle-->
     <link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet" />
+
+    <!--slider-->
+    <link rel="stylesheet" href="/css/slider.css" type="text/css" />
+
+    <!--icon-->
+    <link href="css/icon.css" rel="stylesheet" type="text/css" />
+
+    <!--animate-->
+    <link href="css/animate.css" rel="stylesheet" type="text/css" />
+
+    <!--calendar-->
+    <link href="css/bootstrap_calendar.css" rel="stylesheet" type="text/css" />
 
     <!-- Custom CSS -->
     <!--<link href="css/scrolling-nav.css" rel="stylesheet" />-->
@@ -57,7 +70,7 @@
                     <a class="page-scroll" href="#page-top"></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Accounts <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Postings <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li><a th:href="@{/account/riderAccount}">Rider</a></li>
                         <li role="separator" class="divider"></li>
@@ -122,8 +135,38 @@
     <!--toggle-->
     <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 
+    <!-- slider -->
+    <script src="/js/bootstrap-slider.js"></script>
+
+    <script src="/js/slimscroll/jquery.slimscroll.min.js"></script>
+    <script src="/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
+    <script src="/js/charts/sparkline/jquery.sparkline.min.js"></script>
+    <script src="/js/charts/flot/jquery.flot.min.js"></script>
+    <script src="/js/charts/flot/jquery.flot.tooltip.min.js"></script>
+    <script src="/js/charts/flot/jquery.flot.spline.js"></script>
+    <script src="/js/charts/flot/jquery.flot.pie.min.js"></script>
+    <script src="/js/charts/flot/jquery.flot.resize.js"></script>
+    <script src="/js/charts/flot/jquery.flot.grow.js"></script>
+    <script src="/js/charts/flot/demo.js"></script>
+
+    <script src="/js/calendar/bootstrap_calendar.js"></script>
+    <script src="/js/calendar/demo.js"></script>
+
+    <script src="/js/sortable/jquery.sortable.js"></script>
+
+    <!-- parsley -->
+    <script src="/js/parsley/parsley.min.js"></script>
+    <script src="/js/parsley/parsley.extend.js"></script>
+
+    <!--main app plugin js-->
+    <script src="/js/app.plugin.js"></script>
+
     <!--main js-->
     <script src="/js/main.js"></script>
+
+    <!--Google AutoComplete-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy3AhiOW3Z4C3GZptz5bMLWoXsL6KjyAM&amp;libraries=places&amp;callback=initAutocomplete"></script>
+
 </div>
 
 </body>

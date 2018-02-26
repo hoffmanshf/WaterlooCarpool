@@ -13,12 +13,6 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
-    <div class="row">
-        <div class="col-lg-12">
-            <!--<h1 class="page-header">Dashboard</h1>-->
-        </div>
-        <!-- /.col-lg-12 -->
-    </div>
     <!-- /.row -->
     <div class="row">
         <div class="col-lg-6 col-md-6">
@@ -27,24 +21,27 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-6">
-                            <h2>Driver Account</h2>
-                        </div>
-                        <div class="col-xs-6 text-right">
-                            <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
-                        </div>
+                        <a th:href="@{/account/driverAccount}">
+                            <div class="col-xs-8">
+                                <h2>Hi
+                                <td data-th-text="${driverAccount.username}">...</td></h2>
+                            </div>
+                            <div class="col-xs-4 text-right">
+                                <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
+                            </div>
+                        </a>
                     </div>
                 </div>
+                <a th:href="@{/booking/driverCreate}">
                     <div class="panel-footer">
-                        <span class="pull-left">Welcome</span>
-                        <span class="pull-right"><i class="fa fa-cog"></i></span>
+                        <span class="pull-left">Create new trip as Driver</span>
+                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
                         <div class="clearfix"></div>
                     </div>
+                </a>
             </div>
         </div>
     </div>
-
-
     <!-- /.row -->
 
     <div class="table-responsive">
@@ -52,29 +49,33 @@
             <thead>
             <tr>
                 <th>Travel Date</th>
+                <th>User</th>
                 <th>Departure</th>
                 <th>Arrival</th>
-                <th>Passenger Number</th>
+                <th>Passenger</th>
+                <th>Price per-seat</th>
                 <th>Payment Method</th>
-                <th>Additional Notes</th>
+                <th>Notes</th>
                 <th>Status</th>
             </tr>
             </thead>
             <tbody>
             <tr data-th-each="bookingReference : ${bookingReferences}">
                 <td data-th-text="${bookingReference.date}">...</td>
+                <th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>
                 <td data-th-text="${bookingReference.departureLocation}">...</td>
                 <td data-th-text="${bookingReference.arrivalLocation}">...</td>
                 <td data-th-text="${bookingReference.passengerNumber}">...</td>
+                <td data-th-text="${bookingReference.price}">...</td>
                 <td data-th-text="${bookingReference.paymentMethod}">...</td>
                 <td data-th-text="${bookingReference.notes}">...</td>
-                <td data-th-text="${bookingReference.bookingStatus}">...</td>
+                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
+                    <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
             </tr>
             </tbody>
         </table>
     </div>
 </div>
-
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 <script>

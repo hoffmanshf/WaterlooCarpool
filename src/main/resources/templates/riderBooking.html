@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <label for="dateString">Pick a Date and Time:</label>
                     <div class="input-append date form_datetime input-group" data-view="hour">
-                        <input class="form-control" type="text" value="" readonly="readonly"
+                        <input class="form-control" type="text" value="" data-readonly="data-readonly"
                                th:value="${dateString}" name="dateString"
                                id="dateString" required="required"/>
                         <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -30,66 +30,34 @@
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <label for="departureLocation">Pick your departure location:</label>
-                    <select class="form-control" th:value="${bookingReference.departureLocation}" name="departureLocation" id="departureLocation">
-                        <option disabled="disabled" selected="selected" > -- select the location --</option>
-                        <option>Waterloo Plaza</option>
-                        <option>Blair House</option>
-                        <option>Fergus House</option>
-                        <option>ICON</option>
-                        <option>Toronto Downtown</option>
-                        <option>Markham</option>
-                        <option>North York</option>
-                        <option>Mississauga</option>
-                        <option>Scarborough</option>
-                        <option>Pearson Airport</option>
-                        <option>Pacific Mall</option>
-                        <option>Niagara Falls</option>
-                        <option>Blue Mountain</option>
-                        <option>-- Other --</option>
-                    </select>
+                <div class="form-group autocomplete">
+                    <label for="autocomplete">Pick your departure location:</label>
+                    <input type="text" required="required" class="form-control" th:value="${bookingReference.departureLocation}" id="autocomplete"
+                           name="departureLocation" placeholder="Enter your address" onFocus="geolocate()"/>
+                </div>
+
+                <div class="form-group autocomplete">
+                    <label for="autocomplete2">Pick your arrival location:</label>
+                    <input type="text" required="required" class="form-control" th:value="${bookingReference.arrivalLocation}" id="autocomplete2"
+                           name="arrivalLocation" placeholder="Enter your address" onFocus="geolocate()"/>
                 </div>
 
                 <div class="form-group">
-                    <label for="arrivalLocation">Pick your arrival location:</label>
-                    <select class="form-control" th:value="${bookingReference.arrivalLocation}" name="arrivalLocation" id="arrivalLocation">
-                        <option disabled="disabled" selected="selected" > -- select the location --</option>
-                        <option>Toronto Downtown</option>
-                        <option>Markham</option>
-                        <option>North York</option>
-                        <option>Mississauga</option>
-                        <option>Scarborough</option>
-                        <option>Pearson Airport</option>
-                        <option>Pacific Mall</option>
-                        <option>Niagara Falls</option>
-                        <option>Blue Mountain</option>
-                        <option>Waterloo Plaza</option>
-                        <option>Blair House</option>
-                        <option>Fergus House</option>
-                        <option>ICON</option>
-                        <option>-- Other --</option>
-                    </select>
+                    <label class="cols-sm-2 control-label" for="passengerNumber">Passenger number:</label>
+                    <div class="cols-sm-5">
+                        <input type="text" class="slider slider-horizontal form-control" value=""
+                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
+                               th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber"/>
+                    </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="passengerNumber">Choose number of passengers:</label>
-                    <select class="form-control" th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber">
-                        <option disabled="disabled" selected="selected" > -- select the number --</option>
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5+</option>
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label for="passengerNumber">Choose your payment method:</label>
+                    <label for="paymentMethod">Choose your payment method:</label>
                     <select class="form-control" th:value="${bookingReference.paymentMethod}" name="paymentMethod" id="paymentMethod">
                         <option disabled="disabled" selected="selected" > -- select the method --</option>
                         <option>Cash</option>
                         <option>e-Transfer</option>
+                        <option>WeChat Pay</option>
                     </select>
                 </div>
 
@@ -103,7 +71,11 @@
                        name="${_csrf.parameterName}"
                        value="${_csrf.token}"/>
 
-                <a class="btn btn-primary" id="submitBooking">Submit Booking</a>
+                <div class="form-group ">
+                    <button type="submit" class="btn btn-primary ">Submit Booking
+                    </button>
+                </div>
+
             </form>
 
             <div class="col-md-6">
