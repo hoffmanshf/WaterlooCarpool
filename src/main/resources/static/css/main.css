@@ -3873,3 +3873,7 @@ fieldset[disabled] .i-checks input + i:before {
 		padding: 15px;
 	}
 }
+
+input[data-readonly] {
+	pointer-events: none;
+}

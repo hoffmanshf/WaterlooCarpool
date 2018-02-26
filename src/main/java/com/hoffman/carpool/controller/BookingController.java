@@ -45,8 +45,6 @@ public class BookingController {
         try {
             if (!source.isEmpty() && source != null) {
                 date = format.parse(source);
-            } else {
-                date = new Date();
             }
         } catch (ParseException e) {
             throw new UServiceException("TXN_101","", "Date parse error", e);
@@ -85,8 +83,6 @@ public class BookingController {
         try {
             if (!source.isEmpty() && source != null) {
                 date = format.parse(source);
-            } else {
-                date = new Date();
             }
         } catch (ParseException e) {
             throw new UServiceException("TXN_101","", "Date parse error", e);
