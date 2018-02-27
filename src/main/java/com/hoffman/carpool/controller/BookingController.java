@@ -12,7 +12,9 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 @Controller
 @RequestMapping("booking")
@@ -39,7 +41,17 @@ public class BookingController {
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
     public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-        Date date = DateConverter(source);
+//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+//
+//        Date theDate = format.parse("JAN 13,2014  09:15");
+//
+//        Calendar myCal = new GregorianCalendar();
+//        myCal.setTime(theDate);
+//
+//        System.out.println("Day: " + myCal.get(Calendar.DAY_OF_MONTH));
+//        System.out.println("Month: " + myCal.get(Calendar.MONTH) + 1);
+//        System.out.println("Year: " + myCal.get(Calendar.YEAR));
+        Date date = StringToDateConverter(source);
         bookingReference.setDate(date);
         bookingReference.setAccountType(riderAccountType);
 
@@ -68,7 +80,7 @@ public class BookingController {
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
     public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-        Date date = DateConverter(source);
+        Date date = StringToDateConverter(source);
         bookingReference.setDate(date);
         bookingReference.setAccountType(driverAccountType);
 
@@ -84,7 +96,7 @@ public class BookingController {
         return "redirect:/userFront";
     }
 
-    private Date DateConverter(final String source) {
+    private Date StringToDateConverter(final String source) {
         SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
         Date date = null;
 
