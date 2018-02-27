@@ -39,16 +39,7 @@ public class BookingController {
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
     public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date date = null;
-
-        try {
-            if (!source.isEmpty() && source != null) {
-                date = format.parse(source);
-            }
-        } catch (ParseException e) {
-            throw new UServiceException("TXN_101","", "Date parse error", e);
-        }
+        Date date = DateConverter(source);
         bookingReference.setDate(date);
         bookingReference.setAccountType(riderAccountType);
 
@@ -77,16 +68,7 @@ public class BookingController {
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
     public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date date = null;
-
-        try {
-            if (!source.isEmpty() && source != null) {
-                date = format.parse(source);
-            }
-        } catch (ParseException e) {
-            throw new UServiceException("TXN_101","", "Date parse error", e);
-        }
+        Date date = DateConverter(source);
         bookingReference.setDate(date);
         bookingReference.setAccountType(driverAccountType);
 
@@ -100,6 +82,20 @@ public class BookingController {
 
         bookingService.createBooking(bookingReference);
         return "redirect:/userFront";
+    }
+
+    private Date DateConverter(final String source) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date date = null;
+
+        try {
+            if (!source.isEmpty() && source != null) {
+                date = format.parse(source);
+            }
+        } catch (ParseException e) {
+            throw new UServiceException("TXN_101","", "Date parse error", e);
+        }
+        return date;
     }
 
     @RequestMapping(value="/info", method = RequestMethod.GET)

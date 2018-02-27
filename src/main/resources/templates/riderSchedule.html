@@ -21,10 +21,10 @@
             <div class="panel panel-success">
                 <div class="panel-heading">
                     <div class="row">
-                        <a th:href="@{/schedule/drive}">
+                        <a th:href="@{/schedule/ride}">
                             <div class="col-xs-8">
                                 <h2>Hi
-                                    <td data-th-text="${driverAccount.username}">...</td></h2>
+                                    <td data-th-text="${riderAccount.username}">...</td></h2>
                             </div>
                             <div class="col-xs-4 text-right">
                                 <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
@@ -32,9 +32,9 @@
                         </a>
                     </div>
                 </div>
-                <a th:href="@{/booking/driverCreate}">
+                <a th:href="@{/booking/riderCreate}">
                     <div class="panel-footer">
-                        <span class="pull-left">Create new trip as Driver</span>
+                        <span class="pull-left">Create new trip as Rider</span>
                         <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
                         <div class="clearfix"></div>
                     </div>
@@ -69,8 +69,8 @@
                 <td data-th-text="${bookingReference.price}">...</td>
                 <td data-th-text="${bookingReference.paymentMethod}">...</td>
                 <td data-th-text="${bookingReference.notes}">...</td>
-                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
-                    <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
+                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
+                    <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
             </tr>
             </tbody>
         </table>
