@@ -3662,6 +3662,12 @@ fieldset[disabled] .btn-dark.active {
 .avatar i.away {
 	background-color: #fcc633;
 }
+.avatar i.driver {
+	background-color: #337ab7;
+}
+.avatar i.rider {
+	background-color: #a94442;
+}
 .thumb-lg {
 	width: 128px;
 	display: inline-block;

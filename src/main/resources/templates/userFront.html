@@ -19,96 +19,92 @@
     </div>
     <!-- /.row -->
     <div class="row m-b">
-        <div class="col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="row">
-                        <a th:href="@{/account/riderAccount}">
-                            <div class="col-xs-6">
-                                <h2>Rider Posting</h2>
+
+        <div class="bg-light">
+            <div class="col-md-6">
+                <section class="panel panel-default">
+                    <header class="panel-heading bg-light no-border">
+                        <div class="clearfix">
+                            <a href="#" class="pull-left thumb-md avatar b-3x m-r">
+                                <img src="images/a1.png"/>
+                            </a>
+                            <div class="clear">
+                                <div class="h3 m-t-xs m-b-xs">
+                                    Haofeng Song
+                                    <i class="fa fa-circle text-success pull-right text-xs m-t-sm"></i>
+                                </div>
+                                <small class="text-muted">Welcome</small>
                             </div>
-                            <div class="col-xs-6 text-right">
-                                <h1><i class="fa fa-user" aria-hidden="true"></i></h1>
-                            </div>
+                        </div>
+                    </header>
+                    <div class="list-group no-radius alt">
+                        <a class="list-group-item" href="#">
+                            <span class="badge bg-success">25</span>
+                            <i class="fa fa-comment icon-muted"></i>
+                            Messages
+                        </a>
+                        <a class="list-group-item" href="#">
+                            <span class="badge bg-info">16</span>
+                            <i class="fa fa-envelope icon-muted"></i>
+                            Inbox
                         </a>
                     </div>
-                </div>
-                <a th:href="@{/booking/riderCreate}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Create new trip as Rider</span>
-                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
-
-            <br/>
-
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <div class="row">
-                        <a th:href="@{/account/driverAccount}">
-                            <div class="col-xs-6">
-                                <h2>Driver Posting</h2>
-                            </div>
-                            <div class="col-xs-6 text-right">
-                                <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
-                            </div>
-                        </a>
-                    </div>
-                </div>
-                <a th:href="@{/booking/driverCreate}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Create new trip as Driver</span>
-                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
+                </section>
             </div>
         </div>
 
-        <div class="bg-light">
-            <div class="col-md-6 dker">
-                <section>
-                    <header class="font-bold padder-v">
-                        <div class="pull-right">
-                            <div class="btn-group">
-                                <button data-toggle="dropdown" class="btn btn-sm btn-rounded btn-default dropdown-toggle">
-                                    <span class="dropdown-label">Week</span>
-                                    <span class="caret"></span>
-                                </button>
-                                <ul class="dropdown-menu dropdown-select">
-                                    <li><a href="#"><input type="radio" name="b"/>Month</a></li>
-                                    <li><a href="#"><input type="radio" name="b"/>Week</a></li>
-                                    <li><a href="#"><input type="radio" name="b"/>Day</a></li>
-                                </ul>
-                            </div>
-                            <a href="#" class="btn btn-default btn-icon btn-rounded btn-sm">Go</a>
-                        </div>
-                        Statistics
-                    </header>
-                    <div class="panel-body">
-                        <div id="flot-sp1ine" style="height:210px"></div>
+        <div class="col-md-6">
+            <div class="panel b-a">
+                <div class="row m-n">
+                    <div class="col-md-6 b-b b-r">
+                        <a th:href="@{/account/riderAccount}" class="block padder-v hover">
+                              <span class="i-s i-s-2x pull-left m-r-sm">
+                                <i class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i>
+                                <i class="i i-users2 i-sm text-white"></i>
+                              </span>
+                            <span class="clear">
+                                <span class="h3 block m-t-xs text-success">2,000</span>
+                                <small class="text-muted text-u-c">Rider Posting</small>
+                              </span>
+                        </a>
                     </div>
-                    <div class="row text-center no-gutter">
-                        <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">5,860</span>
-                            <small class="text-muted m-b block">Orders</small>
-                        </div>
-                        <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">10,450</span>
-                            <small class="text-muted m-b block">Sellings</small>
-                        </div>
-                        <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">21,230</span>
-                            <small class="text-muted m-b block">Items</small>
-                        </div>
-                        <div class="col-xs-3">
-                            <span class="h4 font-bold m-t block">7,230</span>
-                            <small class="text-muted m-b block">Customers</small>
-                        </div>
+                    <div class="col-md-6 b-b">
+                        <a th:href="@{/booking/riderCreate}" class="block padder-v hover">
+                              <span class="i-s i-s-2x pull-left m-r-sm">
+                                <i class="i i-hexagon2 i-s-base text-danger hover-rotate"></i>
+                                <i class="i i-plus2 i-1x text-white"></i>
+                              </span>
+                            <span class="clear">
+                                <span class="h3 block m-t-xs text-danger">Trip</span>
+                                <small class="text-muted text-u-c">As Rider</small>
+                              </span>
+                        </a>
                     </div>
-                </section>
+                    <div class="col-md-6 b-b b-r">
+                        <a th:href="@{/account/driverAccount}" class="block padder-v hover">
+                              <span class="i-s i-s-2x pull-left m-r-sm">
+                                <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
+                                <i class="i i-location i-sm text-white"></i>
+                              </span>
+                            <span class="clear">
+                                <span class="h3 block m-t-xs text-info">1,800</span>
+                                <small class="text-muted text-u-c">Driver Posting</small>
+                              </span>
+                        </a>
+                    </div>
+                    <div class="col-md-6 b-b">
+                        <a th:href="@{/booking/driverCreate}" class="block padder-v hover">
+                              <span class="i-s i-s-2x pull-left m-r-sm">
+                                <i class="i i-hexagon2 i-s-base text-primary hover-rotate"></i>
+                                <i class="i i-plus2 i-sm text-white"></i>
+                              </span>
+                            <span class="clear">
+                                <span class="h3 block m-t-xs text-primary">Drive</span>
+                                <small class="text-muted text-u-c">As Driver</small>
+                              </span>
+                        </a>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -116,131 +112,92 @@
 
     <!-- /.row -->
     <div class="row">
-        <!--<div class="col-md-4">-->
-            <!--<section class="panel b-a">-->
-                <!--<div class="panel-heading b-b">-->
-                    <!--<span class="badge pull-right">12</span>-->
-                    <!--<span class="label bg-success">New</span>-->
-                    <!--<a href="#" class="font-bold">HTML Courses</a>-->
-                <!--</div>-->
-                <!--<div class="panel-body">-->
-                    <!--<a href="#" class="block h4 font-bold m-b text-black">Get started with Bootstrap</a>-->
-                    <!--<div class="r b bg-warning-ltest wrapper m-b">-->
-                        <!--There are a few easy ways to quickly get started with Bootstrap...-->
-                    <!--</div>-->
-                    <!--<div class="m-b">-->
-                        <!--<a href="#" class="avatar thumb-sm">-->
-                            <!--<img src="images/a0.png" alt="..."/>-->
-                            <!--<i class="on b-white"></i>-->
-                        <!--</a>-->
-                        <!--<a href="#" class="avatar thumb-sm">-->
-                            <!--<img src="images/a1.png" alt="..."/>-->
-                            <!--<i class="busy b-white"></i>-->
-                        <!--</a>-->
-                        <!--<a href="#" class="avatar thumb-sm">-->
-                            <!--<img src="images/a2.png" alt="..."/>-->
-                            <!--<i class="away b-white"></i>-->
-                        <!--</a>-->
-                        <!--<a href="#" class="avatar thumb-sm">-->
-                            <!--<img src="images/a3.png" alt="..."/>-->
-                            <!--<i class="off b-white"></i>-->
-                        <!--</a>-->
-                        <!--<a href="#" class="btn btn-info btn-rounded font-bold">-->
-                            <!--+152-->
-                        <!--</a>-->
-                    <!--</div>-->
-                    <!--<p class="text-sm">Start at 2:00 PM, 12/5/2016</p>-->
-                    <!--<a href="#" class="btn btn-default btn-sm btn-rounded m-b-xs"><i class="fa fa-plus"></i> Take me in</a>-->
-                <!--</div>-->
-                <!--<div class="clearfix panel-footer">-->
-                    <!--<small class="text-muted pull-right">5m ago</small>-->
-                    <!--<a href="#" class="thumb-sm pull-left m-r">-->
-                        <!--<img src="images/a0.png" alt="..." class="img-circle"/>-->
-                    <!--</a>-->
-                    <!--<div class="clear">-->
-                        <!--<a href="#"><strong>Jonathan Omish</strong></a>-->
-                        <!--<small class="block text-muted">San Francisco, USA</small>-->
-                    <!--</div>-->
-                <!--</div>-->
-            <!--</section>-->
-        <!--</div>-->
-        <div class="col-md-4">
-            <section class="panel panel-default">
-                <header class="panel-heading">
-                    Conversion
-                </header>
-                <div class="panel-body text-center">
-                    <h4>62.5<small> hrs</small></h4>
-                    <small class="text-muted block">Updated at 2 minutes ago</small>
-                    <div class="inline">
-                        <div class="easypiechart" data-percent="75" data-bar-color="#fcc633" data-line-width="16" data-loop="false" data-size="188">
+        <div class="col-sm-4 col-md-4">
+            <section class="panel b-a">
+                <div class="panel-heading no-border bg-primary lt">
+                    <span class="pull-right badge dk m-t-sm">36</span>
+                    <a href="#" class="h4 text-lt m-t-sm m-b-sm block font-bold">Posting Statistics</a>
+                </div>
+                <div class="panel-body">
+                    <div id="b-c" class="text-center">
+                        <div class="easypiechart inline m-b m-t" data-percent="12" data-line-width="10" data-bar-Color="#afc5de" data-track-Color="#f2f4f8" data-scale-Color="false" data-size="150" data-line-cap='butt' data-animate="2000">
                             <div>
-                                <span class="h2 m-l-sm step">75</span>%
-                                <div class="text text-sm">new</div>
+                                <span class="h1 m-l-sm step font-bold"></span>%
+                                <div class="text text-xs text-muted">completed</div>
                             </div>
                         </div>
                     </div>
+                    <div class="row text-center m-t">
+                        <div class="col-xs-6">
+                            <p>Pending</p>
+                            <h3 class="font-thin">12</h3>
+                        </div>
+                        <div class="col-xs-6">
+                            <p>In-Progress</p>
+                            <h3 class="font-thin">20</h3>
+                        </div>
+                    </div>
                 </div>
-                <div class="panel-footer"><small>% of avarage rate of the Conversion</small></div>
             </section>
         </div>
 
-        <div class="col-md-4">
+        <div class="col-sm-4 col-md-4">
             <section class="panel b-a">
                 <div class="panel-heading b-b">
                     <span class="badge bg-warning pull-right">10</span>
-                    <a href="#" class="font-bold">Messages</a>
+                    <a href="#" class="font-bold">New Posts</a>
                 </div>
                 <ul class="list-group list-group-lg no-bg auto">
                     <a href="#" class="list-group-item clearfix">
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a4.png" alt="..."/>
-                            <i class="on b-white bottom"></i>
+                            <i class="rider b-white bottom"></i>
                         </span>
                         <span class="clear">
                             <span>Chris Fox</span>
-                            <small class="text-muted clear text-ellipsis">What's up, buddy</small>
+                            <small class="text-muted clear text-ellipsis">Toronto to Waterloo 2017-03-22 12:00</small>
                         </span>
                     </a>
                     <a href="#" class="list-group-item clearfix">
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a5.png" alt="..."/>
-                            <i class="on b-white bottom"></i>
+                            <i class="rider b-white bottom"></i>
                         </span>
                         <span class="clear">
                             <span>Amanda Conlan</span>
-                            <small class="text-muted clear text-ellipsis">Come online and we need talk about the plans that we have discussed</small>
+                            <small class="text-muted clear text-ellipsis">Toronto to Markham 2017-03-22 12:00</small>
                         </span>
                     </a>
                     <a href="#" class="list-group-item clearfix">
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a6.png" alt="..."/>
-                            <i class="busy b-white bottom"></i>
+                            <i class="driver b-white bottom"></i>
                         </span>
                         <span class="clear">
                             <span>Dan Doorack</span>
-                            <small class="text-muted clear text-ellipsis">Hey, Some good news</small>
+                            <small class="text-muted clear text-ellipsis">Toronto to North York 2017-03-22 12:00</small>
                         </span>
                     </a>
                     <a href="#" class="list-group-item clearfix">
                         <span class="pull-left thumb-sm avatar m-r">
                             <img src="images/a7.png" alt="..."/>
-                            <i class="away b-white bottom"></i>
+                            <i class="driver b-white bottom"></i>
                         </span>
                         <span class="clear">
                             <span>Lauren Taylor</span>
-                            <small class="text-muted clear text-ellipsis">Nice to talk with you.</small>
+                            <small class="text-muted clear text-ellipsis">Waterloo to Kingston 2017-03-22 12:00</small>
                         </span>
                     </a>
+                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
+                        <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
+                            <i class="i i-logout"></i>
+                        </a>
+                        <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
+                            <i class="i i-circleleft text"></i>
+                            <i class="i i-circleright text-active"></i>
+                        </a>
+                    </footer>
                 </ul>
-                <div class="clearfix panel-footer">
-                    <div class="input-group">
-                        <input type="text" class="form-control input-sm btn-rounded" placeholder="Search"/>
-                        <span class="input-group-btn">
-                            <button type="submit" class="btn btn-default btn-sm btn-rounded"><i class="fa fa-search"></i></button>
-                        </span>
-                    </div>
-                </div>
             </section>
         </div>
 
@@ -256,6 +213,10 @@
                     <a href="#" class="list-group-item text-ellipsis">
                         <span class="badge bg-success">9:30</span>
                         Have a kick off meeting with .inc company
+                    </a>
+                    <a href="#" class="list-group-item text-ellipsis">
+                        <span class="badge bg-success">9:30</span>
+                        Have a trip
                     </a>
                 </div>
             </section>
