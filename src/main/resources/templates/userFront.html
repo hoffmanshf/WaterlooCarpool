@@ -30,8 +30,7 @@
                             </a>
                             <div class="clear">
                                 <div class="h3 m-t-xs m-b-xs">
-                                    Haofeng Song
-                                    <i class="fa fa-circle text-success pull-right text-xs m-t-sm"></i>
+                                    h57song
                                 </div>
                                 <small class="text-muted">Welcome</small>
                             </div>
@@ -145,7 +144,7 @@
             <section class="panel b-a">
                 <div class="panel-heading b-b">
                     <span class="badge bg-warning pull-right">10</span>
-                    <a href="#" class="font-bold">New Posts</a>
+                    <div class="font-bold">New Posts</div>
                 </div>
                 <ul class="list-group list-group-lg no-bg auto">
                     <a href="#" class="list-group-item clearfix">
@@ -202,24 +201,49 @@
         </div>
 
         <div class="col-md-4">
-            <section class="panel b-light">
-                <header class="panel-heading"><strong>Calendar</strong></header>
-                <div id="calendar" class="bg-light dker m-l-n-xxs m-r-n-xxs"></div>
-                <div class="list-group">
-                    <a href="#" class="list-group-item text-ellipsis">
-                        <span class="badge bg-warning">7:30</span>
-                        Meet a friend
-                    </a>
-                    <a href="#" class="list-group-item text-ellipsis">
-                        <span class="badge bg-success">9:30</span>
-                        Have a kick off meeting with .inc company
-                    </a>
-                    <a href="#" class="list-group-item text-ellipsis">
-                        <span class="badge bg-success">9:30</span>
-                        Have a trip
-                    </a>
+            <section class="panel b-a">
+                <div class="panel-heading b-b">
+                    <div class="font-bold">Waterloo Weather</div>
                 </div>
+                <a class="weatherwidget-io" href="https://forecast7.com/en/43d46n80d52/waterloo/" data-font="Arial" data-days="5" data-theme="weather_one" >WATERLOO ON</a>
             </section>
+                <!-- .crousel slide -->
+                <section class="panel panel-default">
+                    <div class="carousel slide auto panel-body" id="c-slide">
+                        <ol class="carousel-indicators out">
+                            <li data-target="#c-slide" data-slide-to="0" class="active"></li>
+                            <li data-target="#c-slide" data-slide-to="1" class=""></li>
+                            <li data-target="#c-slide" data-slide-to="2" class=""></li>
+                        </ol>
+                        <div class="carousel-inner">
+                            <div class="item active">
+                                <p class="text-center">
+                                    <em class="h4 text-mute">Waterloo Carpool</em><br/>
+                                    <small class="text-muted">Copyright © 2018</small>
+                                </p>
+                            </div>
+                            <div class="item">
+                                <p class="text-center">
+                                    <em class="h4 text-mute">Beta Version</em><br/>
+                                    <small class="text-muted">1.0.0</small>
+                                </p>
+                            </div>
+                            <div class="item">
+                                <p class="text-center">
+                                    <em class="h4 text-mute">Powered by</em><br/>
+                                    <small class="text-muted">Spring Framework</small>
+                                </p>
+                            </div>
+                        </div>
+                        <a class="left carousel-control" href="#c-slide" data-slide="prev">
+                            <i class="fa fa-angle-left"></i>
+                        </a>
+                        <a class="right carousel-control" href="#c-slide" data-slide="next">
+                            <i class="fa fa-angle-right"></i>
+                        </a>
+                    </div>
+                </section>
+                <!-- / .carousel slide -->
         </div>
     </div>
     <!-- /.row -->
@@ -227,6 +251,8 @@
 
 
 <div th:replace="common/header :: body-bottom-scripts"/>
-
+<script>
+    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
+</script>
 </body>
 </html>
