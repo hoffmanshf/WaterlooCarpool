@@ -12,10 +12,11 @@
 <head th:replace="common/header :: common-header"/>
 <body>
 <!-- Login Section -->
-    <img class="img-responsive" src="/images/banner.png" alt="banner"/>
-    <div class="container">
-        <div class="row ">
-            <div class="main-center ">
+<img class="img-responsive" src="/images/banner.png" alt="banner"/>
+<section id="content" class="m-t-lg wrapper-md animated fadeInUp">
+    <div class="container aside-xl">
+        <section class="m-b-lg">
+            <form class="form-signin" th:action="@{/index}" method="post">
                 <div class="alert alert-danger" th:if="${param.error}">
                     Invalid username and password.
                 </div>
@@ -41,15 +42,17 @@
                     </div>
                     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
                 </form>
-                
+
                 <hr />
-                
+
                 <div class="form-group ">
                     <a type="submit" class="btn btn-info btn-lg btn-block login-button" th:href="@{/signup}">Sign up!</a>
                 </div>
-            </div>
-        </div>
+            </form>
+        </section>
     </div>
+</section>
+
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 

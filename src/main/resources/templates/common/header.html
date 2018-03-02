@@ -41,6 +41,7 @@
     <!--calendar-->
     <link href="css/bootstrap_calendar.css" rel="stylesheet" type="text/css" />
 
+    <!--vector map-->
     <link rel="stylesheet" href="/js/jvectormap/jquery-jvectormap-1.2.2.css" type="text/css" />
 
     <!-- Custom CSS -->
@@ -49,70 +50,115 @@
 </head>
 <body>
 <!-- Navigation -->
+<!--<div th:fragment="navbar">-->
+    <!--<img class="img-responsive" src="/images/banner.png" alt="banner"/>-->
+
+        <!--<div class="container">-->
+            <!--<div class="nav">-->
+                <!--<ul class="slimmenu" id="slimmenu">-->
+                    <!--<li class="active"><a href="/userFront">Home</a>-->
+                    <!--</li>-->
+                    <!--<li><a href="/userFront">Posting</a>-->
+                        <!--<ul>-->
+                            <!--<li><a th:href="@{/account/riderAccount}">Rider</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/account/driverAccount}">Driver</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li><a href="/userFront">Create Trip</a>-->
+                        <!--<ul>-->
+                            <!--<li><a th:href="@{/booking/riderCreate}">Rider</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/booking/driverCreate}">Driver</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/booking/edit}">Edit Ride</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+
+                    <!--<li><a href="/userFront">Schedule</a>-->
+                        <!--<ul>-->
+                            <!--<li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="pull-right"><a href="/userFront">Setting</a>-->
+                        <!--<ul>-->
+                            <!--<li><a th:href="@{/user/profile}">Profile</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/logout}">Logout</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+        <!--</div>-->
+<!--</div>-->
+
+<!-- Navigation -->
 <div th:fragment="navbar">
     <img class="img-responsive" src="/images/banner.png" alt="banner"/>
 
     <nav class="navbar navbar-default " role="navigation">
-    <div class="container">
-        <div class="navbar-header page-scroll">
-            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-            </button>
-            <a class="navbar-brand page-scroll" th:href="@{/userFront}">Home</a>
-        </div>
+        <div class="container">
+            <div class="navbar-header page-scroll">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand page-scroll" th:href="@{/userFront}">Home</a>
+            </div>
 
-        <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse  navbar-collapse navbar-ex1-collapse">
-            <ul class="nav navbar-nav">
-                <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                <li class="hidden">
-                    <a class="page-scroll" href="#page-top"></a>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Postings <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="@{/account/riderAccount}">Rider</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/account/driverAccount}">Driver</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Ride <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="@{/booking/riderCreate}">Rider Request</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/booking/driverCreate}">Driver Post</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/booking/edit}">Edit Ride</a></li>
-                    </ul>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>
-                    </ul>
-                </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>
-                    <ul class="dropdown-menu">
-                        <li><a th:href="@{/user/profile}">Profile</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/logout}">Logout</a></li>
-                    </ul>
-                </li>
-            </ul>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse  navbar-collapse navbar-ex1-collapse">
+                <ul class="nav navbar-nav">
+                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
+                    <li class="hidden">
+                        <a class="page-scroll" href="#page-top"></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Postings <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/account/riderAccount}">Rider</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a th:href="@{/account/driverAccount}">Driver</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Ride <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/booking/riderCreate}">Rider Request</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a th:href="@{/booking/driverCreate}">Driver Post</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a th:href="@{/booking/edit}">Edit Ride</a></li>
+                        </ul>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li><a th:href="@{/user/profile}">Profile</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a th:href="@{/logout}">Logout</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.navbar-collapse -->
-    </div>
-    <!-- /.container -->
-</nav>
+        <!-- /.container -->
+    </nav>
 </div>
 
 <div th:fragment="body-bottom-scripts">
@@ -140,6 +186,7 @@
     <!-- slider -->
     <script src="/js/bootstrap-slider.js"></script>
 
+    <!-- chart -->
     <script src="/js/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
     <script src="/js/charts/sparkline/jquery.sparkline.min.js"></script>
@@ -151,6 +198,7 @@
     <script src="/js/charts/flot/jquery.flot.grow.js"></script>
     <script src="/js/charts/flot/demo.js"></script>
 
+    <!-- vector map -->
     <script src="/js/jvectormap/jquery-jvectormap-1.2.2.min.js"></script>
     <script src="/js/jvectormap/jquery-jvectormap-world-mill-en.js"></script>
     <script src="/js/jvectormap/jquery-jvectormap-us-aea-en.js"></script>
@@ -164,6 +212,22 @@
     <!-- parsley -->
     <script src="/js/parsley/parsley.min.js"></script>
     <script src="/js/parsley/parsley.extend.js"></script>
+
+    <script src="/js/slimmenu.js"></script>
+
+    <script src="/js/nicescroll.js"></script>
+    <script src="/js/dropit.js"></script>
+    <script src="/js/ionrangeslider.js"></script>
+    <script src="/js/icheck.js"></script>
+    <script src="/js/fotorama.js"></script>
+    <script src="/js/typeahead.js"></script>
+    <script src="/js/card-payment.js"></script>
+    <script src="/js/magnific.js"></script>
+    <script src="/js/owl-carousel.js"></script>
+    <script src="/js/fitvids.js"></script>
+    <script src="/js/tweet.js"></script>
+    <script src="/js/countdown.js"></script>
+    <script src="/js/gridrotator.js"></script>
 
     <!--main app plugin js-->
     <script src="/js/app.plugin.js"></script>
