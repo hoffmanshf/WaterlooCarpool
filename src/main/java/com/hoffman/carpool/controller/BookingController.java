@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -22,6 +23,9 @@ public class BookingController {
 
     private static final String riderAccountType = "riderAccount";
     private static final String driverAccountType = "driverAccount";
+    private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
+    private static final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
 
     @Autowired
     private BookingService bookingService;
@@ -41,18 +45,20 @@ public class BookingController {
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
     public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-//        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-//
-//        Date theDate = format.parse("JAN 13,2014  09:15");
-//
-//        Calendar myCal = new GregorianCalendar();
-//        myCal.setTime(theDate);
-//
-//        System.out.println("Day: " + myCal.get(Calendar.DAY_OF_MONTH));
-//        System.out.println("Month: " + myCal.get(Calendar.MONTH) + 1);
-//        System.out.println("Year: " + myCal.get(Calendar.YEAR));
         Date date = StringToDateConverter(source);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        String month = monthNames[calendar.get(Calendar.MONTH)];
+        String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+        String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
+
+        String time = DateToTimeConverter(date);
+
+        bookingReference.setDayOfMonth(dayOfMonth);
+        bookingReference.setDayOfWeek(dayOfWeek);
+        bookingReference.setMonth(month);
         bookingReference.setDate(date);
+        bookingReference.setTime(time);
         bookingReference.setAccountType(riderAccountType);
 
         User user = userService.findByUsername(principal.getName());
@@ -81,7 +87,19 @@ public class BookingController {
     public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
         Date date = StringToDateConverter(source);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        String month = monthNames[calendar.get(Calendar.MONTH)];
+        String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+        String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
+
+        String time = DateToTimeConverter(date);
+
+        bookingReference.setDayOfMonth(dayOfMonth);
+        bookingReference.setDayOfWeek(dayOfWeek);
+        bookingReference.setMonth(month);
         bookingReference.setDate(date);
+        bookingReference.setTime(time);
         bookingReference.setAccountType(driverAccountType);
 
         User user = userService.findByUsername(principal.getName());
@@ -108,6 +126,15 @@ public class BookingController {
             throw new UServiceException("TXN_101","", "Date parse error", e);
         }
         return date;
+    }
+
+    private String DateToTimeConverter(final Date date) {
+
+        String time = null;
+        if (date != null) {
+            time = DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
+        }
+        return time;
     }
 
     @RequestMapping(value="/info", method = RequestMethod.GET)

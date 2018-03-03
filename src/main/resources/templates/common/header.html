@@ -51,104 +51,40 @@
 </head>
 <body>
 <!-- Navigation -->
-<!--<div th:fragment="navbar">-->
-    <!--<img class="img-responsive" src="/images/banner.png" alt="banner"/>-->
-
-        <!--<div class="container">-->
-            <!--<div class="nav">-->
-                <!--<ul class="slimmenu" id="slimmenu">-->
-                    <!--<li class="active"><a href="/userFront">Home</a>-->
-                    <!--</li>-->
-                    <!--<li><a href="/userFront">Posting</a>-->
-                        <!--<ul>-->
-                            <!--<li><a th:href="@{/account/riderAccount}">Rider</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/account/driverAccount}">Driver</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <!--<li><a href="/userFront">Create Trip</a>-->
-                        <!--<ul>-->
-                            <!--<li><a th:href="@{/booking/riderCreate}">Rider</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/booking/driverCreate}">Driver</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/booking/edit}">Edit Ride</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-
-                    <!--<li><a href="/userFront">Schedule</a>-->
-                        <!--<ul>-->
-                            <!--<li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <!--<li class="pull-right"><a href="/userFront">Setting</a>-->
-                        <!--<ul>-->
-                            <!--<li><a th:href="@{/user/profile}">Profile</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/logout}">Logout</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-        <!--</div>-->
-<!--</div>-->
-
-<!-- Navigation -->
 <div th:fragment="navbar">
     <img class="img-responsive" src="/images/banner.png" alt="banner"/>
 
-    <nav class="navbar navbar-default " role="navigation">
         <div class="container">
-            <div class="navbar-header page-scroll">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand page-scroll" th:href="@{/userFront}">Home</a>
-            </div>
-
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse  navbar-collapse navbar-ex1-collapse">
-                <ul class="nav navbar-nav">
-                    <!-- Hidden li included to remove active class from about link when scrolled up past about section -->
-                    <li class="hidden">
-                        <a class="page-scroll" href="#page-top"></a>
+            <div class="nav">
+                <ul class="slimmenu" id="slimmenu">
+                    <li class="active"><a href="/userFront">Home</a>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Postings <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                    <li><a href="/userFront">Posting</a>
+                        <ul>
                             <li><a th:href="@{/account/riderAccount}">Rider</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/account/driverAccount}">Driver</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Ride <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
-                            <li><a th:href="@{/booking/riderCreate}">Rider Request</a></li>
+                    <li><a href="/userFront">Create Trip</a>
+                        <ul>
+                            <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/booking/driverCreate}">Driver Post</a></li>
+                            <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/booking/edit}">Edit Ride</a></li>
                         </ul>
                     </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+
+                    <li><a href="/userFront">Schedule</a>
+                        <ul>
                             <li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>
                         </ul>
                     </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>
-                        <ul class="dropdown-menu">
+                    <li class="pull-right"><a href="/userFront">Setting</a>
+                        <ul>
                             <li><a th:href="@{/user/profile}">Profile</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/logout}">Logout</a></li>
@@ -156,11 +92,75 @@
                     </li>
                 </ul>
             </div>
-            <!-- /.navbar-collapse -->
         </div>
-        <!-- /.container -->
-    </nav>
 </div>
+
+<!-- Navigation -->
+<!--<div th:fragment="navbar">-->
+    <!--<img class="img-responsive" src="/images/banner.png" alt="banner"/>-->
+
+    <!--<nav class="navbar navbar-default " role="navigation">-->
+        <!--<div class="container">-->
+            <!--<div class="navbar-header page-scroll">-->
+                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">-->
+                    <!--<span class="sr-only">Toggle navigation</span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                    <!--<span class="icon-bar"></span>-->
+                <!--</button>-->
+                <!--<a class="navbar-brand page-scroll" th:href="@{/userFront}">Home</a>-->
+            <!--</div>-->
+
+            <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
+            <!--<div class="collapse  navbar-collapse navbar-ex1-collapse">-->
+                <!--<ul class="nav navbar-nav">-->
+                    <!--&lt;!&ndash; Hidden li included to remove active class from about link when scrolled up past about section &ndash;&gt;-->
+                    <!--<li class="hidden">-->
+                        <!--<a class="page-scroll" href="#page-top"></a>-->
+                    <!--</li>-->
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Postings <span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a th:href="@{/account/riderAccount}">Rider</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/account/driverAccount}">Driver</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Ride <span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a th:href="@{/booking/riderCreate}">Rider Request</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/booking/driverCreate}">Driver Post</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/booking/edit}">Edit Ride</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <!--<ul class="nav navbar-nav navbar-right">-->
+                    <!--<li class="dropdown">-->
+                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>-->
+                        <!--<ul class="dropdown-menu">-->
+                            <!--<li><a th:href="@{/user/profile}">Profile</a></li>-->
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a th:href="@{/logout}">Logout</a></li>-->
+                        <!--</ul>-->
+                    <!--</li>-->
+                <!--</ul>-->
+            <!--</div>-->
+            <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
+        <!--</div>-->
+        <!--&lt;!&ndash; /.container &ndash;&gt;-->
+    <!--</nav>-->
+<!--</div>-->
 
 <div th:fragment="body-bottom-scripts">
     <!-- jQuery -->

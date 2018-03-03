@@ -31,6 +31,8 @@ public class AccountServiceImpl implements AccountService {
         driverAccount.setEmail(user.getEmail());
         driverAccount.setPhone(user.getPhone());
         driverAccount.setUsername(user.getUsername());
+        driverAccount.setFirstName(user.getFirstName());
+        driverAccount.setLastName(user.getLastName());
         driverAccount.setCar(carService.createCar(car));
         driverAccountDao.save(driverAccount);
         return driverAccountDao.findByDriverAccountId(driverAccount.getDriverAccountId());
@@ -42,6 +44,8 @@ public class AccountServiceImpl implements AccountService {
         riderAccount.setEmail(user.getEmail());
         riderAccount.setPhone(user.getPhone());
         riderAccount.setUsername(user.getUsername());
+        riderAccount.setFirstName(user.getFirstName());
+        riderAccount.setLastName(user.getLastName());
         riderAccountDao.save(riderAccount);
         return riderAccountDao.findByRiderAccountId(riderAccount.getRiderAccountId());
     }
