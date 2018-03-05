@@ -241,8 +241,8 @@ public class BookingController {
         }
 
         if (riderAccount != null) {
-            final String driverName = riderAccount.getUsername();
-            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && driverName.equalsIgnoreCase(principal.getName())) {
+            final String riderName = riderAccount.getUsername();
+            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && riderName.equalsIgnoreCase(principal.getName())) {
                 return "driverBookingCancelProgressPage";
             }
         }
