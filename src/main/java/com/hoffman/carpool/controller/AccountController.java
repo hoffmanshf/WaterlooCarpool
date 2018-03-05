@@ -1,9 +1,6 @@
 package com.hoffman.carpool.controller;
 
-import com.hoffman.carpool.domain.BookingReference;
-import com.hoffman.carpool.domain.DriverAccount;
-import com.hoffman.carpool.domain.RiderAccount;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,7 +57,9 @@ public class AccountController {
                 if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
                     reference.setOwner(true);
                 }
-                bookingReferences.add(reference);
+                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
+                    bookingReferences.add(reference);
+                }
             }
         }
         return bookingReferences;
