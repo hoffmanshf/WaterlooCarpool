@@ -13,9 +13,7 @@ import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
+import java.util.*;
 
 @Controller
 @RequestMapping("booking")
@@ -64,6 +62,9 @@ public class BookingController {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
         bookingReference.setRiderAccount(riderAccount);
+        List<RiderAccount> passengerList = new ArrayList<RiderAccount>();
+        passengerList.add(riderAccount);
+        bookingReference.setPassengerList(passengerList);
 
         final String author = riderAccount.getUsername();
         bookingReference.setAuthor(author);
@@ -257,9 +258,17 @@ public class BookingController {
         RiderAccount riderAccount = user.getRiderAccount();
 
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
-        bookingReference.setRiderAccount(riderAccount);
+        int availableSeats = bookingReference.getPassengerNumber();
+        availableSeats -= 1;
+        bookingReference.setPassengerNumber(availableSeats);
+        List<RiderAccount> passengerList = bookingReference.getPassengerList();
+        passengerList.add(riderAccount);
+        bookingReference.setPassengerList(passengerList);
         model.addAttribute("bookingReference", bookingReference);
+
+        if (bookingReference.getPassengerNumber() == 0) {
+            bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
+        }
 
         bookingService.saveBooking(bookingReference);
 

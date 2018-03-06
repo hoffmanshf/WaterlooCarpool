@@ -57,7 +57,8 @@ public class AccountController {
                 if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
                     reference.setOwner(true);
                 }
-                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
+                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) &&
+                        reference.getPassengerNumber() != 0) {
                     bookingReferences.add(reference);
                 }
             }

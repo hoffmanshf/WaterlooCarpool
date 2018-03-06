@@ -92,7 +92,7 @@
                                         <p><td data-th-text="${bookingReference.time}">...</td></p>
                                     </div>
                                     <div class="col-md-3"><span class="booking-item-price">$</span><span class="booking-item-price" data-th-text="${bookingReference.price}">...</span><span>/person</span>
-                                        <p class="booking-item-flight-class">3 seats left</p>
+                                        <p class="booking-item-flight-class"><td data-th-text="${bookingReference.passengerNumber}">...</td> seats left</p>
                                         <a class="btn btn-primary" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">Select</a>
                                         <a class="btn btn-primary" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">Select</a>
                                     </div>

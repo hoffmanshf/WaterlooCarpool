@@ -2,6 +2,7 @@ package com.hoffman.carpool.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class BookingReference {
@@ -17,7 +18,7 @@ public class BookingReference {
     private String month;
     private String time;
 
-    private String passengerNumber;
+    private int passengerNumber;
     private String departureLocation;
     private String arrivalLocation;
     private String paymentMethod;
@@ -36,6 +37,12 @@ public class BookingReference {
     @ManyToOne
     @JoinColumn(name = "rider_account_id")
     private RiderAccount riderAccount;
+    
+    @ManyToMany
+    @JoinTable(name = "PASSENGER_LIST",
+            joinColumns = { @JoinColumn(name = "booking_reference_id") },
+            inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
+    private List<RiderAccount> passengerList;
 
     public long getBookingReferenceId() {
         return bookingReferenceId;
@@ -91,14 +98,6 @@ public class BookingReference {
 
     public void setTime(String time) {
         this.time = time;
-    }
-
-    public String getPassengerNumber() {
-        return passengerNumber;
-    }
-
-    public void setPassengerNumber(String passengerNumber) {
-        this.passengerNumber = passengerNumber;
     }
 
     public String getDepartureLocation() {
@@ -165,6 +164,14 @@ public class BookingReference {
         this.riderAccount = riderAccount;
     }
 
+    public List<RiderAccount> getPassengerList() {
+        return passengerList;
+    }
+
+    public void setPassengerList(List<RiderAccount> passengerList) {
+        this.passengerList = passengerList;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -179,5 +186,13 @@ public class BookingReference {
 
     public void setOwner(Boolean owner) {
         this.owner = owner;
+    }
+
+    public int getPassengerNumber() {
+        return passengerNumber;
+    }
+
+    public void setPassengerNumber(int passengerNumber) {
+        this.passengerNumber = passengerNumber;
     }
 }
