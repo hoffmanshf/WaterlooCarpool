@@ -19,8 +19,8 @@ public class BookingReference {
     private String time;
 
     private int passengerNumber;
-    private String departureLocation;
-    private String arrivalLocation;
+    private String departure;
+    private String arrival;
     private String paymentMethod;
     private String price;
     private String notes;
@@ -100,20 +100,20 @@ public class BookingReference {
         this.time = time;
     }
 
-    public String getDepartureLocation() {
-        return departureLocation;
+    public String getDeparture() {
+        return departure;
     }
 
-    public void setDepartureLocation(String departureLocation) {
-        this.departureLocation = departureLocation;
+    public void setDeparture(String departure) {
+        this.departure = departure;
     }
 
-    public String getArrivalLocation() {
-        return arrivalLocation;
+    public String getArrival() {
+        return arrival;
     }
 
-    public void setArrivalLocation(String arrivalLocation) {
-        this.arrivalLocation = arrivalLocation;
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
     }
 
     public String getPaymentMethod() {

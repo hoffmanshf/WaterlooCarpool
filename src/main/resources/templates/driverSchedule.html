@@ -54,8 +54,8 @@
             <tr data-th-each="bookingReference : ${bookingReferences}">
                 <td data-th-text="${bookingReference.date}">...</td>
                 <th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>
-                <td data-th-text="${bookingReference.departureLocation}">...</td>
-                <td data-th-text="${bookingReference.arrivalLocation}">...</td>
+                <td data-th-text="${bookingReference.departure}">...</td>
+                <td data-th-text="${bookingReference.arrival}">...</td>
                 <td data-th-text="${bookingReference.passengerNumber}">...</td>
                 <td data-th-text="${bookingReference.price}">...</td>
                 <td data-th-text="${bookingReference.paymentMethod}">...</td>

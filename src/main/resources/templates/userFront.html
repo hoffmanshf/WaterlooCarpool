@@ -1,260 +1,244 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
-<style>
-    html {
-        background: url("/images/bg.png") no-repeat center center fixed;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
-    }
-</style>
+<!--<style>-->
+    <!--html {-->
+        <!--background: url("/images/bg.png") no-repeat center center fixed;-->
+        <!-- -webkit-background-size: cover;-->
+        <!-- -moz-background-size: cover;-->
+        <!-- -o-background-size: cover;-->
+        <!--background-size: cover;-->
+    <!--}-->
+<!--</style>-->
 <head th:replace="common/header :: common-header"/>
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
-<div class="container main">
-    <div class="row">
-        <div class="col-lg-12">
-        </div>
-    </div>
-    <br/>
-    <!-- /.row -->
-    <div class="row m-b">
+<!-- FACEBOOK WIDGET -->
+<div id="fb-root"></div>
 
-        <div class="bg-light">
-            <div class="col-md-6">
-                <section class="panel panel-default">
-                    <header class="panel-heading bg-light no-border">
-                        <div class="clearfix">
-                            <a href="#" class="pull-left thumb-md avatar b-3x m-r">
-                                <img src="images/a1.png"/>
-                            </a>
-                            <div class="clear">
-                                <div class="h3 m-t-xs m-b-xs">
-                                    h57song
+<!-- /FACEBOOK WIDGET -->
+<div class="global-wrap">
+
+    <!-- TOP AREA -->
+    <div class="top-area show-onload">
+        <div class="bg-holder full">
+            <div class="bg-mask"></div>
+            <div class="bg-parallax" style="background-image:url(/images/bg.png);"></div>
+            <div class="bg-content">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-md-8">
+                            <div class="search-tabs search-tabs-bg mt50">
+                                <div class="gap"></div>
+                                <div class="gap"></div>
+                                <h1>Find Your Perfect Trip</h1>
+                                <div class="gap gap-small"></div>
+                                <div class="tabbable">
+                                    <ul class="nav nav-tabs" id="myTab">
+                                        <li class="active"><a href="#tab-1" data-toggle="tab"><i class="fa fa-car"></i> <span >One Way</span></a>
+                                        </li>
+                                        <li><a href="#tab-2" data-toggle="tab"><i class="fa fa-car"></i> <span >Round Trip</span></a>
+                                        </li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div class="tab-pane fade in active" id="tab-1">
+                                            <h2>Search for One Way Trip</h2>
+                                            <form>
+                                                <div class="tabbable">
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade in active" id="flight-search-1">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                                                                        <label>Pick-up Location</label>
+                                                                        <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                                                                        <label>Drop-off Location</label>
+                                                                        <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group form-group-icon-left" id="sandbox-container"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                                        <label>Travel Date</label>
+                                                                        <input class="form-control" type="text"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary btn-lg" type="submit">Search for trip</button>
+                                            </form>
+                                        </div>
+                                        <div class="tab-pane fade" id="tab-2">
+                                            <h2>Search for Round Trip</h2>
+                                            <form>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                                                            <label>Pick-up Location</label>
+                                                            <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                                                            <label>Drop-off Location</label>
+                                                            <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-icon-left" id="sandbox-container2"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                            <label>Departing</label>
+                                                            <input class="form-control" type="text"/>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="form-group form-group-icon-left" id="sandbox-container3"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                            <label>Returning</label>
+                                                            <input class="form-control" type="text"/>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary btn-lg" type="submit">Search for trip</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <small class="text-muted">Welcome</small>
                             </div>
                         </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- END TOP AREA  -->
+    <div class="gap"></div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-md-4">
+                    <header class="thumb-header"><i class="fa fa-briefcase box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
                     </header>
-                    <div class="list-group no-radius alt">
-                        <a class="list-group-item" href="#">
-                            <span class="badge bg-success">25</span>
-                            <i class="fa fa-comment icon-muted"></i>
-                            Messages
-                        </a>
-                        <a class="list-group-item" href="#">
-                            <span class="badge bg-info">16</span>
-                            <i class="fa fa-envelope icon-muted"></i>
-                            Inbox
-                        </a>
-                    </div>
-                </section>
+                    <h4 class="title">Business Trip</h4>
+                    <p>Sample HTML page with Twitter's Bootstrap. Code example of Easy Sticky Footer using HTML, Javascript, jQuery, and CSS. This bootstrap tutorial covers all the major elements of responsive</p>
+
+            </div>
+
+            <div class="col-md-4">
+                    <header class="thumb-header"><i class="fa fa-thumbs-o-up box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                    </header>
+                <h4 class="title">Best Carpool Agent</h4>
+                <p>Sample HTML page with Twitter's Bootstrap. Code example of Easy Sticky Footer using HTML, Javascript, jQuery, and CSS. This bootstrap tutorial covers all the major elements of responsive</p>
+            </div>
+
+            <div class="col-md-4">
+                    <header class="thumb-header"><i class="fa fa-lock box-icon-md round box-icon-black animate-icon-top-to-bottom"></i>
+                    </header>
+                <h4 class="title">Trust and Safety</h4>
+                <p>Sample HTML page with Twitter's Bootstrap. Code example of Easy Sticky Footer using HTML, Javascript, jQuery, and CSS. This bootstrap tutorial covers all the major elements of responsive</p>
+
             </div>
         </div>
+        <div class="gap"></div>
 
-        <div class="col-md-6">
-            <div class="panel b-a">
-                <div class="row m-n">
-                    <div class="col-md-6 b-b b-r">
-                        <a th:href="@{/account/riderAccount}" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-success-lt hover-rotate"></i>
-                                <i class="i i-users2 i-sm text-white"></i>
-                              </span>
-                            <span class="clear">
-                                <span class="h3 block m-t-xs text-success">2,000</span>
-                                <small class="text-muted text-u-c">Rider Posting</small>
-                              </span>
-                        </a>
-                    </div>
-                    <div class="col-md-6 b-b">
-                        <a th:href="@{/booking/riderCreate}" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-danger hover-rotate"></i>
-                                <i class="i i-plus2 i-1x text-white"></i>
-                              </span>
-                            <span class="clear">
-                                <span class="h3 block m-t-xs text-danger">Trip</span>
-                                <small class="text-muted text-u-c">As Rider</small>
-                              </span>
-                        </a>
-                    </div>
-                    <div class="col-md-6 b-b b-r">
-                        <a th:href="@{/account/driverAccount}" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-info hover-rotate"></i>
-                                <i class="i i-location i-sm text-white"></i>
-                              </span>
-                            <span class="clear">
-                                <span class="h3 block m-t-xs text-info">1,800</span>
-                                <small class="text-muted text-u-c">Driver Posting</small>
-                              </span>
-                        </a>
-                    </div>
-                    <div class="col-md-6 b-b">
-                        <a th:href="@{/booking/driverCreate}" class="block padder-v hover">
-                              <span class="i-s i-s-2x pull-left m-r-sm">
-                                <i class="i i-hexagon2 i-s-base text-primary hover-rotate"></i>
-                                <i class="i i-plus2 i-sm text-white"></i>
-                              </span>
-                            <span class="clear">
-                                <span class="h3 block m-t-xs text-primary">Drive</span>
-                                <small class="text-muted text-u-c">As Driver</small>
-                              </span>
-                        </a>
-                    </div>
+    </div>
+
+    <div class="bg-holder">
+        <div class="bg-mask"></div>
+        <div class="bg-img" style="background-image:url(images/bmw.jpg);"></div>
+        <div class="bg-content">
+            <div class="container">
+                <div class="gap gap-big text-center text-white">
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                    <div class="gap gap-small"></div>
+
+                    <h5 class="last-minute-title">North York - Waterloo</h5>
+                    <p class="last-minute-date">Fri 14 Mar - Sun 16 Mar</p>
+                    <p class="last-minute-date">$20 / person</p>
+                    <!--<p class="mb20"><b>$25</b> / person</p>-->
+                    <!--<a class="btn btn-lg btn-white btn-ghost" href="#">Book Now <i class="fa fa-angle-right"></i></a>-->
+                    <div class="gap"></div>
+                    <div class="gap"></div>
+                    <div class="gap"></div>
                 </div>
             </div>
         </div>
     </div>
-    <!-- /.row -->
 
-    <!-- /.row -->
-    <div class="row">
-        <div class="col-sm-4 col-md-4">
-            <section class="panel b-a">
-                <div class="panel-heading no-border bg-primary lt">
-                    <span class="pull-right badge dk m-t-sm">36</span>
-                    <a href="#" class="h4 text-lt m-t-sm m-b-sm block font-bold">Posting Statistics</a>
-                </div>
-                <div class="panel-body">
-                    <div id="b-c" class="text-center">
-                        <div class="easypiechart inline m-b m-t" data-percent="12" data-line-width="10" data-bar-Color="#afc5de" data-track-Color="#f2f4f8" data-scale-Color="false" data-size="150" data-line-cap='butt' data-animate="2000">
-                            <div>
-                                <span class="h1 m-l-sm step font-bold"></span>%
-                                <div class="text text-xs text-muted">completed</div>
+    <div class="container">
+        <div class="gap"></div>
+        <h2 class="text-center">Top Destinations</h2>
+        <div class="gap">
+            <div class="row row-wrap">
+                <div class="col-md-3">
+                        <header class="thumb-header">
+                                <img src="/images/toronto.png" alt="Image Alternative text" title="196_365" />
+                        </header>
+
+                        <div class="thumb-caption">
+                            <h4 class="thumb-title"><a class="text-darken" href="#">Toronto</a></h4>
+                            <div class="thumb-caption">
+                                <p class="thumb-desc">Nullam potenti ac sagittis iaculis justo</p>
                             </div>
+                        </div>
+                </div>
+                <div class="col-md-3">
+                    <header class="thumb-header">
+                        <img src="/images/waterloo.jpg" alt="Image Alternative text" title="196_365" />
+                    </header>
+
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title"><a class="text-darken" href="#">Waterloo</a></h4>
+                        <div class="thumb-caption">
+                            <p class="thumb-desc">Nullam potenti ac sagittis iaculis justo</p>
                         </div>
                     </div>
-                    <div class="row text-center m-t">
-                        <div class="col-xs-6">
-                            <p>Pending</p>
-                            <h3 class="font-thin">12</h3>
-                        </div>
-                        <div class="col-xs-6">
-                            <p>In-Progress</p>
-                            <h3 class="font-thin">20</h3>
+                </div>
+                <div class="col-md-3">
+                    <header class="thumb-header">
+                        <img src="/images/kingston.jpg" alt="Image Alternative text" title="196_365" />
+                    </header>
+
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title"><a class="text-darken" href="#">Kingston</a></h4>
+                        <div class="thumb-caption">
+                            <p class="thumb-desc">Nullam potenti ac sagittis iaculis justo</p>
                         </div>
                     </div>
                 </div>
-            </section>
-        </div>
+                <div class="col-md-3">
+                    <header class="thumb-header">
+                        <img src="/images/guelph.jpg" alt="Image Alternative text" title="196_365" />
+                    </header>
 
-        <div class="col-sm-4 col-md-4">
-            <section class="panel b-a">
-                <div class="panel-heading b-b">
-                    <span class="badge bg-warning pull-right">10</span>
-                    <div class="font-bold">New Posts</div>
-                </div>
-                <ul class="list-group list-group-lg no-bg auto">
-                    <a href="#" class="list-group-item clearfix">
-                        <span class="pull-left thumb-sm avatar m-r">
-                            <img src="images/a4.png" alt="..."/>
-                            <i class="rider b-white bottom"></i>
-                        </span>
-                        <span class="clear">
-                            <span>Chris Fox</span>
-                            <small class="text-muted clear text-ellipsis">Toronto to Waterloo 2017-03-22 12:00</small>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item clearfix">
-                        <span class="pull-left thumb-sm avatar m-r">
-                            <img src="images/a5.png" alt="..."/>
-                            <i class="rider b-white bottom"></i>
-                        </span>
-                        <span class="clear">
-                            <span>Amanda Conlan</span>
-                            <small class="text-muted clear text-ellipsis">Toronto to Markham 2017-03-22 12:00</small>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item clearfix">
-                        <span class="pull-left thumb-sm avatar m-r">
-                            <img src="images/a6.png" alt="..."/>
-                            <i class="driver b-white bottom"></i>
-                        </span>
-                        <span class="clear">
-                            <span>Dan Doorack</span>
-                            <small class="text-muted clear text-ellipsis">Toronto to North York 2017-03-22 12:00</small>
-                        </span>
-                    </a>
-                    <a href="#" class="list-group-item clearfix">
-                        <span class="pull-left thumb-sm avatar m-r">
-                            <img src="images/a7.png" alt="..."/>
-                            <i class="driver b-white bottom"></i>
-                        </span>
-                        <span class="clear">
-                            <span>Lauren Taylor</span>
-                            <small class="text-muted clear text-ellipsis">Waterloo to Kingston 2017-03-22 12:00</small>
-                        </span>
-                    </a>
-                    <footer class="footer hidden-xs no-padder text-center-nav-xs">
-                        <a href="modal.lockme.html" data-toggle="ajaxModal" class="btn btn-icon icon-muted btn-inactive pull-right m-l-xs m-r-xs hidden-nav-xs">
-                            <i class="i i-logout"></i>
-                        </a>
-                        <a href="#nav" data-toggle="class:nav-xs" class="btn btn-icon icon-muted btn-inactive m-l-xs m-r-xs">
-                            <i class="i i-circleleft text"></i>
-                            <i class="i i-circleright text-active"></i>
-                        </a>
-                    </footer>
-                </ul>
-            </section>
-        </div>
-
-        <div class="col-md-4">
-            <section class="panel b-a">
-                <div class="panel-heading b-b">
-                    <div class="font-bold">Waterloo Weather</div>
-                </div>
-                <a class="weatherwidget-io" href="https://forecast7.com/en/43d46n80d52/waterloo/" data-font="Arial" data-days="5" data-theme="clear" data-basecolor="#ffffff" >WATERLOO ON</a>
-            </section>
-                <!-- .crousel slide -->
-                <section class="panel panel-default">
-                    <div class="carousel slide auto panel-body" id="c-slide">
-                        <ol class="carousel-indicators out">
-                            <li data-target="#c-slide" data-slide-to="0" class="active"></li>
-                            <li data-target="#c-slide" data-slide-to="1" class=""></li>
-                            <li data-target="#c-slide" data-slide-to="2" class=""></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            <div class="item active">
-                                <p class="text-center">
-
-                                    <em class="h4 text-mute">Waterloo Carpool</em><br/>
-                                    <small class="text-muted">Copyright © 2018</small>
-                                </p>
-                            </div>
-                            <div class="item">
-                                <p class="text-center">
-                                    <em class="h4 text-mute">Beta Version</em><br/>
-                                    <small class="text-muted">1.0.0</small>
-                                </p>
-                            </div>
-                            <div class="item">
-                                <p class="text-center">
-                                    <em class="h4 text-mute">Powered by</em><br/>
-                                    <small class="text-muted">Spring Framework</small>
-                                </p>
-                            </div>
+                    <div class="thumb-caption">
+                        <h4 class="thumb-title"><a class="text-darken" href="#">Guelph</a></h4>
+                        <div class="thumb-caption">
+                            <p class="thumb-desc">Nullam potenti ac sagittis iaculis justo</p>
                         </div>
-                        <a class="left carousel-control" href="#c-slide" data-slide="prev">
-                            <i class="fa fa-angle-left"></i>
-                        </a>
-                        <a class="right carousel-control" href="#c-slide" data-slide="next">
-                            <i class="fa fa-angle-right"></i>
-                        </a>
                     </div>
-                </section>
-                <!-- / .carousel slide -->
+                </div>
+            </div>
         </div>
+
+        <div class="gap"></div>
     </div>
-    <!-- /.row -->
+
+
 </div>
-
+<div th:replace="common/header :: footer"/>
 
 <div th:replace="common/header :: body-bottom-scripts"/>
-<script>
-    !function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src='https://weatherwidget.io/js/widget.min.js';fjs.parentNode.insertBefore(js,fjs);}}(document,'script','weatherwidget-io-js');
-</script>
 </body>
 </html>

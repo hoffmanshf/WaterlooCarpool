@@ -60,33 +60,35 @@
                 <ul class="slimmenu" id="slimmenu">
                     <li class="active"><a href="/userFront">Home</a>
                     </li>
-                    <li><a href="/userFront">Posting</a>
+                    <li><a>Trip Post</a>
                         <ul>
                             <li><a th:href="@{/account/riderAccount}">Rider</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/account/driverAccount}">Driver</a></li>
                         </ul>
                     </li>
-                    <li><a href="/userFront">Create Trip</a>
+                    <li><a>Create Trip</a>
                         <ul>
                             <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/booking/edit}">Edit Ride</a></li>
+                            <li><a th:href="@{/booking/edit}">Edit Trip</a></li>
                         </ul>
                     </li>
 
-                    <li><a href="/userFront">Schedule</a>
+                    <li><a>Driver Pro</a>
                         <ul>
-                            <li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>
+                            <li><a href="#">Travel Notes </a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>
+                            <li><a href="#">Schedule </a></li>
                         </ul>
                     </li>
-                    <li class="pull-right"><a href="/userFront">Setting</a>
+                    <li class="pull-right"><a>Me</a>
                         <ul>
-                            <li><a th:href="@{/user/profile}">Profile</a></li>
+                            <li><a th:href="@{/user/profile}">Setting</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li><a href="#">Booking</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>
@@ -96,72 +98,83 @@
         </div>
 </div>
 
-<!-- Navigation -->
-<!--<div th:fragment="navbar">-->
-    <!--<img class="img-responsive" src="/images/banner.png" alt="banner"/>-->
+<div th:fragment="footer">
+    <footer class="nb-footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="about">
+                        <div class="social-media">
+                            <ul class="list-inline">
+                                <li><a href="#" title=""><i class="fa fa-facebook"></i></a></li>
+                                <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                <li><a href="#" title=""><i class="fa fa-google-plus"></i></a></li>
+                                <li><a href="#" title=""><i class="fa fa-linkedin"></i></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
 
-    <!--<nav class="navbar navbar-default " role="navigation">-->
-        <!--<div class="container">-->
-            <!--<div class="navbar-header page-scroll">-->
-                <!--<button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">-->
-                    <!--<span class="sr-only">Toggle navigation</span>-->
-                    <!--<span class="icon-bar"></span>-->
-                    <!--<span class="icon-bar"></span>-->
-                    <!--<span class="icon-bar"></span>-->
-                <!--</button>-->
-                <!--<a class="navbar-brand page-scroll" th:href="@{/userFront}">Home</a>-->
-            <!--</div>-->
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">Help Center</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> How to Pay</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> FAQ's</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Sitemap</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Delivery Info</a></li>
+                        </ul>
+                    </div>
+                </div>
 
-            <!--&lt;!&ndash; Collect the nav links, forms, and other content for toggling &ndash;&gt;-->
-            <!--<div class="collapse  navbar-collapse navbar-ex1-collapse">-->
-                <!--<ul class="nav navbar-nav">-->
-                    <!--&lt;!&ndash; Hidden li included to remove active class from about link when scrolled up past about section &ndash;&gt;-->
-                    <!--<li class="hidden">-->
-                        <!--<a class="page-scroll" href="#page-top"></a>-->
-                    <!--</li>-->
-                    <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Postings <span class="caret"></span></a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a th:href="@{/account/riderAccount}">Rider</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/account/driverAccount}">Driver</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Create Ride <span class="caret"></span></a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a th:href="@{/booking/riderCreate}">Rider Request</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/booking/driverCreate}">Driver Post</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/booking/edit}">Edit Ride</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Schedule <span class="caret"></span></a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a th:href="@{/schedule/ride}">View My Ride Schedule </a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/schedule/drive}">View My Drive Schedule </a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                <!--</ul>-->
-                <!--<ul class="nav navbar-nav navbar-right">-->
-                    <!--<li class="dropdown">-->
-                        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Me <span class="caret"></span></a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li><a th:href="@{/user/profile}">Profile</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/logout}">Logout</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</div>-->
-            <!--&lt;!&ndash; /.navbar-collapse &ndash;&gt;-->
-        <!--</div>-->
-        <!--&lt;!&ndash; /.container &ndash;&gt;-->
-    <!--</nav>-->
-<!--</div>-->
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">Customer information</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> About Us</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> FAQ's</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Sell Your Items</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Contact Us</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> RSS</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">Security and privacy</h2>
+                        <ul class="list-unstyled">
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Terms Of Use</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Privacy Policy</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Return / Refund Policy</a></li>
+                            <li><a href="#" title=""><i class="fa fa-angle-double-right"></i> Store Locations</a></li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-info-single">
+                        <h2 class="title">Payment</h2>
+                        <p>Sample HTML page with Twitter's Bootstrap. Code example of Easy Sticky Footer using HTML, Javascript, jQuery, and CSS. This bootstrap tutorial covers all the major elements of responsive</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="copyright">
+            <div class="container">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <p>Copyright © 2018. Waterloo Carpool.</p>
+                    </div>
+                    <div class="col-sm-6"></div>
+                </div>
+            </div>
+        </section>
+    </footer>
+
+</div>
 
 <div th:fragment="body-bottom-scripts">
     <!-- jQuery -->

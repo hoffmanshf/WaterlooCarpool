@@ -20,12 +20,12 @@
         <div class="col-md-3">
             <form class="booking-item-dates-change mb30">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                    <label>From</label>
-                    <input class="typeahead form-control" placeholder="Departure" type="text" />
+                    <label>Pick-up Location</label>
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
                 </div>
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                    <label>To</label>
-                    <input class="typeahead form-control" placeholder="Arrival" type="text" />
+                    <label>Drop-off Location</label>
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
                 </div>
                 <div class="form-group form-group-icon-left" id="sandbox-container"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                     <label>Travel Date</label>
@@ -79,11 +79,11 @@
                                         <div class="booking-item-flight-details">
                                             <div class="booking-item-departure">
                                                 <h4>Departure</h4>
-                                                <td data-th-text="${bookingReference.departureLocation}">...</td>
+                                                <td data-th-text="${bookingReference.departure}">...</td>
                                             </div>
                                             <div class="booking-item-arrival">
                                                 <h4>Arrival</h4>
-                                                <td data-th-text="${bookingReference.arrivalLocation}">...</td>
+                                                <td data-th-text="${bookingReference.arrival}">...</td>
                                             </div>
                                         </div>
                                     </div>
@@ -103,8 +103,8 @@
                                     <div class="col-md-8">
                                         <h5 class="list-title">Trip Details</h5>
                                         <ul class="list">
-                                            <li>Leaving from: <td data-th-text="${bookingReference.departureLocation}">...</td></li>
-                                            <li>Destination: <td data-th-text="${bookingReference.arrivalLocation}">...</td></li>
+                                            <li>Leaving from: <td data-th-text="${bookingReference.departure}">...</td></li>
+                                            <li>Destination: <td data-th-text="${bookingReference.arrival}">...</td></li>
                                             <li>Travel Time: <td data-th-text="${bookingReference.date}">...</td></li>
                                             <li>Payment Method: <td data-th-text="${bookingReference.paymentMethod}">...</td></li>
                                         </ul>

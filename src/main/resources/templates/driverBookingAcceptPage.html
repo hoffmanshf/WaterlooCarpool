@@ -88,13 +88,13 @@
                         <ul>
                             <li>
                                 <h5>Pick Up:</h5>
-                                <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.departureLocation}">...</td></p>
+                                <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.departure}">...</td></p>
                                 <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>
                                 <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.time}">...</td></p>
                             </li>
                             <li>
                                 <h5>Drop Off:</h5>
-                                <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.arrivalLocation}">...</td></p>
+                                <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.arrival}">...</td></p>
                                 <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>
                                 <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>
                             </li>
@@ -122,8 +122,8 @@
     }
 
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
-        var depart = /*[[${bookingReference.departureLocation}]]*/ 'departure';
-        var arrive = /*[[${bookingReference.arrivalLocation}]]*/ 'arrival';
+        var depart = /*[[${bookingReference.departure}]]*/ 'departure';
+        var arrive = /*[[${bookingReference.arrival}]]*/ 'arrival';
 
         directionsService.route({
             origin: depart,

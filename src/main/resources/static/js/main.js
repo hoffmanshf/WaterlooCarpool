@@ -694,8 +694,6 @@ $('div.bg-parallax').each(function() {
 
 
 
-$(document).ready(
-    function() {
 
         $('html').niceScroll({
             cursorcolor: "#000",
@@ -749,10 +747,6 @@ $(document).ready(
         if (footerTop < docHeight) {
             $('#main-footer').css('margin-top', (docHeight - footerTop) + 'px');
         }
-    }
-
-
-);
 
 
 $('.nav-drop').dropit();
