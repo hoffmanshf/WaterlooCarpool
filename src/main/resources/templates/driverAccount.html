@@ -18,14 +18,14 @@
     <div class="row">
         <br/>
         <div class="col-md-3">
-            <form class="booking-item-dates-change mb30">
+            <form class="booking-item-dates-change mb30" th:action="@{/account/driverAccount/searchPassenger}" method="get">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Pick-up Location</label>
-                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="departure"/>
                 </div>
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Drop-off Location</label>
-                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="arrival"/>
                 </div>
                 <div class="form-group form-group-icon-left" id="sandbox-container"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                     <label>Travel Date</label>

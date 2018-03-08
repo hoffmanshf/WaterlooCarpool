@@ -67,6 +67,28 @@ public class AccountController {
 
     }
 
+    @RequestMapping(value = "/driverAccount/searchPassenger", method = RequestMethod.GET)
+    public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival, @RequestParam(value = "departure") String departure, @RequestParam(value = "date") String date, @RequestParam(value = "passengerNumber") int passengerNumber, Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        DriverAccount driverAccount = user.getDriverAccount();
+
+        // arrival and departure are encoded in frontend and automatically decoded in backend
+        List<BookingReference> bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+        bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
+
+        List<BookingReference> filteredBookingReferences = new ArrayList<BookingReference>();
+        for (final BookingReference reference: bookingReferences) {
+            if (passengerNumber <= reference.getPassengerNumber()) {
+                filteredBookingReferences.add(reference);
+            }
+        }
+
+        model.addAttribute("driverAccount", driverAccount);
+        model.addAttribute("bookingReferences", filteredBookingReferences);
+        return "driverAccount";
+
+    }
+
     private List<BookingReference> BookingReferenceProcessor(final String accountType, final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
