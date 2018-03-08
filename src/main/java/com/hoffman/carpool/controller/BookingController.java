@@ -10,9 +10,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.*;
 
 @Controller
 @RequestMapping("booking")
@@ -20,6 +21,9 @@ public class BookingController {
 
     private static final String riderAccountType = "riderAccount";
     private static final String driverAccountType = "driverAccount";
+    private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
+    private static final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+
 
     @Autowired
     private BookingService bookingService;
@@ -39,22 +43,28 @@ public class BookingController {
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
     public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date date = null;
+        Date date = StringToDateConverter(source);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        String month = monthNames[calendar.get(Calendar.MONTH)];
+        String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+        String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
 
-        try {
-            if (!source.isEmpty() && source != null) {
-                date = format.parse(source);
-            }
-        } catch (ParseException e) {
-            throw new UServiceException("TXN_101","", "Date parse error", e);
-        }
+        String time = DateToTimeConverter(date);
+
+        bookingReference.setDayOfMonth(dayOfMonth);
+        bookingReference.setDayOfWeek(dayOfWeek);
+        bookingReference.setMonth(month);
         bookingReference.setDate(date);
+        bookingReference.setTime(time);
         bookingReference.setAccountType(riderAccountType);
 
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
         bookingReference.setRiderAccount(riderAccount);
+        List<RiderAccount> passengerList = new ArrayList<RiderAccount>();
+        passengerList.add(riderAccount);
+        bookingReference.setPassengerList(passengerList);
 
         final String author = riderAccount.getUsername();
         bookingReference.setAuthor(author);
@@ -77,17 +87,24 @@ public class BookingController {
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
     public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
 
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-        Date date = null;
+        Date date = StringToDateConverter(source);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
+        String month = monthNames[calendar.get(Calendar.MONTH)];
+        String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
+        String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
 
-        try {
-            if (!source.isEmpty() && source != null) {
-                date = format.parse(source);
-            }
-        } catch (ParseException e) {
-            throw new UServiceException("TXN_101","", "Date parse error", e);
-        }
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateForSearch = formatter.format(date);
+
+        String time = DateToTimeConverter(date);
+
+        bookingReference.setDayOfMonth(dayOfMonth);
+        bookingReference.setDayOfWeek(dayOfWeek);
+        bookingReference.setMonth(month);
         bookingReference.setDate(date);
+        bookingReference.setTime(time);
+        bookingReference.setDateForSearch(dateForSearch);
         bookingReference.setAccountType(driverAccountType);
 
         User user = userService.findByUsername(principal.getName());
@@ -100,6 +117,29 @@ public class BookingController {
 
         bookingService.createBooking(bookingReference);
         return "redirect:/userFront";
+    }
+
+    private Date StringToDateConverter(final String source) {
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        Date date = null;
+
+        try {
+            if (!source.isEmpty() && source != null) {
+                date = format.parse(source);
+            }
+        } catch (ParseException e) {
+            throw new UServiceException("TXN_101","", "Date parse error", e);
+        }
+        return date;
+    }
+
+    private String DateToTimeConverter(final Date date) {
+
+        String time = null;
+        if (date != null) {
+            time = DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
+        }
+        return time;
     }
 
     @RequestMapping(value="/info", method = RequestMethod.GET)
@@ -206,8 +246,8 @@ public class BookingController {
         }
 
         if (riderAccount != null) {
-            final String driverName = riderAccount.getUsername();
-            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && driverName.equalsIgnoreCase(principal.getName())) {
+            final String riderName = riderAccount.getUsername();
+            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && riderName.equalsIgnoreCase(principal.getName())) {
                 return "driverBookingCancelProgressPage";
             }
         }
@@ -222,9 +262,17 @@ public class BookingController {
         RiderAccount riderAccount = user.getRiderAccount();
 
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
-        bookingReference.setRiderAccount(riderAccount);
+        int availableSeats = bookingReference.getPassengerNumber();
+        availableSeats -= 1;
+        bookingReference.setPassengerNumber(availableSeats);
+        List<RiderAccount> passengerList = bookingReference.getPassengerList();
+        passengerList.add(riderAccount);
+        bookingReference.setPassengerList(passengerList);
         model.addAttribute("bookingReference", bookingReference);
+
+        if (bookingReference.getPassengerNumber() == 0) {
+            bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
+        }
 
         bookingService.saveBooking(bookingReference);
 

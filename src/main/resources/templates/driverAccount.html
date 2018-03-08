@@ -1,87 +1,148 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <style>
-    html {
-        background-color: #f3f4f5;
-        -webkit-background-size: cover;
-        -moz-background-size: cover;
-        -o-background-size: cover;
-        background-size: cover;
+    .booking-item-airline-logo > p {
+        margin-bottom: 0;
+        font-size: 12px;
+        margin-top: 5px;
+        line-height: 1.3em;
+    }
+    .booking-item-airline-logo > img {
+        width: 40px;
     }
 </style>
 <head th:replace="common/header :: common-header"/>
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
-    <!-- /.row -->
     <div class="row">
-        <div class="col-lg-6 col-md-6">
-        </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="panel panel-success">
-                <div class="panel-heading">
-                    <div class="row">
-                        <a th:href="@{/account/driverAccount}">
-                            <div class="col-xs-8">
-                                <h2>Hi
-                                <td data-th-text="${driverAccount.username}">...</td></h2>
-                            </div>
-                            <div class="col-xs-4 text-right">
-                                <h1><i class="fa fa-car" aria-hidden="true"></i></h1>
-                            </div>
-                        </a>
+        <br/>
+        <div class="col-md-3">
+            <form class="booking-item-dates-change mb30">
+                <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label>Pick-up Location</label>
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                </div>
+                <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label>Drop-off Location</label>
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                </div>
+                <div class="form-group form-group-icon-left" id="sandbox-container"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                    <label>Travel Date</label>
+                    <input type="text" class="form-control" name="date"/>
+
+                </div>
+                <div class="form-group form-group-select-plus">
+                    <label>Passengers</label>
+                    <div class="cols-sm-5">
+                        <input type="text" class="slider slider-horizontal form-control" value=""
+                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
+                               name="passengerNumber" id="passengerNumber"/>
                     </div>
                 </div>
-                <a th:href="@{/booking/driverCreate}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Create new trip as Driver</span>
-                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
-            </div>
+                <input class="btn btn-primary" type="submit" value="Upadte Search" />
+            </form>
+            <br/>
+            <br/>
         </div>
-    </div>
-    <!-- /.row -->
-
-    <div class="table-responsive">
-        <table id="example" class="table table-bordered table-hover table-striped">
-            <thead>
-            <tr>
-                <th>Travel Date</th>
-                <th>User</th>
-                <th>Departure</th>
-                <th>Arrival</th>
-                <th>Passenger</th>
-                <th>Price per-seat</th>
-                <th>Payment Method</th>
-                <th>Notes</th>
-                <th>Status</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-th-each="bookingReference : ${bookingReferences}">
-                <td data-th-text="${bookingReference.date}">...</td>
-                <th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>
-                <td data-th-text="${bookingReference.departureLocation}">...</td>
-                <td data-th-text="${bookingReference.arrivalLocation}">...</td>
-                <td data-th-text="${bookingReference.passengerNumber}">...</td>
-                <td data-th-text="${bookingReference.price}">...</td>
-                <td data-th-text="${bookingReference.paymentMethod}">...</td>
-                <td data-th-text="${bookingReference.notes}">...</td>
-                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
-                    <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
-            </tr>
-            </tbody>
-        </table>
+        <div class="col-md-9">
+            <!--<div class="nav-drop booking-sort">-->
+            <!--<h5 class="booking-sort-title"><a href="#">Sort: Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>-->
+            <!--<ul class="nav-drop-menu">-->
+            <!--<li><a href="#">Price (high to low)</a>-->
+            <!--</li>-->
+            <!--<li><a href="#">Duration</a>-->
+            <!--</li>-->
+            <!--<li><a href="#">Stops</a>-->
+            <!--</li>-->
+            <!--<li><a href="#">Arrival</a>-->
+            <!--</li>-->
+            <!--<li><a href="#">Departure</a>-->
+            <!--</li>-->
+            <!--</ul>-->
+            <!--</div>-->
+            <ul class="booking-list">
+                <tr data-th-each="bookingReference : ${bookingReferences}">
+                    <li>
+                        <div class="booking-item-container">
+                            <div class="booking-item">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="pull-left thumb-md avatar b-3x m-r booking-item-airline-logo">
+                                            <img src="/images/a1.png" />
+                                            <div class="p m-t-xs m-b-xs m-l-xs">
+                                                <td data-th-text="${bookingReference.author}">...</td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="booking-item-flight-details">
+                                            <div class="booking-item-departure">
+                                                <h4>Departure</h4>
+                                                <td data-th-text="${bookingReference.departure}">...</td>
+                                            </div>
+                                            <div class="booking-item-arrival">
+                                                <h4>Arrival</h4>
+                                                <td data-th-text="${bookingReference.arrival}">...</td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></h5>
+                                        <p><td data-th-text="${bookingReference.time}">...</td></p>
+                                    </div>
+                                    <div class="col-md-3"><span class="booking-item-price">$</span><span class="booking-item-price" data-th-text="${bookingReference.price}">...</span><span>/person</span>
+                                        <p class="booking-item-flight-class"><td data-th-text="${bookingReference.passengerNumber}">...</td> seats left</p>
+                                        <a class="btn btn-primary" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">Select</a>
+                                        <a class="btn btn-primary" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">Select</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="booking-item-details">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="list-title">Trip Details</h5>
+                                        <ul class="list">
+                                            <li>Leaving from: <td data-th-text="${bookingReference.departure}">...</td></li>
+                                            <li>Destination: <td data-th-text="${bookingReference.arrival}">...</td></li>
+                                            <li>Travel Time: <td data-th-text="${bookingReference.date}">...</td></li>
+                                            <li>Payment Method: <td data-th-text="${bookingReference.paymentMethod}">...</td></li>
+                                        </ul>
+                                        <h5 class="list-title">Driver Contact</h5>
+                                        <ul class="list">
+                                            <li>First Name: <td data-th-text="${bookingReference.driverAccount.firstName}">...</td></li>
+                                            <li>Last Name: <td data-th-text="${bookingReference.driverAccount.lastName}">...</td></li>
+                                            <li>Phone: <td data-th-text="${bookingReference.driverAccount.phone}">...</td></li>
+                                            <li>Email: <td data-th-text="${bookingReference.driverAccount.email}">...</td></li>
+                                        </ul>
+                                        <p>Trip estimated time: 2h 12m</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </tr>
+            </ul>
+            <!--<p class="text-right">Not what you're looking for? <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>-->
+            <!--</p>-->
+        </div>
     </div>
 </div>
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
+    $('.booking-item-container').children('.booking-item').click(function(event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $(this).parent().removeClass('active');
+        } else {
+            $(this).addClass('active');
+            $(this).parent().addClass('active');
+            $(this).delay(1500).queue(function() {
+                $(this).addClass('viewed')
+            });
+        }
+    });
 </script>
 </body>
 </html>

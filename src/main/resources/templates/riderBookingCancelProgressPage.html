@@ -11,23 +11,23 @@
             <form th:action="@{/booking/riderBooking/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
                 <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
                 <div class="form-group">
-                    <label for="departureLocation">Departure</label>
+                    <label for="departure">Departure</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-map-marker fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.departureLocation}" id="departureLocation"
-                                   name="departureLocation" roleId="departureLocation" readonly="readonly"/>
+                            <input type="text" class="form-control" th:value="${bookingReference.departure}" id="departure"
+                                   name="departure" roleId="departure" readonly="readonly"/>
                         </div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="arrivalLocation" class="cols-sm-2 control-label">Arrival</label>
+                    <label for="arrival" class="cols-sm-2 control-label">Arrival</label>
                     <div class="cols-sm-10">
                         <div class="input-group">
                             <span class="input-group-addon"><i class="fa fa-map-marker fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.arrivalLocation}" id="arrivalLocation"
-                                   name="arrivalLocation" roleId="arrivalLocation" readonly="readonly"/>
+                            <input type="text" class="form-control" th:value="${bookingReference.arrival}" id="arrival"
+                                   name="arrival" roleId="arrival" readonly="readonly"/>
                         </div>
                     </div>
                 </div>

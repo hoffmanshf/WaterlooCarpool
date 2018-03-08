@@ -2,6 +2,7 @@ package com.hoffman.carpool.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class BookingReference {
@@ -10,10 +11,17 @@ public class BookingReference {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookingReferenceId;
     private String bookingStatus;
+
     private Date date;
-    private String passengerNumber;
-    private String departureLocation;
-    private String arrivalLocation;
+    private String dateForSearch;
+    private String dayOfWeek;
+    private String dayOfMonth;
+    private String month;
+    private String time;
+
+    private int passengerNumber;
+    private String departure;
+    private String arrival;
     private String paymentMethod;
     private String price;
     private String notes;
@@ -30,6 +38,12 @@ public class BookingReference {
     @ManyToOne
     @JoinColumn(name = "rider_account_id")
     private RiderAccount riderAccount;
+    
+    @ManyToMany
+    @JoinTable(name = "PASSENGER_LIST",
+            joinColumns = { @JoinColumn(name = "booking_reference_id") },
+            inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
+    private List<RiderAccount> passengerList;
 
     public long getBookingReferenceId() {
         return bookingReferenceId;
@@ -55,28 +69,52 @@ public class BookingReference {
         this.date = date;
     }
 
-    public String getPassengerNumber() {
-        return passengerNumber;
+    public String getDayOfWeek() {
+        return dayOfWeek;
     }
 
-    public void setPassengerNumber(String passengerNumber) {
-        this.passengerNumber = passengerNumber;
+    public void setDayOfWeek(String dayOfWeek) {
+        this.dayOfWeek = dayOfWeek;
     }
 
-    public String getDepartureLocation() {
-        return departureLocation;
+    public String getDayOfMonth() {
+        return dayOfMonth;
     }
 
-    public void setDepartureLocation(String departureLocation) {
-        this.departureLocation = departureLocation;
+    public void setDayOfMonth(String dayOfMonth) {
+        this.dayOfMonth = dayOfMonth;
     }
 
-    public String getArrivalLocation() {
-        return arrivalLocation;
+    public String getMonth() {
+        return month;
     }
 
-    public void setArrivalLocation(String arrivalLocation) {
-        this.arrivalLocation = arrivalLocation;
+    public void setMonth(String month) {
+        this.month = month;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
+
+    public String getDeparture() {
+        return departure;
+    }
+
+    public void setDeparture(String departure) {
+        this.departure = departure;
+    }
+
+    public String getArrival() {
+        return arrival;
+    }
+
+    public void setArrival(String arrival) {
+        this.arrival = arrival;
     }
 
     public String getPaymentMethod() {
@@ -127,6 +165,14 @@ public class BookingReference {
         this.riderAccount = riderAccount;
     }
 
+    public List<RiderAccount> getPassengerList() {
+        return passengerList;
+    }
+
+    public void setPassengerList(List<RiderAccount> passengerList) {
+        this.passengerList = passengerList;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -141,5 +187,21 @@ public class BookingReference {
 
     public void setOwner(Boolean owner) {
         this.owner = owner;
+    }
+
+    public int getPassengerNumber() {
+        return passengerNumber;
+    }
+
+    public void setPassengerNumber(int passengerNumber) {
+        this.passengerNumber = passengerNumber;
+    }
+
+    public String getDateForSearch() {
+        return dateForSearch;
+    }
+
+    public void setDateForSearch(String dateForSearch) {
+        this.dateForSearch = dateForSearch;
     }
 }

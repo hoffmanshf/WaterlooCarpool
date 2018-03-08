@@ -6,6 +6,7 @@ import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -33,4 +34,10 @@ public class BookingServiceImpl implements BookingService {
     public BookingReference saveBooking(BookingReference bookingReference) {
         return bookingReferenceDao.save(bookingReference);
     }
+
+    @Override
+    public List<BookingReference> searchBookingReference(String arrival, String departure, String date) {
+        return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(arrival, departure, date);
+    }
+
 }
