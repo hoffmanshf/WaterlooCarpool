@@ -11,4 +11,5 @@ public interface BookingService {
     List<BookingReference> findAll();
     BookingReference saveBooking(BookingReference bookingReference);
     List<BookingReference> searchBookingReference(String arrival, String departure, String date);
+    List<BookingReference> searchBookingReferenceWithoutDate(String arrival, String departure);
 }

@@ -40,4 +40,9 @@ public class BookingServiceImpl implements BookingService {
         return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(arrival, departure, date);
     }
 
+    @Override
+    public List<BookingReference> searchBookingReferenceWithoutDate(String arrival, String departure) {
+        return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContaining(arrival, departure);
+    }
+
 }

@@ -9,4 +9,5 @@ import java.util.List;
 public interface BookingReferenceDao extends CrudRepository<BookingReference, Long> {
     List<BookingReference> findAll();
     List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(String arrival, String departure, String date);
+    List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContaining(String arrival, String departure);
 }

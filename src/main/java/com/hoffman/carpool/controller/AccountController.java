@@ -3,6 +3,7 @@ package com.hoffman.carpool.controller;
 import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -56,9 +57,14 @@ public class AccountController {
     public String searchDriverBooking(@RequestParam(value = "arrival") String arrival, @RequestParam(value = "departure") String departure,@RequestParam(value = "date") String date, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
+        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
 
         // arrival and departure are encoded in frontend and automatically decoded in backend
-        List<BookingReference> bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+        if (date != null && StringUtils.isNotEmpty(date)) {
+            bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+        } else {
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure);
+        }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
         model.addAttribute("driverAccount", driverAccount);
@@ -68,23 +74,34 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/driverAccount/searchPassenger", method = RequestMethod.GET)
-    public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival, @RequestParam(value = "departure") String departure, @RequestParam(value = "date") String date, @RequestParam(value = "passengerNumber") int passengerNumber, Model model, Principal principal) {
+    public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival, @RequestParam(value = "departure") String departure, @RequestParam(value = "date") String date, @RequestParam(value = "passengerNumber") String passengerNumber, Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
+        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
 
         // arrival and departure are encoded in frontend and automatically decoded in backend
-        List<BookingReference> bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+        if (date != null && StringUtils.isNotEmpty(date)) {
+            bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+        } else {
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure);
+        }
+
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
 
-        List<BookingReference> filteredBookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: bookingReferences) {
-            if (passengerNumber <= reference.getPassengerNumber()) {
-                filteredBookingReferences.add(reference);
+        if (passengerNumber != null && StringUtils.isNotEmpty(passengerNumber)) {
+            final int seats = Integer.valueOf(passengerNumber);
+            List<BookingReference> filteredBookingReferences = new ArrayList<BookingReference>();
+            for (final BookingReference reference: bookingReferences) {
+                if (seats <= reference.getPassengerNumber()) {
+                    filteredBookingReferences.add(reference);
+                }
             }
+            model.addAttribute("bookingReferences", filteredBookingReferences);
+        } else {
+            model.addAttribute("bookingReferences", bookingReferences);
         }
 
         model.addAttribute("driverAccount", driverAccount);
-        model.addAttribute("bookingReferences", filteredBookingReferences);
         return "driverAccount";
 
     }
