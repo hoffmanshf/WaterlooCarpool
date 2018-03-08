@@ -94,6 +94,9 @@ public class BookingController {
         String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
 
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        String dateForSearch = formatter.format(date);
+
         String time = DateToTimeConverter(date);
 
         bookingReference.setDayOfMonth(dayOfMonth);
@@ -101,6 +104,7 @@ public class BookingController {
         bookingReference.setMonth(month);
         bookingReference.setDate(date);
         bookingReference.setTime(time);
+        bookingReference.setDateForSearch(dateForSearch);
         bookingReference.setAccountType(driverAccountType);
 
         User user = userService.findByUsername(principal.getName());

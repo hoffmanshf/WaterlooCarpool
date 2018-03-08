@@ -13,6 +13,7 @@ public class BookingReference {
     private String bookingStatus;
 
     private Date date;
+    private String dateForSearch;
     private String dayOfWeek;
     private String dayOfMonth;
     private String month;
@@ -194,5 +195,13 @@ public class BookingReference {
 
     public void setPassengerNumber(int passengerNumber) {
         this.passengerNumber = passengerNumber;
+    }
+
+    public String getDateForSearch() {
+        return dateForSearch;
+    }
+
+    public void setDateForSearch(String dateForSearch) {
+        this.dateForSearch = dateForSearch;
     }
 }
