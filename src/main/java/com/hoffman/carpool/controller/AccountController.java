@@ -41,7 +41,7 @@ public class AccountController {
                                @RequestParam(value = "page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-        
+
         List<BookingReference> bookingReferences = bookingService.findAll(sortByDate);
 
         bookingReferences = BookingReferenceProcessor(riderAccountType, user, bookingReferences);
