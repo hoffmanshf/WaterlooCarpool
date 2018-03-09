@@ -3,6 +3,7 @@ package com.hoffman.carpool.controller;
 import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
+import com.hoffman.carpool.util.PageWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.*;
