@@ -4,6 +4,7 @@ import com.hoffman.carpool.dao.BookingReferenceDao;
 import com.hoffman.carpool.domain.BookingReference;
 import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -26,8 +27,8 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingReference> findAll() {
-        return bookingReferenceDao.findAll();
+    public List<BookingReference> findAll(Sort sort) {
+        return bookingReferenceDao.findAll(sort);
     }
 
     @Override
@@ -36,13 +37,13 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
-    public List<BookingReference> searchBookingReference(String arrival, String departure, String date) {
-        return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(arrival, departure, date);
+    public List<BookingReference> searchBookingReference(String arrival, String departure, String date, Sort sort) {
+        return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(arrival, departure, date, sort);
     }
 
     @Override
-    public List<BookingReference> searchBookingReferenceWithoutDate(String arrival, String departure) {
-        return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContaining(arrival, departure);
+    public List<BookingReference> searchBookingReferenceWithoutDate(String arrival, String departure, Sort sort) {
+        return bookingReferenceDao.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContaining(arrival, departure, sort);
     }
 
 }

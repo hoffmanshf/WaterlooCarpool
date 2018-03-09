@@ -5,10 +5,7 @@ import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,7 +39,8 @@ public class AccountController {
                                @RequestParam(value = "page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-        List<BookingReference> bookingReferences = bookingService.findAll();
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
+        List<BookingReference> bookingReferences = bookingService.findAll(sort);
 
         bookingReferences = BookingReferenceProcessor(riderAccountType, user, bookingReferences);
         model.addAttribute("riderAccount", riderAccount);
@@ -56,7 +54,8 @@ public class AccountController {
                                 @RequestParam("page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
-        List<BookingReference> bookingReferences = bookingService.findAll();
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
+        List<BookingReference> bookingReferences = bookingService.findAll(sort);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
@@ -75,12 +74,15 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
+        Sort sortByDate = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
+        Sort sortByPrice = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "price"));
+
 
         // arrival and departure are encoded in frontend and automatically decoded in backend
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+            bookingReferences = bookingService.searchBookingReference(arrival, departure, date, sortByPrice);
         } else {
-            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure);
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure, sortByDate);
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
@@ -108,12 +110,14 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
+        Sort sortByDate = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
+        Sort sortByPrice = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "price"));
 
         // arrival and departure are encoded in frontend and automatically decoded in backend
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingService.searchBookingReference(arrival, departure, date);
+            bookingReferences = bookingService.searchBookingReference(arrival, departure, date, sortByPrice);
         } else {
-            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure);
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure, sortByDate);
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
