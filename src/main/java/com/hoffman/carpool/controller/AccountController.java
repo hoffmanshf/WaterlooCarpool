@@ -39,7 +39,7 @@ public class AccountController {
 
     @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
     public String riderAccount(Model model, Principal principal,
-                               @RequestParam("page") Optional<Integer> page) {
+                               @RequestParam(value = "page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
         List<BookingReference> bookingReferences = bookingService.findAll();
@@ -70,7 +70,7 @@ public class AccountController {
     public String searchDriverBooking(@RequestParam(value = "arrival") String arrival,
                                       @RequestParam(value = "departure") String departure,
                                       @RequestParam(value = "date") String date,
-                                      @RequestParam("page") Optional<Integer> page,
+                                      @RequestParam(value = "page") Optional<Integer> page,
                                       Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
@@ -103,7 +103,7 @@ public class AccountController {
                                                @RequestParam(value = "departure") String departure,
                                                @RequestParam(value = "date") String date,
                                                @RequestParam(value = "passengerNumber") String passengerNumber,
-                                               @RequestParam("page") Optional<Integer> page,
+                                               @RequestParam(value = "page") Optional<Integer> page,
                                                Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
