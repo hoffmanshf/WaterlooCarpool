@@ -90,7 +90,11 @@ public class AccountController {
 
         model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
-        return "driverAccount";
+        if (bookingReferences.size() == 0) {
+            return "driverAccountNoResult";
+        } else {
+            return "driverAccount";
+        }
 
     }
 
@@ -131,7 +135,11 @@ public class AccountController {
 
         model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
-        return "driverAccount";
+        if (bookingReferences.size() == 0) {
+            return "driverAccountNoResult";
+        } else {
+            return "driverAccount";
+        }
 
     }
 
