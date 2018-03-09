@@ -27,6 +27,8 @@ public class AccountController {
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int PAGE_SIZE = 5;
+    private static final Sort sortByDate = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
+    private static final Sort sortByPrice = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "price"));
 
     @Autowired
     private UserService userService;
@@ -39,8 +41,8 @@ public class AccountController {
                                @RequestParam(value = "page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
-        List<BookingReference> bookingReferences = bookingService.findAll(sort);
+        
+        List<BookingReference> bookingReferences = bookingService.findAll(sortByDate);
 
         bookingReferences = BookingReferenceProcessor(riderAccountType, user, bookingReferences);
         model.addAttribute("riderAccount", riderAccount);
@@ -54,8 +56,8 @@ public class AccountController {
                                 @RequestParam("page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
-        Sort sort = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
-        List<BookingReference> bookingReferences = bookingService.findAll(sort);
+
+        List<BookingReference> bookingReferences = bookingService.findAll(sortByDate);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
@@ -74,15 +76,15 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        Sort sortByDate = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
-        Sort sortByPrice = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "price"));
 
+        final String arrivalCity = AddressCityProcessor(arrival);
+        final String departureCity = AddressCityProcessor(departure);
 
         // arrival and departure are encoded in frontend and automatically decoded in backend
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingService.searchBookingReference(arrival, departure, date, sortByPrice);
+            bookingReferences = bookingService.searchBookingReference(arrivalCity, departureCity, date, sortByPrice);
         } else {
-            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure, sortByDate);
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortByPrice);
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
@@ -110,14 +112,15 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        Sort sortByDate = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
-        Sort sortByPrice = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "price"));
+
+        final String arrivalCity = AddressCityProcessor(arrival);
+        final String departureCity = AddressCityProcessor(departure);
 
         // arrival and departure are encoded in frontend and automatically decoded in backend
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingService.searchBookingReference(arrival, departure, date, sortByPrice);
+            bookingReferences = bookingService.searchBookingReference(arrivalCity, departureCity, date, sortByPrice);
         } else {
-            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrival, departure, sortByDate);
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortByPrice);
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
@@ -154,13 +157,22 @@ public class AccountController {
                 if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
                     reference.setOwner(true);
                 }
-                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) &&
-                        reference.getPassengerNumber() != 0) {
+                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) && reference.getPassengerNumber() != 0) {
                     bookingReferences.add(reference);
                 }
             }
         }
         return bookingReferences;
+    }
+
+    private String AddressCityProcessor(final String address) {
+        final String finalAddress;
+        if (address.contains(",")) {
+            finalAddress = address.substring(0, address.indexOf(","));
+        } else {
+            finalAddress = address;
+        }
+        return finalAddress;
     }
 
     private PageWrapper PaginationProcessor(Model model, final Optional<Integer> page, List<BookingReference> bookingReferences) {

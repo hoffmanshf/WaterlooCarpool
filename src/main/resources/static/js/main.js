@@ -601,7 +601,7 @@ $('.typeahead').typeahead({
         return $.ajax({
             dataType: 'json',
             type: 'get',
-            url: 'http://gd.geobytes.com/AutoCompleteCity?callback=?&q=' + q,
+            url: 'http://gd.geobytes.com/AutoCompleteCity?callback=?&filter=CA&q=' + q,
             chache: false,
             success: function(data) {
                 var result = [];
