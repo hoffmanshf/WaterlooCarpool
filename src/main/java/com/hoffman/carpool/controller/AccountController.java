@@ -5,6 +5,10 @@ import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/account")
@@ -22,6 +27,10 @@ public class AccountController {
     private static final String riderAccountType = "riderAccount";
     private static final String driverAccountType = "driverAccount";
 
+    private static final int BUTTONS_TO_SHOW = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int PAGE_SIZE = 5;
+
     @Autowired
     private UserService userService;
 
@@ -29,7 +38,8 @@ public class AccountController {
     private BookingService bookingService;
 
     @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
-    public String riderAccount(Model model, Principal principal) {
+    public String riderAccount(Model model, Principal principal,
+                               @RequestParam("page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
         List<BookingReference> bookingReferences = bookingService.findAll();
@@ -42,19 +52,26 @@ public class AccountController {
     }
 
     @RequestMapping(value = "/driverAccount", method = RequestMethod.GET)
-    public String driverAccount(Model model, Principal principal) {
+    public String driverAccount(Model model, Principal principal,
+                                @RequestParam("page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = bookingService.findAll();
-
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
+
+        PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
+
         model.addAttribute("driverAccount", driverAccount);
-        model.addAttribute("bookingReferences", bookingReferences);
+        model.addAttribute("wrapper", wrapper);
         return "driverAccount";
     }
 
     @RequestMapping(value = "/driverAccount/search", method = RequestMethod.GET)
-    public String searchDriverBooking(@RequestParam(value = "arrival") String arrival, @RequestParam(value = "departure") String departure,@RequestParam(value = "date") String date, Model model, Principal principal) {
+    public String searchDriverBooking(@RequestParam(value = "arrival") String arrival,
+                                      @RequestParam(value = "departure") String departure,
+                                      @RequestParam(value = "date") String date,
+                                      @RequestParam("page") Optional<Integer> page,
+                                      Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
@@ -67,14 +84,23 @@ public class AccountController {
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
-        model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", bookingReferences);
+
+        PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
+
+        model.addAttribute("wrapper", wrapper);
+        model.addAttribute("driverAccount", driverAccount);
         return "driverAccount";
 
     }
 
     @RequestMapping(value = "/driverAccount/searchPassenger", method = RequestMethod.GET)
-    public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival, @RequestParam(value = "departure") String departure, @RequestParam(value = "date") String date, @RequestParam(value = "passengerNumber") String passengerNumber, Model model, Principal principal) {
+    public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival,
+                                               @RequestParam(value = "departure") String departure,
+                                               @RequestParam(value = "date") String date,
+                                               @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam("page") Optional<Integer> page,
+                                               Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
@@ -101,6 +127,9 @@ public class AccountController {
             model.addAttribute("bookingReferences", bookingReferences);
         }
 
+        PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
+
+        model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
         return "driverAccount";
 
@@ -120,6 +149,17 @@ public class AccountController {
             }
         }
         return bookingReferences;
+    }
+
+    private PageWrapper PaginationProcessor(Model model, final Optional<Integer> page, List<BookingReference> bookingReferences) {
+        final int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+        Pageable pageable = new PageRequest(evalPage, PAGE_SIZE);
+        final int start = pageable.getOffset();
+        final int end = (start + pageable.getPageSize()) > bookingReferences.size() ? bookingReferences.size() : (start + pageable.getPageSize());
+        Page<BookingReference> pagedReferences = new PageImpl<BookingReference>(bookingReferences.subList(start, end), pageable, bookingReferences.size());
+        PageWrapper wrapper = new PageWrapper(pagedReferences.getTotalPages(), pagedReferences.getNumber(), BUTTONS_TO_SHOW);
+        model.addAttribute("bookingReferences", pagedReferences);
+        return wrapper;
     }
 
 }

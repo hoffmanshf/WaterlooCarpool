@@ -4182,7 +4182,7 @@ ul.slimmenu.slimmenu-collapsed li .slimmenu-sub-collapser > i {
 	font-size: 10px;
 }
 .booking-sort .booking-sort-title {
-	font-size: 14px;
+	font-size: 12px;
 }
 .booking-sort .booking-sort-title > a {
 	color: #737373;
@@ -12439,3 +12439,16 @@ footer.nb-footer .copyright {
 footer.nb-footer .copyright p {
 	margin: 0;
 	padding: 0; }
+
+.pagination-centered {
+	text-align: center;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
+}
