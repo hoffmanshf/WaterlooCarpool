@@ -12,7 +12,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import java.net.URI;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -54,7 +56,8 @@ public class AccountController {
 
     @RequestMapping(value = "/driverAccount", method = RequestMethod.GET)
     public String driverAccount(Model model, Principal principal,
-                                @RequestParam("page") Optional<Integer> page) {
+                                @RequestParam(value = "sort", required = false) String sortMethod,
+                                @RequestParam(value = "page") Optional<Integer> page) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
 
@@ -65,6 +68,7 @@ public class AccountController {
 
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("uri", "/account/driverAccount");
         return "driverAccount";
     }
 
@@ -92,6 +96,14 @@ public class AccountController {
         model.addAttribute("bookingReferences", bookingReferences);
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
+
+        final String URL = "http://localhost:8080/account/driverAccount/search";
+        final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                .queryParam("arrival", arrival)
+                .queryParam("departure", departure)
+                .queryParam("date", date);
+        final URI uri = builder.build().encode().toUri();
+        model.addAttribute("uri", uri);
 
         model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
@@ -141,14 +153,22 @@ public class AccountController {
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
 
+        final String URL = "http://localhost:8080/account/driverAccount/searchPassenger";
+        final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                .queryParam("arrival", arrival)
+                .queryParam("departure", departure)
+                .queryParam("date", date)
+                .queryParam("passengerNumber", passengerNumber);
+        final URI uri = builder.build().encode().toUri();
+
         model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
+        model.addAttribute("uri", uri);
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
         } else {
             return "driverAccount";
         }
-
     }
 
     private List<BookingReference> BookingReferenceProcessor(final String accountType, final User user, List<BookingReference> UserBookingReferences) {
