@@ -158,7 +158,7 @@
     <div class="row">
         <div class="col-md-3">
         </div>
-        <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1 and driverAccount.bookingReferences.size() != 0}">
+        <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1 and bookingReferences.getSize() != 0}">
             <ul class="pagination">
                 <li th:class="${bookingReferences.number == 0} ? disabled">
                     <a class="pageLink" th:href="@{${uri}(page=1)}">&laquo;</a>
