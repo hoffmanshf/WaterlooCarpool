@@ -15,28 +15,45 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
-
+    <br/>
     <div class="row">
         <div class="col-md-3">
         </div>
         <div class="col-md-9">
-            <br/>
             <div class="nav-drop booking-sort pull-right">
-                <label class="booking-sort-title">Sort by&nbsp;</label>
+                <!--<label class="booking-sort-title">Sort by&nbsp;</label>-->
                 <div class="btn-group m-r">
-                    <button data-toggle="dropdown" class="btn btn-sm btn-default dropdown-toggle">
-                        <span class="dropdown-label">Price: Low to High</span>
-                        <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu dropdown-select">
-                        <!--<li><a th:href="@{${uri}}"><input type="radio" name="sortMethod" value="price-asc"/>Price: Low to High</a></li>-->
-                        <li><a href="#"><input type="radio" name="d-s-r"/>Price: Low to High</a></li>
-                        <li><a href="#"><input type="radio" name="d-s-r"/>Price: High to Low</a></li>
-                        <li><a href="#"><input type="radio" name="d-s-r"/>Date: Ascending</a></li>
-                        <li><a href="#"><input type="radio" name="d-s-r"/>Date: Descending</a></li>
-                    </ul>
+                    <!--<form th:action="@{${uri}}" method="get">-->
+                        <!--<div class="input-group">-->
+                            <!--&lt;!&ndash;<span class="input-group-addon">Sort by</span>&ndash;&gt;-->
+                            <!--<select class="js-example-basic-single" name="sort" id="sort" style="width: 160px" onchange="this.form.submit()">-->
+                                <!--<option></option>-->
+                                <!--<option value="price-asc">Price: Low to High</option>-->
+                                <!--<option value="price-desc">Price: High to Low</option>-->
+                                <!--<option value="date-asc">Date: Old to New</option>-->
+                                <!--<option value="date-desc">Date: New to Old</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                    <!--<ul class="list-unstyled">-->
+                        <!--<li><a th:href="@{${uri2}(sort=price-asc)}"><i class="fa fa-angle-double-right"></i> Price: Low to High</a></li>-->
+                        <!--<li><a th:href="@{${uri2}(sort=price-desc)}"><i class="fa fa-angle-double-right"></i> Price: High to Low</a></li>-->
+                        <!--<li><a th:href="@{${uri2}(sort=date-asc)}"><i class="fa fa-angle-double-right"></i> Date: Old to New</a></li>-->
+                        <!--<li><a th:href="@{${uri2}(sort=date-desc)}"><i class="fa fa-angle-double-right"></i> Date: New to Old</a></li>-->
+                    <!--</ul>-->
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Sort: Filter By Type <span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:href="@{${uri2}(sort=date-asc)}">Date: Old to New</a></li>
+                            <li><a th:href="@{${uri2}(sort=date-desc)}">Date: New to Old</a></li>
+                            <li><a th:href="@{${uri2}(sort=price-asc)}">Price: Low to High</a></li>
+                            <li><a th:href="@{${uri2}(sort=price-desc)}">Price: High to Low</a></li>
+                        </ul>
                 </div>
             </div>
+
+
         </div>
     </div>
 
@@ -141,7 +158,7 @@
     <div class="row">
         <div class="col-md-3">
         </div>
-        <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1}">
+        <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1 and driverAccount.bookingReferences.size() != 0}">
             <ul class="pagination">
                 <li th:class="${bookingReferences.number == 0} ? disabled">
                     <a class="pageLink" th:href="@{${uri}(page=1)}">&laquo;</a>
@@ -184,6 +201,12 @@
             });
         }
     });
+    // $(document).ready(function() {
+    //     $('.js-example-basic-single').select2({
+    //         placeholder: 'Sort by Filter',
+    //         theme: "bootstrap"
+    //     });
+    // });
 </script>
 </body>
 </html>

@@ -28,10 +28,13 @@ public class AccountController {
     private static final String driverAccountType = "driverAccount";
 
     private static final int BUTTONS_TO_SHOW = 5;
-    private static final int INITIAL_PAGE = 0;
     private static final int PAGE_SIZE = 5;
-    private static final Sort sortByDate = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "date"));
-    private static final Sort sortByPrice = new Sort(new Sort.Order(Sort.Direction.ASC.ASC, "price"));
+    private static final int INITIAL_PAGE = 0;
+
+    private static final Sort sortByDateASC = new Sort(Sort.Direction.ASC, "date");
+    private static final Sort sortByPriceASC = new Sort(Sort.Direction.ASC, "price");
+    private static final Sort sortByDateDESC = new Sort(Sort.Direction.DESC, "date");
+    private static final Sort sortByPriceDESC = new Sort(Sort.Direction.DESC, "price");
 
     @Autowired
     private UserService userService;
@@ -45,7 +48,7 @@ public class AccountController {
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
 
-        List<BookingReference> bookingReferences = bookingService.findAll(sortByDate);
+        List<BookingReference> bookingReferences = bookingService.findAll(sortByDateASC);
 
         bookingReferences = BookingReferenceProcessor(riderAccountType, user, bookingReferences);
         model.addAttribute("riderAccount", riderAccount);
@@ -56,19 +59,40 @@ public class AccountController {
 
     @RequestMapping(value = "/driverAccount", method = RequestMethod.GET)
     public String driverAccount(Model model, Principal principal,
-                                @RequestParam(value = "sort", required = false) String sortMethod,
+                                @RequestParam(value = "sort", required = false) String sort,
                                 @RequestParam(value = "page") Optional<Integer> page) {
+
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();
 
-        List<BookingReference> bookingReferences = bookingService.findAll(sortByDate);
+        if (sort == null) {
+            final String URL = "http://localhost:8080/account/driverAccount";
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL);
+            final URI uri = builder.build().encode().toUri();
+            model.addAttribute("uri", uri);
+            sort = "date-asc";
+        } else {
+            final String URL = "http://localhost:8080/account/driverAccount";
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                    .queryParam("sort", sort);
+            final URI uri = builder.build().encode().toUri();
+            model.addAttribute("uri", uri);
+        }
+
+        Sort sortType = getSortType(sort);
+
+        List<BookingReference> bookingReferences = bookingService.findAll(sortType);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
 
+        final String URL2 = "http://localhost:8080/account/driverAccount";
+        final UriComponentsBuilder builder2 = UriComponentsBuilder.fromHttpUrl(URL2);
+        final URI uri2 = builder2.build().encode().toUri();
+        model.addAttribute("uri2", uri2);
+
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("uri", "/account/driverAccount");
         return "driverAccount";
     }
 
@@ -76,6 +100,7 @@ public class AccountController {
     public String searchDriverBooking(@RequestParam(value = "arrival") String arrival,
                                       @RequestParam(value = "departure") String departure,
                                       @RequestParam(value = "date") String date,
+                                      @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "page") Optional<Integer> page,
                                       Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
@@ -85,11 +110,33 @@ public class AccountController {
         final String arrivalCity = AddressCityProcessor(arrival);
         final String departureCity = AddressCityProcessor(departure);
 
+        if (sort == null) {
+            final String URL = "http://localhost:8080/account/driverAccount/search";
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                    .queryParam("departure", departure)
+                    .queryParam("arrival", arrival)
+                    .queryParam("date", date);
+            final URI uri = builder.build().encode().toUri();
+            model.addAttribute("uri", uri);
+            sort = "date-asc";
+        } else {
+            final String URL = "http://localhost:8080/account/driverAccount/search";
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                    .queryParam("departure", departure)
+                    .queryParam("arrival", arrival)
+                    .queryParam("date", date)
+                    .queryParam("sort", sort);
+            final URI uri = builder.build().encode().toUri();
+            model.addAttribute("uri", uri);
+        }
+
+        Sort sortType = getSortType(sort);
+
         // arrival and departure are encoded in frontend and automatically decoded in backend
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingService.searchBookingReference(arrivalCity, departureCity, date, sortByPrice);
+            bookingReferences = bookingService.searchBookingReference(arrivalCity, departureCity, date, sortType);
         } else {
-            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortByPrice);
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortType);
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
@@ -97,13 +144,13 @@ public class AccountController {
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
 
-        final String URL = "http://localhost:8080/account/driverAccount/search";
-        final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                .queryParam("arrival", arrival)
+        final String URL2 = "http://localhost:8080/account/driverAccount/search";
+        final UriComponentsBuilder builder2 = UriComponentsBuilder.fromHttpUrl(URL2)
                 .queryParam("departure", departure)
+                .queryParam("arrival", arrival)
                 .queryParam("date", date);
-        final URI uri = builder.build().encode().toUri();
-        model.addAttribute("uri", uri);
+        final URI uri2 = builder2.build().encode().toUri();
+        model.addAttribute("uri2", uri2);
 
         model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
@@ -120,6 +167,7 @@ public class AccountController {
                                                @RequestParam(value = "departure") String departure,
                                                @RequestParam(value = "date") String date,
                                                @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam(value = "sort", required = false) String sort,
                                                @RequestParam(value = "page") Optional<Integer> page,
                                                Model model, Principal principal) {
         User user = userService.findByUsername(principal.getName());
@@ -129,11 +177,35 @@ public class AccountController {
         final String arrivalCity = AddressCityProcessor(arrival);
         final String departureCity = AddressCityProcessor(departure);
 
+        if (sort == null) {
+            final String URL = "http://localhost:8080/account/driverAccount/searchPassenger";
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                    .queryParam("departure", departure)
+                    .queryParam("arrival", arrival)
+                    .queryParam("date", date)
+                    .queryParam("passengerNumber", passengerNumber);
+            final URI uri = builder.build().encode().toUri();
+            model.addAttribute("uri", uri);
+            sort = "date-asc";
+        } else {
+            final String URL = "http://localhost:8080/account/driverAccount/searchPassenger";
+            final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
+                    .queryParam("departure", departure)
+                    .queryParam("arrival", arrival)
+                    .queryParam("date", date)
+                    .queryParam("passengerNumber", passengerNumber)
+                    .queryParam("sort", sort);
+            final URI uri = builder.build().encode().toUri();
+            model.addAttribute("uri", uri);
+        }
+
+        Sort sortType = getSortType(sort);
+
         // arrival and departure are encoded in frontend and automatically decoded in backend
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingService.searchBookingReference(arrivalCity, departureCity, date, sortByPrice);
+            bookingReferences = bookingService.searchBookingReference(arrivalCity, departureCity, date, sortType);
         } else {
-            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortByPrice);
+            bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortType);
         }
 
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
@@ -146,24 +218,22 @@ public class AccountController {
                     filteredBookingReferences.add(reference);
                 }
             }
-            model.addAttribute("bookingReferences", filteredBookingReferences);
-        } else {
-            model.addAttribute("bookingReferences", bookingReferences);
+            bookingReferences = filteredBookingReferences;
         }
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
 
-        final String URL = "http://localhost:8080/account/driverAccount/searchPassenger";
-        final UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(URL)
-                .queryParam("arrival", arrival)
+        final String URL2 = "http://localhost:8080/account/driverAccount/searchPassenger";
+        final UriComponentsBuilder builder2 = UriComponentsBuilder.fromHttpUrl(URL2)
                 .queryParam("departure", departure)
+                .queryParam("arrival", arrival)
                 .queryParam("date", date)
                 .queryParam("passengerNumber", passengerNumber);
-        final URI uri = builder.build().encode().toUri();
+        final URI uri2 = builder2.build().encode().toUri();
 
         model.addAttribute("wrapper", wrapper);
         model.addAttribute("driverAccount", driverAccount);
-        model.addAttribute("uri", uri);
+        model.addAttribute("uri2", uri2);
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
         } else {
@@ -205,6 +275,25 @@ public class AccountController {
         PageWrapper wrapper = new PageWrapper(pagedReferences.getTotalPages(), pagedReferences.getNumber(), BUTTONS_TO_SHOW);
         model.addAttribute("bookingReferences", pagedReferences);
         return wrapper;
+    }
+
+    private Sort getSortType (String sortMethod) {
+        Sort sortType = null;
+        switch(sortMethod) {
+            case "date-asc" :
+                sortType = sortByDateASC;
+                break;
+            case "date-desc" :
+                sortType = sortByDateDESC;
+                break;
+            case "price-asc" :
+                sortType = sortByPriceASC;
+                break;
+            case "price-desc" :
+                sortType = sortByPriceDESC;
+                break;
+        }
+        return sortType;
     }
 
 }

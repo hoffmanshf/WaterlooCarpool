@@ -23,7 +23,7 @@ public class BookingReference {
     private String departure;
     private String arrival;
     private String paymentMethod;
-    private String price;
+    private int price;
     private String notes;
 
     private String accountType;
@@ -125,11 +125,11 @@ public class BookingReference {
         this.paymentMethod = paymentMethod;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
