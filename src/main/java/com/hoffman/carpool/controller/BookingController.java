@@ -276,8 +276,15 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/account/driverAccount";
+        return "redirect:/booking/driverBooking/success";
     }
+
+    @RequestMapping(value= "/driverBooking/success", method = RequestMethod.GET)
+    public String driverBookingSuccess() {
+
+        return "BookingSuccessPage";
+    }
+
 
     @RequestMapping(value= "/driverBooking/complete", method = RequestMethod.POST)
     public String completeDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {

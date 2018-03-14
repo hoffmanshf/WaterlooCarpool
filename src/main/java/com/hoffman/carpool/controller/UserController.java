@@ -64,4 +64,9 @@ public class UserController {
 
         return "profile";
     }
+
+    @RequestMapping(value = "edit-photo", method = RequestMethod.GET)
+    public String getPhoto(Principal principal, Model model) {
+        return "userPhoto";
+    }
 }

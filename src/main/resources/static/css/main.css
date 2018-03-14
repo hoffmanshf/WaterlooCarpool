@@ -8967,7 +8967,7 @@ aside.sidebar-left {
 	color: #fff;
 }
 .user-profile-sidebar .user-profile-nav > li > a {
-	padding: 10px 20px;
+	padding: 10px 10px;
 	color: #d9d9d9;
 	display: block;
 	font-size: 13px;
@@ -12451,4 +12451,8 @@ footer.nb-footer .copyright p {
 
 .pointer-disabled {
 	pointer-events: none;
+}
+
+#userInfo li {
+	list-style-type: none;
 }
