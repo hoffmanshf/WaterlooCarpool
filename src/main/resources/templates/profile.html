@@ -7,7 +7,7 @@
 <div class="global-wrap">
     <div class="gap gap-mini"></div>
     <div class="container">
-        <h1 class="page-title">Account Settings</h1>
+        <h1 class="page-title">Account Profile</h1>
     </div>
     <div class="gap gap-small"></div>
 
@@ -22,13 +22,11 @@
                         <!--<p>Member Since May 2017</p>-->
                     </div>
                     <ul id="userInfo" class="list user-profile-nav">
-                        <li><a href="#"><i class="fa fa-user"></i>Overview</a>
-                        </li>
-                        <li><a th:href="@{/user/profile}"><i class="fa fa-cog"></i>Settings</a>
+                        <li><a th:href="@{/user/profile}"><i class="fa fa-user"></i>Account Profile</a>
                         </li>
                         <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
                         </li>
-                        <li><a href="#"><i class="fa fa-clock-o"></i>Booking History</a>
+                        <li><a th:href="@{/user/booking}"><i class="fa fa-clock-o"></i>Booking History</a>
                         </li>
                         <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
                         </li>

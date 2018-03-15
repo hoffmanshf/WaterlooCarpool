@@ -24,8 +24,8 @@ import java.util.Optional;
 @RequestMapping("/account")
 public class AccountController {
 
-    private static final String riderAccountType = "riderAccount";
-    private static final String driverAccountType = "driverAccount";
+    private static final String riderAccountType = "Passenger";
+    private static final String driverAccountType = "Driver";
 
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int PAGE_SIZE = 5;
@@ -83,6 +83,10 @@ public class AccountController {
 
         List<BookingReference> bookingReferences = bookingService.findAll(sortType);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
+
+        if (bookingReferences.size() == 0) {
+            return "driverAccountNoResult";
+        }
 
         PageWrapper wrapper = PaginationProcessor(model, page, bookingReferences);
 

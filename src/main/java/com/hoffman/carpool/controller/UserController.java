@@ -1,11 +1,12 @@
 package com.hoffman.carpool.controller;
 
-import com.hoffman.carpool.domain.Car;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.error.UServiceException;
+import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.CarService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -20,6 +21,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 @RequestMapping("/user")
@@ -30,6 +33,9 @@ public class UserController {
 
     @Autowired
     private CarService carService;
+
+    @Autowired
+    private BookingService bookingService;
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Principal principal, Model model) {
@@ -115,6 +121,41 @@ public class UserController {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/booking", method = RequestMethod.GET)
+    public String getBookingHistory(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        List<BookingReference> bookingReferences = bookingService.findAll();
+        bookingReferences = BookingReferenceProcessor(user, bookingReferences);
+        model.addAttribute("user", user);
+        model.addAttribute("bookingReferences", bookingReferences);
+        return "bookingHistory";
+    }
+
+    private List<BookingReference> BookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
+        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
+        for (final BookingReference reference: UserBookingReferences) {
+            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+                reference.setOwner(true);
+            }
+            if (reference.getDriverAccount() != null) {
+                if (reference.getDriverAccount().getUsername().equalsIgnoreCase(user.getUsername())) {
+                    bookingReferences.add(reference);
+                    continue;
+                }
+            }
+            List<RiderAccount> accounts = reference.getPassengerList();
+            if (accounts != null) {
+                for (RiderAccount account : accounts) {
+                    if (account.getUsername().equalsIgnoreCase(user.getUsername())) {
+                        bookingReferences.add(reference);
+                        break;
+                    }
+                }
+            }
+        }
+        return bookingReferences;
     }
 
 }

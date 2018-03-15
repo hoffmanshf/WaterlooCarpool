@@ -27,6 +27,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public List<BookingReference> findAll() {
+        return bookingReferenceDao.findAll();
+    }
+
+    @Override
     public List<BookingReference> findAll(Sort sort) {
         return bookingReferenceDao.findAll(sort);
     }

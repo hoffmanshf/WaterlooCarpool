@@ -78,8 +78,8 @@
                             <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Edit Trip</a></li>
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a href="#">Edit Trip</a></li>-->
                         </ul>
                     </li>
 
@@ -90,9 +90,9 @@
                     </li>
                     <li class="pull-right"><a>Me</a>
                         <ul>
-                            <li><a th:href="@{/user/profile}">Settings</a></li>
+                            <li><a th:href="@{/user/profile}">Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Booking</a></li>
+                            <li><a th:href="@{/user/booking}">Booking</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>

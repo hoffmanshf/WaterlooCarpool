@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+
+<div class="global-wrap">
+    <div class="gap gap-mini"></div>
+    <div class="container">
+        <h1 class="page-title">Booking History</h1>
+    </div>
+    <div class="gap gap-small"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <aside class="user-profile-sidebar">
+                    <div class="user-profile-avatar text-center">
+                        <img th:src="@{/user/photo/view}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                        <h5><td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td></h5>
+                        <!--<br/>-->
+                        <!--<p>Member Since May 2017</p>-->
+                    </div>
+                    <ul id="userInfo" class="list user-profile-nav">
+                        <li><a th:href="@{/user/profile}"><i class="fa fa-user"></i>Account Profile</a>
+                        </li>
+                        <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
+                        </li>
+                        <li><a th:href="@{/user/booking}"><i class="fa fa-clock-o"></i>Booking History</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                        <div class="table-responsive">
+                            <table id="example" class="table table-bordered table-hover table-striped">
+                                <thead>
+                                <tr>
+                                    <th>Type</th>
+                                    <th>Travel Date</th>
+                                    <!--<th>User</th>-->
+                                    <th>Departure</th>
+                                    <th>Arrival</th>
+                                    <!--<th>Passenger</th>-->
+                                    <th>Payment Method</th>
+                                    <!--<th>Notes</th>-->
+                                    <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-th-each="bookingReference : ${bookingReferences}">
+                                    <td data-th-text="${bookingReference.accountType}">...</td>
+                                    <td data-th-text="${bookingReference.date}">...</td>
+                                    <!--<th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>-->
+                                    <td data-th-text="${bookingReference.departure}">...</td>
+                                    <td data-th-text="${bookingReference.arrival}">...</td>
+                                    <!--<td data-th-text="${bookingReference.passengerNumber}">...</td>-->
+                                    <td data-th-text="${bookingReference.paymentMethod}">...</td>
+                                    <!--<td data-th-text="${bookingReference.notes}">...</td>-->
+                                    <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
+                                        <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
+                                </tr>
+                                </tbody>
+                            </table>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+<script>
+    $(document).ready(function() {
+        $('#example').DataTable();
+    } );
+</script>
+</body>
+</html>

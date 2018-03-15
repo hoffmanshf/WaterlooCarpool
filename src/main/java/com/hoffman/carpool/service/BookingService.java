@@ -9,6 +9,7 @@ import java.util.List;
 public interface BookingService {
     BookingReference createBooking(BookingReference bookingReference);
     BookingReference findBookingReference(Long id);
+    List<BookingReference> findAll();
     List<BookingReference> findAll(Sort sort);
     BookingReference saveBooking(BookingReference bookingReference);
     List<BookingReference> searchBookingReference(String arrival, String departure, String date, Sort sort);

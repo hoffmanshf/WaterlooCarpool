@@ -19,8 +19,8 @@ import java.util.*;
 @RequestMapping("booking")
 public class BookingController {
 
-    private static final String riderAccountType = "riderAccount";
-    private static final String driverAccountType = "driverAccount";
+    private static final String riderAccountType = "Passenger";
+    private static final String driverAccountType = "Driver";
     private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
     private static final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
