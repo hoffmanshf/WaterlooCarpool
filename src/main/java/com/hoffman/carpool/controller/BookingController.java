@@ -41,7 +41,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
-    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
+    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) {
 
         Date date = StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();
@@ -85,7 +85,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
-    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
+    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) {
 
         Date date = StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();

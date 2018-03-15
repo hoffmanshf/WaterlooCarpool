@@ -2,15 +2,23 @@ package com.hoffman.carpool.controller;
 
 import com.hoffman.carpool.domain.Car;
 import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.CarService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.security.Principal;
 
 @Controller
@@ -65,8 +73,48 @@ public class UserController {
         return "profile";
     }
 
-    @RequestMapping(value = "edit-photo", method = RequestMethod.GET)
+    @RequestMapping(value = "/photo", method = RequestMethod.GET)
     public String getPhoto(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
         return "userPhoto";
     }
+
+    @RequestMapping(value = "/photo", method = RequestMethod.POST)
+    public String uploadPhoto(@ModelAttribute("user") User newUser, @RequestParam(value = "document") MultipartFile file, Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+
+        if (!file.isEmpty()) {
+            try {
+                user.setUserPhoto(file.getBytes());
+            } catch (IOException e) {
+                throw new UServiceException("TXN_102","", "Photo parse error", e);
+            }
+        }
+
+        model.addAttribute("user", user);
+        userService.saveUser(user);
+        return "userPhoto";
+    }
+
+    @RequestMapping(value = "/photo/viewByUsername", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> getImageByUserName(@RequestParam(value = "username") String username) {
+
+        User user = userService.findByUsername(username);
+        byte[] imageContent = user.getUserPhoto();
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/photo/view", produces = MediaType.IMAGE_PNG_VALUE)
+    public ResponseEntity<byte[]> getImage(Principal principal) {
+
+        User user = userService.findByUsername(principal.getName());
+        byte[] imageContent = user.getUserPhoto();
+        final HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.IMAGE_PNG);
+        return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
+    }
+
 }
