@@ -39,26 +39,26 @@
                             <table id="example" class="table table-bordered table-hover table-striped">
                                 <thead>
                                 <tr>
-                                    <th>Type</th>
+                                    <!--<th>Type</th>-->
                                     <th>Travel Date</th>
                                     <!--<th>User</th>-->
                                     <th>Departure</th>
                                     <th>Arrival</th>
                                     <!--<th>Passenger</th>-->
-                                    <th>Payment Method</th>
+                                    <!--<th>Payment Method</th>-->
                                     <!--<th>Notes</th>-->
                                     <th>Status</th>
                                 </tr>
                                 </thead>
                                 <tbody>
                                 <tr data-th-each="bookingReference : ${bookingReferences}">
-                                    <td data-th-text="${bookingReference.accountType}">...</td>
+                                    <!--<td data-th-text="${bookingReference.accountType}">...</td>-->
                                     <td data-th-text="${bookingReference.date}">...</td>
                                     <!--<th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>-->
                                     <td data-th-text="${bookingReference.departure}">...</td>
                                     <td data-th-text="${bookingReference.arrival}">...</td>
                                     <!--<td data-th-text="${bookingReference.passengerNumber}">...</td>-->
-                                    <td data-th-text="${bookingReference.paymentMethod}">...</td>
+                                    <!--<td data-th-text="${bookingReference.paymentMethod}">...</td>-->
                                     <!--<td data-th-text="${bookingReference.notes}">...</td>-->
                                     <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
                                         <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>

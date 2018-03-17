@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.text.DateFormat;
@@ -256,7 +257,7 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
-    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal, RedirectAttributes redirectAttributes) {
 
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
@@ -275,12 +276,17 @@ public class BookingController {
         }
 
         bookingService.saveBooking(bookingReference);
+        redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
 
         return "redirect:/booking/driverBooking/success";
     }
 
     @RequestMapping(value= "/driverBooking/success", method = RequestMethod.GET)
-    public String driverBookingSuccess() {
+    public String driverBookingSuccess(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         return "BookingSuccessPage";
     }
