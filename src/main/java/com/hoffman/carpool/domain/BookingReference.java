@@ -26,6 +26,9 @@ public class BookingReference {
     private int price;
     private String notes;
 
+    private String duration;
+    private String distance;
+
     private String accountType;
     private String author;
 
@@ -203,5 +206,21 @@ public class BookingReference {
 
     public void setDateForSearch(String dateForSearch) {
         this.dateForSearch = dateForSearch;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
     }
 }

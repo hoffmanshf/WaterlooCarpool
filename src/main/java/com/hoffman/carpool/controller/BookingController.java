@@ -1,8 +1,10 @@
 package com.hoffman.carpool.controller;
 
+import com.google.maps.model.DistanceMatrix;
 import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
+import com.hoffman.carpool.service.GoogleDistanceMatrixService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -31,6 +33,9 @@ public class BookingController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private GoogleDistanceMatrixService distanceMatrixService;
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
     public String createRiderBooking(Model model) {
@@ -86,7 +91,8 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
-    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) {
+    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source,
+                                          @RequestParam(value = "departure") String departure, @RequestParam(value = "arrival") String arrival, Principal principal) {
 
         Date date = StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();
@@ -115,6 +121,13 @@ public class BookingController {
         final String author = driverAccount.getUsername();
         bookingReference.setAuthor(author);
         bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
+
+        DistanceMatrix distanceMatrix = distanceMatrixService.estimateRouteTime(departure, arrival);
+        String distance = distanceMatrix.rows[0].elements[0].distance.humanReadable;
+        String duration = distanceMatrix.rows[0].elements[0].duration.humanReadable;
+
+        bookingReference.setDistance(distance);
+        bookingReference.setDuration(duration);
 
         bookingService.createBooking(bookingReference);
         return "redirect:/userFront";

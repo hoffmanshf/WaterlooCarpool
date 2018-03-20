@@ -41,14 +41,6 @@
                                         <div class="caption wrapper-lg">
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <p><strong>Confirmation number</strong></p>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <p>10034702</p>
-                                                </div>
-                                            </div>
-                                            <div class="row">
-                                                <div class="col-md-3">
                                                     <p><strong>Leaving from</strong></p>
                                                 </div>
                                                 <div class="col-md-6">
@@ -65,10 +57,26 @@
                                             </div>
                                             <div class="row">
                                                 <div class="col-md-3">
-                                                    <p><strong>Travel time</strong></p>
+                                                    <p><strong>Departure time</strong></p>
                                                 </div>
                                                 <div class="col-md-6">
                                                     <p><td data-th-text="${bookingReference.dateForSearch}">...</td> <td data-th-text="${bookingReference.time}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Travel distance</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.distance}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Estimated duration</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.duration}">...</td></p>
                                                 </div>
                                             </div>
                                             <div class="line line-dashed b-b line-lg pull-in"></div>
