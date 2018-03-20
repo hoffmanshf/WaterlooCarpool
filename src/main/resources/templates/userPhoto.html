@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="global-wrap">
+    <div class="gap gap-mini"></div>
+    <div class="container">
+        <h1 class="page-title">User Photo</h1>
+    </div>
+    <div class="gap gap-small"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <aside class="user-profile-sidebar">
+                    <div class="user-profile-avatar text-center">
+                        <img th:src="@{/user/photo/view}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                        <h5><td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td></h5>
+                        <!--<br/>-->
+                        <!--<p>Member Since May 2017</p>-->
+                    </div>
+                    <ul id="userInfo" class="list user-profile-nav">
+                        <li><a th:href="@{/user/profile}"><i class="fa fa-user"></i>Account Profile</a>
+                        </li>
+                        <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
+                        </li>
+                        <li><a th:href="@{/user/booking/rider}"><i class="fa fa-clock-o"></i>Booking History</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <form method="post" th:action="@{/user/photo}" enctype="multipart/form-data">
+                            <input type="hidden" name="id" th:value="${user.userId}"/>
+                            <!--<h4>Add a nice photo for your profile</h4>-->
+                            <div class="form-group">
+                                <input type="file" class="filestyle" data-icon="false" data-classButton="btn btn-default"
+                                       data-classInput="form-control inline v-middle input-s" name="document" id="document"/>
+                            </div>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <div class="gap gap-small"></div>
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-block">Update Photo
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <div class="gap"></div>
+</div>
+
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

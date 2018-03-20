@@ -15,7 +15,7 @@ hr {
 }
 
 html {
-	background-color: #ffffff;
+	/*background-color: #ffffff;*/
 	overflow-x: hidden;
 }
 body {
@@ -135,7 +135,7 @@ a:hover .caret-white {
 }
 .breadcrumb {
 	background-color: #fff;
-	border: 1px solid #eaeef1;
+	/*border: 1px solid #eaeef1;*/
 	padding-left: 10px;
 	margin-bottom: 10px;
 }
@@ -8967,7 +8967,7 @@ aside.sidebar-left {
 	color: #fff;
 }
 .user-profile-sidebar .user-profile-nav > li > a {
-	padding: 10px 20px;
+	padding: 10px 10px;
 	color: #d9d9d9;
 	display: block;
 	font-size: 13px;
@@ -12439,3 +12439,20 @@ footer.nb-footer .copyright {
 footer.nb-footer .copyright p {
 	margin: 0;
 	padding: 0; }
+
+.pagination-centered {
+	text-align: center;
+}
+
+.disabled {
+	pointer-events: none;
+	opacity: 0.5;
+}
+
+.pointer-disabled {
+	pointer-events: none;
+}
+
+#userInfo li {
+	list-style-type: none;
+}

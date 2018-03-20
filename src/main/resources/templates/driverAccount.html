@@ -15,22 +15,70 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
+    <br/>
     <div class="row">
-        <br/>
+        <div class="col-md-6">
+            <ul id="userInfo" class="breadcrumb">
+                <li><a th:href="@{/userFront}"><i class="fa fa-home"></i> Home</a></li>
+                <li class="active"><i class="fa fa-list-ul"></i> Find Post</li>
+                <li class="active">Driver Posting</li>
+                <!--<li class="active">Driver Posting</li>-->
+            </ul>
+        </div>
+        <div class="col-md-6">
+            <div class="nav-drop booking-sort pull-right">
+                <!--<label class="booking-sort-title">Sort by&nbsp;</label>-->
+                <div class="btn-group m-r">
+                    <!--<form th:action="@{${uri2}}" method="get">-->
+                        <!--<div class="input-group">-->
+                            <!--&lt;!&ndash;<span class="input-group-addon">Sort by</span>&ndash;&gt;-->
+                            <!--<select class="js-example-basic-single" name="sort" id="sort" style="width: 160px" onchange="this.form.submit()">-->
+                                <!--<option></option>-->
+                                <!--<option value="price-asc">Price: Low to High</option>-->
+                                <!--<option value="price-desc">Price: High to Low</option>-->
+                                <!--<option value="date-asc">Date: Old to New</option>-->
+                                <!--<option value="date-desc">Date: New to Old</option>-->
+                            <!--</select>-->
+                        <!--</div>-->
+                    <!--</form>-->
+                    <!--<ul class="list-unstyled">-->
+                        <!--<li><a th:href="@{${uri2}(sort=price-asc)}"><i class="fa fa-angle-double-right"></i> Price: Low to High</a></li>-->
+                        <!--<li><a th:href="@{${uri2}(sort=price-desc)}"><i class="fa fa-angle-double-right"></i> Price: High to Low</a></li>-->
+                        <!--<li><a th:href="@{${uri2}(sort=date-asc)}"><i class="fa fa-angle-double-right"></i> Date: Old to New</a></li>-->
+                        <!--<li><a th:href="@{${uri2}(sort=date-desc)}"><i class="fa fa-angle-double-right"></i> Date: New to Old</a></li>-->
+                    <!--</ul>-->
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            Sort: Filter By Type&nbsp;<span class="caret"></span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <li><a th:href="@{${uri2}(sort=date-asc)}">Date: Old to New</a></li>
+                            <li><a th:href="@{${uri2}(sort=date-desc)}">Date: New to Old</a></li>
+                            <li><a th:href="@{${uri2}(sort=price-asc)}">Price: Low to High</a></li>
+                            <li><a th:href="@{${uri2}(sort=price-desc)}">Price: High to Low</a></li>
+                        </ul>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+    <div class="gap gap-mini"/>
+
+    <div class="row">
         <div class="col-md-3">
-            <form class="booking-item-dates-change mb30">
+            <form class="booking-item-dates-change mb30" th:action="@{/account/driverAccount/searchPassenger}" method="get">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Pick-up Location</label>
-                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="departure" required="required"/>
                 </div>
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Drop-off Location</label>
-                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" />
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="arrival" required="required"/>
                 </div>
                 <div class="form-group form-group-icon-left" id="sandbox-container"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
                     <label>Travel Date</label>
                     <input type="text" class="form-control" name="date"/>
-
                 </div>
                 <div class="form-group form-group-select-plus">
                     <label>Passengers</label>
@@ -46,21 +94,6 @@
             <br/>
         </div>
         <div class="col-md-9">
-            <!--<div class="nav-drop booking-sort">-->
-            <!--<h5 class="booking-sort-title"><a href="#">Sort: Sort: Price (low to high)<i class="fa fa-angle-down"></i><i class="fa fa-angle-up"></i></a></h5>-->
-            <!--<ul class="nav-drop-menu">-->
-            <!--<li><a href="#">Price (high to low)</a>-->
-            <!--</li>-->
-            <!--<li><a href="#">Duration</a>-->
-            <!--</li>-->
-            <!--<li><a href="#">Stops</a>-->
-            <!--</li>-->
-            <!--<li><a href="#">Arrival</a>-->
-            <!--</li>-->
-            <!--<li><a href="#">Departure</a>-->
-            <!--</li>-->
-            <!--</ul>-->
-            <!--</div>-->
             <ul class="booking-list">
                 <tr data-th-each="bookingReference : ${bookingReferences}">
                     <li>
@@ -69,8 +102,8 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="pull-left thumb-md avatar b-3x m-r booking-item-airline-logo">
-                                            <img src="/images/a1.png" />
-                                            <div class="p m-t-xs m-b-xs m-l-xs">
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                                            <div class="p m-t-xs m-b-xs m-l-xs text-center">
                                                 <td data-th-text="${bookingReference.author}">...</td>
                                             </div>
                                         </div>
@@ -127,7 +160,38 @@
             <!--</p>-->
         </div>
     </div>
+
+    <div class="row">
+        <div class="col-md-3">
+        </div>
+        <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1 and bookingReferences.getSize() != 0}">
+            <ul class="pagination">
+                <li th:class="${bookingReferences.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{${uri}(page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${bookingReferences.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{${uri}(page=${bookingReferences.number})}">Previous</a>
+                </li>
+                <li th:class="${bookingReferences.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(wrapper.startPage, wrapper.endPage)}">
+                    <a class="pageLink" th:href="@{${uri}(page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li th:class="${bookingReferences.number + 1 == bookingReferences.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{${uri}(page=${bookingReferences.number + 2})}">Next</a>
+                </li>
+                <li th:class="${bookingReferences.number + 1 == bookingReferences.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{${uri}(page=${bookingReferences.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <div class="gap gap-small"></div>
 </div>
+
+<div th:replace="common/header :: footer"/>
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 <script>
@@ -143,6 +207,12 @@
             });
         }
     });
+    // $(document).ready(function() {
+    //     $('.js-example-basic-single').select2({
+    //         placeholder: 'Sort by Filter',
+    //         theme: "bootstrap"
+    //     });
+    // });
 </script>
 </body>
 </html>

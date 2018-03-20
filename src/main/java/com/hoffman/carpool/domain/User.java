@@ -28,6 +28,9 @@ public class User implements UserDetails{
     private String email;
     private String phone;
 
+    @Lob
+    private byte[] userPhoto;
+
     private boolean enabled=true;
 
     @OneToOne
@@ -96,6 +99,14 @@ public class User implements UserDetails{
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+
+    public byte[] getUserPhoto() {
+        return userPhoto;
+    }
+
+    public void setUserPhoto(byte[] userPhoto) {
+        this.userPhoto = userPhoto;
     }
 
     public void setEnabled(boolean enabled) {
@@ -172,6 +183,5 @@ public class User implements UserDetails{
     public boolean isEnabled() {
         return enabled;
     }
-
 
 }

@@ -8,22 +8,23 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.security.Principal;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("booking")
 public class BookingController {
 
-    private static final String riderAccountType = "riderAccount";
-    private static final String driverAccountType = "driverAccount";
+    private static final String riderAccountType = "Passenger";
+    private static final String driverAccountType = "Driver";
     private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
     private static final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
 
     @Autowired
     private BookingService bookingService;
@@ -41,7 +42,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
-    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
+    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) {
 
         Date date = StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();
@@ -85,7 +86,7 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
-    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) throws ParseException {
+    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) {
 
         Date date = StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();
@@ -171,7 +172,7 @@ public class BookingController {
             }
         }
 
-        return "redirect:/account/riderAccount";
+        return "redirect:/user/booking/rider";
     }
 
     @RequestMapping(value= "/riderBooking/accept", method = RequestMethod.POST)
@@ -216,7 +217,7 @@ public class BookingController {
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
             return "riderBookingCancelProgressPage";
         } else {
-            return "redirect:/account/riderAccount";
+            return "redirect:/user/booking/rider";
         }
     }
 
@@ -228,7 +229,7 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/account/riderAccount";
+        return "redirect:/user/booking/rider";
     }
 
     @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)
@@ -245,18 +246,16 @@ public class BookingController {
             return "driverBookingAcceptPage";
         }
 
-        if (riderAccount != null) {
-            final String riderName = riderAccount.getUsername();
-            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && riderName.equalsIgnoreCase(principal.getName())) {
-                return "driverBookingCancelProgressPage";
-            }
+        if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
+            return "driverBookingAcceptPage";
         }
 
-        return "redirect:/account/driverAccount";
+
+        return "redirect:/user/booking/driver";
     }
 
     @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
-    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal, RedirectAttributes redirectAttributes) {
 
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
@@ -270,14 +269,24 @@ public class BookingController {
         bookingReference.setPassengerList(passengerList);
         model.addAttribute("bookingReference", bookingReference);
 
-        if (bookingReference.getPassengerNumber() == 0) {
-            bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
-        }
+        bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
 
         bookingService.saveBooking(bookingReference);
+        redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
 
-        return "redirect:/account/driverAccount";
+        return "redirect:/booking/driverBooking/success";
     }
+
+    @RequestMapping(value= "/driverBooking/success", method = RequestMethod.GET)
+    public String driverBookingSuccess(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+
+        return "BookingSuccessPage";
+    }
+
 
     @RequestMapping(value= "/driverBooking/complete", method = RequestMethod.POST)
     public String completeDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
@@ -303,9 +312,28 @@ public class BookingController {
         if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
             return "driverBookingCancelPendingPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
-            return "driverBookingCompletePage";
+            List<RiderAccount> passengers = bookingReference.getPassengerList();
+            List<RiderAccount> distinctPassengers = passengers.stream()
+                    .distinct()
+                    .collect(Collectors.toList());
+            int seatsOccupied = 0;
+            List<BookingReferenceReservation> reservations = new ArrayList<>();
+            for (RiderAccount distinctPassenger: distinctPassengers) {
+                BookingReferenceReservation reservation = new BookingReferenceReservation();
+                for (RiderAccount passenger: passengers) {
+                    if (distinctPassenger.getUsername().equalsIgnoreCase(passenger.getUsername())) {
+                        seatsOccupied += 1;
+                    }
+                }
+                reservation.setPassenger(distinctPassenger);
+                reservation.setSeatsOccupied(seatsOccupied);
+                reservations.add(reservation);
+            }
+            model.addAttribute("reservations", reservations);
+//            model.addAttribute("passengers", distinctPassengers);
+            return "driverBookingProgressPage";
         } else {
-            return "redirect:/account/driverAccount";
+            return "redirect:/user/booking/driver";
         }
     }
 
@@ -317,6 +345,6 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/account/driverAccount";
+        return "redirect:/user/booking/driver";
     }
 }

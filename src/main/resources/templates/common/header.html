@@ -33,6 +33,12 @@
     <!--slider-->
     <link rel="stylesheet" href="/css/slider.css" type="text/css" />
 
+    <!--chosen select-->
+    <link rel="stylesheet" href="/js/chosen/chosen.css" type="text/css" />
+
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />-->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />-->
+
     <!--icon-->
     <link href="css/icon.css" rel="stylesheet" type="text/css" />
     <link href="css/icomoon.css" rel="stylesheet" />
@@ -60,35 +66,33 @@
                 <ul class="slimmenu" id="slimmenu">
                     <li class="active"><a href="/userFront">Home</a>
                     </li>
-                    <li><a>Trip Post</a>
+                    <li><a>Find Post</a>
                         <ul>
                             <li><a th:href="@{/account/riderAccount}">Rider</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/account/driverAccount}">Driver</a></li>
                         </ul>
                     </li>
-                    <li><a>Create Trip</a>
+                    <li><a>Create New</a>
                         <ul>
                             <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/booking/edit}">Edit Trip</a></li>
+                            <!--<li role="separator" class="divider"></li>-->
+                            <!--<li><a href="#">Edit Trip</a></li>-->
                         </ul>
                     </li>
 
                     <li><a>Driver Pro</a>
                         <ul>
-                            <li><a href="#">Travel Notes </a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a href="#">Schedule </a></li>
+                            <li><a href="#">Calendar </a></li>
                         </ul>
                     </li>
                     <li class="pull-right"><a>Me</a>
                         <ul>
                             <li><a th:href="@{/user/profile}">Setting</a></li>
                             <li role="separator" class="divider"></li>
-                            <li><a href="#">Booking</a></li>
+                            <li><a th:href="@{/user/booking/rider}">Booking</a></li>
                             <li role="separator" class="divider"></li>
                             <li><a th:href="@{/logout}">Logout</a></li>
                         </ul>
@@ -203,6 +207,9 @@
     <!-- slider -->
     <script src="/js/bootstrap-slider.js"></script>
 
+    <!-- chosen select -->
+    <script src="/js/chosen/chosen.jquery.min.js"></script>
+
     <!-- chart -->
     <script src="/js/slimscroll/jquery.slimscroll.min.js"></script>
     <script src="/js/charts/easypiechart/jquery.easy-pie-chart.js"></script>
@@ -245,6 +252,9 @@
     <script src="/js/tweet.js"></script>
     <script src="/js/countdown.js"></script>
     <script src="/js/gridrotator.js"></script>
+
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>-->
+    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>-->
 
     <!--main app plugin js-->
     <script src="/js/app.plugin.js"></script>

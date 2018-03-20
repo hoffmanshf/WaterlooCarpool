@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<style>
+    html {
+        background-color: #F4F4F4;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+
+<div class="container">
+    <div class="gap gap-small"></div>
+    <form th:action="@{/booking/driverBooking/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
+        <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
+        <div class="col-md-9">
+            <section id="content">
+                <section class="hbox stretch">
+                    <section>
+                        <section class="vbox">
+                            <section class="scrollable wrapper">
+                                <div class="blog-post">
+                                    <div class="post-item">
+                                        <div class="caption wrapper-lg">
+                                            <h3 class="post-title"><strong>Thanks <td data-th-text="${user.firstName}">...</td>! Your booking is accepted.</strong></h3>
+                                            <!--<h3 class="post-title">Your booking is accepted.</h3>-->
+                                            <div class="post-sum">
+                                                <p><i class="fa fa-check"></i> We've sent your confirmation to <strong><td data-th-text="${user.email}">...</td></strong>.</p>
+                                                <p><i class="fa fa-check"></i> You can now <strong>modify or cancel</strong> your booking until departure.</p>
+                                                <p><i class="fa fa-check"></i> Prepayment is not needed for this booking. See <a href="#" title="">FAQ's</a> for more information.</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="m-t-lg m-b">&nbsp;&nbsp;Check your details </h4>
+                                    <div class="gap gap-mini"></div>
+                                    <div class="post-item">
+                                        <div class="caption wrapper-lg">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Confirmation number</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>10034702</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Leaving from</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.departure}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Destination</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.arrival}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Travel time</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.dateForSearch}">...</td> <td data-th-text="${bookingReference.time}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Driver name</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.driverAccount.firstName}">...</td> <td data-th-text="${bookingReference.driverAccount.lastName}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Contact phone</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.driverAccount.phone}">...</td></p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Contact email</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.driverAccount.email}">...</td></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <h4 class="m-t-lg m-b">&nbsp;&nbsp;Passenger details </h4>
+                                    <div class="gap gap-mini"></div>
+                                    <div class="post-item">
+                                        <div class="caption wrapper-lg">
+                                            <tr data-th-each="reservation : ${reservations}">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p><strong>Passenger name</strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><td data-th-text="${reservation.passenger.firstName}">...</td> <td data-th-text="${reservation.passenger.lastName}">...</td></p>
+                                                        <p><strong>reserved for <td data-th-text="${reservation.seatsOccupied}">...</td> seat(s)</strong></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p><strong>Contact phone</strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><td data-th-text="${reservation.passenger.phone}">...</td></p>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <p><strong>Contact email</strong></p>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <p><td data-th-text="${reservation.passenger.email}">...</td></p>
+                                                    </div>
+                                                </div>
+                                                <div class="line line-dashed b-b line-lg pull-in"></div>
+                                            </tr>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Seats available</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.passengerNumber}">...</td> seats left</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Cancellation cost</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p> CAD 1.00</p>
+                                                    <p><strong>This reservation can not be cancelled free of charge.</strong></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                                <h4 class="m-t-lg m-b">Leave a comment if you wish to cancel your trip</h4>
+                                    <!--<div class="form-group pull-in clearfix">-->
+                                        <!--<div class="col-sm-6">-->
+                                            <!--<label>Your name</label>-->
+                                            <!--<input type="text" class="form-control" placeholder="Name"/>-->
+                                        <!--</div>-->
+                                        <!--<div class="col-sm-6">-->
+                                            <!--<label >Email</label>-->
+                                            <!--<input type="email" class="form-control" placeholder="Enter email"/>-->
+                                        <!--</div>-->
+                                    <!--</div>-->
+                                    <div class="form-group">
+                                        <!--<label>Comment</label>-->
+                                        <textarea class="form-control" rows="5" placeholder="Type your comment"></textarea>
+                                    </div>
+                            </section>
+                        </section>
+                    </section>
+                </section>
+            </section>
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+
+            <div class="col-md-5">
+                <a class="btn btn-danger btn-block" id="submitBooking">Cancel Booking</a>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <!--<div class="gap gap-mini"></div>-->
+            <!--<div class="booking-item-deails-date-location">-->
+                <!--<ul>-->
+                    <!--<li>-->
+                        <!--<h5>Pick Up:</h5>-->
+                        <!--<p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.departure}">...</td></p>-->
+                        <!--<p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>-->
+                        <!--<p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.time}">...</td></p>-->
+                    <!--</li>-->
+                    <!--<li>-->
+                        <!--<h5>Drop Off:</h5>-->
+                        <!--<p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.arrival}">...</td></p>-->
+                        <!--<p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>-->
+                        <!--<p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>-->
+                    <!--</li>-->
+                <!--</ul>-->
+                <!--<a class="btn btn-danger btn-block" id="submitBooking">Cancel Booking</a>-->
+            <!--</div>-->
+            <!--<div class="gap gap-small"></div>-->
+        </div>
+    </form>
+    <div class="gap"></div>
+</div>
+
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

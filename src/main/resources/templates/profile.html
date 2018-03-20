@@ -3,146 +3,194 @@
 <head th:replace="common/header :: common-header"/>
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
-<div class="container">
-    <div class="row main">
-        <div class="col-md-6">
-            <span class="alert alert-success" th:if="${success}">Your changes have been successfully saved.</span>
-            <h2 class="title">My Profile</h2>
-            <hr/>
-            <form method="post" th:action="@{/user/profile}">
-                <input type="hidden" name="id" th:value="${user.userId}"/>
 
-                <div class="form-group">
-                    <label for="firstName">First Name</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.firstName}" id="firstName"
-                                   name="firstName" roleId="firstname" placeholder="Enter your first name"
-                                   required="required"/>
-                        </div>
+<div class="global-wrap">
+    <div class="gap gap-mini"></div>
+    <div class="container">
+        <h1 class="page-title">Account Profile</h1>
+    </div>
+    <div class="gap gap-small"></div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-3">
+                <aside class="user-profile-sidebar">
+                    <div class="user-profile-avatar text-center">
+                        <img th:src="@{/user/photo/view}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                        <h5><td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td></h5>
+                        <!--<br/>-->
+                        <!--<p>Member Since May 2017</p>-->
                     </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="lastName" class="cols-sm-2 control-label">Last Name</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.lastName}" id="lastName"
-                                   name="lastName" roleId="lastName" placeholder="Enter your last name"
-                                   required="required"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="phone" class="cols-sm-2 control-label">Phone</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone"
-                                   roleId="phone" placeholder="xxx-xxx-xxxx" required="required"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Your Email</label>
-                    <span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-envelope fa"
-                                                                   aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${user.email}" id="email" name="email"
-                                   roleId="email" placeholder="Enter your Email" required="required"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="switch" class="cols-sm-2 control-label">Car Register</label>
-                    <div class="cols-sm-10">
-                        <div class="checkbox">
-                            <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-target="switch" id="switch" name="switch"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="hidden-fields" class="panel-collapse collapse">
-
-                    <div class="form-group">
-                        <label for="carManufacturer" class="cols-sm-2 control-label">Car Manufacturer</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" th:value="${car.carManufacturer}" id="carManufacturer"
-                                       name="carManufacturer" roleId="carManufacturer" placeholder="Enter your Car Manufacturer"
-                                       required="required"/>
+                    <ul id="userInfo" class="list user-profile-nav">
+                        <li><a th:href="@{/user/profile}"><i class="fa fa-user"></i>Account Profile</a>
+                        </li>
+                        <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
+                        </li>
+                        <li><a th:href="@{/user/booking/rider}"><i class="fa fa-clock-o"></i>Booking History</a>
+                        </li>
+                        <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
+                        </li>
+                    </ul>
+                </aside>
+            </div>
+            <div class="col-md-9">
+                <div class="row">
+                    <div class="col-md-5">
+                        <form method="post" th:action="@{/user/profile}">
+                            <input type="hidden" name="id" th:value="${user.userId}"/>
+                            <h4>Personal Infomation</h4>
+                            <div class="form-group form-group-icon-left">
+                                <label for="firstName">First Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${user.firstName}" id="firstName"
+                                           name="firstName" roleId="firstname" placeholder="Enter your first name"
+                                           required="required"/>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="carModel" class="cols-sm-2 control-label">Car Model</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-car fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" th:value="${car.carModel}" id="carModel" name="carModel"
-                                       roleId="carModel" placeholder="Enter your Car Model" required="required"/>
+                            <div class="form-group form-group-icon-left">
+                                <label for="lastName" class="cols-sm-2 control-label">Last Name</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${user.lastName}" id="lastName"
+                                           name="lastName" roleId="lastName" placeholder="Enter your last name"
+                                           required="required"/>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="carYear" class="cols-sm-2 control-label">Car Year</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar-check-o fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" th:value="${car.carYear}" id="carYear" name="carYear"
-                                       roleId="carYear" placeholder="Enter your Car Year" required="required"/>
+                            <div class="form-group form-group-icon-left">
+                                <label for="phone" class="cols-sm-2 control-label">Phone</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${user.phone}" id="phone" name="phone"
+                                           roleId="phone" placeholder="xxx-xxx-xxxx" required="required"/>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="carColour" class="cols-sm-2 control-label">Car Colour</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-adjust fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" th:value="${car.carColour}" id="carColour" name="carColour"
-                                       roleId="carColour" placeholder="Enter your Car Colour" required="required"/>
+                            <div class="form-group form-group-icon-left">
+                                <label for="email" class="cols-sm-2 control-label">Your Email</label>
+                                <span class="bg-danger pull-right" th:if="${emailExists}">Email already exists</span>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-envelope fa"
+                                                                       aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" th:value="${user.email}" id="email" name="email"
+                                           roleId="email" placeholder="Enter your Email" required="required"/>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="carLicensePlateNumber" class="cols-sm-2 control-label">License Plate</label>
-                        <div class="cols-sm-10">
-                            <div class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-id-card fa" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" th:value="${car.carLicensePlateNumber}" id="carLicensePlateNumber" name="carLicensePlateNumber"
-                                       roleId="carLicensePlateNumber" placeholder="Enter your License Plate" required="required"/>
+                            <div class="gap gap-small"></div>
+                            <h4>Car Register</h4>
+                            <div class="form-group">
+                                <!--<label for="switch" class="cols-sm-2 control-label">Car Register</label>-->
+                                <div class="cols-sm-10">
+                                    <div class="checkbox">
+                                        <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-target="switch" id="switch" name="switch"/>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                            <div id="hidden-fields" class="panel-collapse collapse">
+                                <div class="form-group form-group-icon-left">
+                                    <label for="carManufacturer" class="cols-sm-2 control-label">Car Manufacturer</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-car fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${car.carManufacturer}" id="carManufacturer"
+                                               name="carManufacturer" roleId="carManufacturer" placeholder="Enter your Car Manufacturer"
+                                               required="required"/>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-icon-left">
+                                    <label for="carModel" class="cols-sm-2 control-label">Car Model</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-tag fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${car.carModel}" id="carModel" name="carModel"
+                                               roleId="carModel" placeholder="Enter your Car Model" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-icon-left">
+                                    <label for="carYear" class="cols-sm-2 control-label">Car Year</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${car.carYear}" id="carYear" name="carYear"
+                                               roleId="carYear" placeholder="Enter your Car Year" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-icon-left">
+                                    <label for="carColour" class="cols-sm-2 control-label">Car Colour</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-adjust fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${car.carColour}" id="carColour" name="carColour"
+                                               roleId="carColour" placeholder="Enter your Car Colour" required="required"/>
+                                    </div>
+                                </div>
+                                <div class="form-group form-group-icon-left">
+                                    <label for="carLicensePlateNumber" class="cols-sm-2 control-label">License Plate</label>
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-id-card fa" aria-hidden="true"></i></span>
+                                        <input type="text" class="form-control" th:value="${car.carLicensePlateNumber}" id="carLicensePlateNumber" name="carLicensePlateNumber"
+                                               roleId="carLicensePlateNumber" placeholder="Enter your License Plate" required="required"/>
+                                    </div>
+                                </div>
+                            </div>
+                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                            <div class="gap gap-small"></div>
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-block">Update Profile
+                                </button>
+                            </div>
+                            <div class="gap gap-small"></div>
+                            <span class="alert alert-success" th:if="${success}">Your changes have been successfully saved.</span>
+                            <div class="gap gap-small"></div>
+                        </form>
                     </div>
 
+                    <div class="col-md-5 col-md-offset-1">
+                        <h4>Change Password</h4>
+                        <form>
+                            <div class="form-group form-group-icon-left">
+                                <label for="currentPassword" class="cols-sm-2 control-label">Current Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" id="currentPassword" name="currentPassword"
+                                           roleId="currentPassword"/>
+                                </div>
+                            </div>
+                            <div class="form-group form-group-icon-left">
+                                <label for="newPassword" class="cols-sm-2 control-label">New Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" id="newPassword" name="newPassword"
+                                           roleId="newPassword"/>
+                                </div>
+                            </div>
+                            <!--<div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon"></i>-->
+                                <!--<label>Current Password</label>-->
+                                <!--<input class="form-control" type="password" />-->
+                            <!--</div>-->
+                            <!--<div class="form-group form-group-icon-left"><i class="fa fa-lock input-icon"></i>-->
+                                <!--<label>New Password</label>-->
+                                <!--<input class="form-control" type="password" />-->
+                            <!--</div>-->
+                            <div class="form-group form-group-icon-left">
+                                <label for="newPassword2" class="cols-sm-2 control-label">Confirm Password</label>
+                                <div class="input-group">
+                                    <span class="input-group-addon"><i class="fa fa-lock fa" aria-hidden="true"></i></span>
+                                    <input type="text" class="form-control" id="newPassword2" name="newPassword2"
+                                           roleId="newPassword2"/>
+                                </div>
+                            </div>
+                            <div class="gap gap-small"></div>
+                            <div class="form-group ">
+                                <button type="submit" class="btn btn-primary btn-block">Change Password
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
 
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
-
-                <br/>
-                <div class="form-group ">
-                    <button type="submit" class="btn btn-primary btn-block ">Update Profile
-                    </button>
-                </div>
-            </form>
+            </div>
         </div>
     </div>
+    <div class="gap"></div>
 </div>
 
+<div th:replace="common/header :: footer"/>
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 
