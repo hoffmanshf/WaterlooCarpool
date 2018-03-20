@@ -134,7 +134,7 @@ public class BookingController {
     }
 
     private Date StringToDateConverter(final String source) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
         Date date = null;
 
         try {
