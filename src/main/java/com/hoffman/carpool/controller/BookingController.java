@@ -15,6 +15,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("booking")
@@ -172,7 +173,7 @@ public class BookingController {
             }
         }
 
-        return "redirect:/account/riderAccount";
+        return "redirect:/user/booking/rider";
     }
 
     @RequestMapping(value= "/riderBooking/accept", method = RequestMethod.POST)
@@ -217,7 +218,7 @@ public class BookingController {
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
             return "riderBookingCancelProgressPage";
         } else {
-            return "redirect:/account/riderAccount";
+            return "redirect:/user/booking/rider";
         }
     }
 
@@ -229,7 +230,7 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/account/riderAccount";
+        return "redirect:/user/booking/rider";
     }
 
     @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)
@@ -253,7 +254,7 @@ public class BookingController {
             }
         }
 
-        return "redirect:/account/driverAccount";
+        return "redirect:/user/booking/driver";
     }
 
     @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
@@ -271,9 +272,7 @@ public class BookingController {
         bookingReference.setPassengerList(passengerList);
         model.addAttribute("bookingReference", bookingReference);
 
-        if (bookingReference.getPassengerNumber() == 0) {
-            bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
-        }
+        bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
 
         bookingService.saveBooking(bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
@@ -316,9 +315,14 @@ public class BookingController {
         if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
             return "driverBookingCancelPendingPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
-            return "driverBookingCompletePage";
+            List<RiderAccount> passengers = bookingReference.getPassengerList();
+            List<RiderAccount> distinctPassengers = passengers.stream()
+                    .distinct()
+                    .collect(Collectors.toList());
+            model.addAttribute("passengers", distinctPassengers);
+            return "driverBookingProgressPage";
         } else {
-            return "redirect:/account/driverAccount";
+            return "redirect:/user/booking/driver";
         }
     }
 
@@ -330,6 +334,6 @@ public class BookingController {
 
         bookingService.saveBooking(bookingReference);
 
-        return "redirect:/account/driverAccount";
+        return "redirect:/user/booking/driver";
     }
 }

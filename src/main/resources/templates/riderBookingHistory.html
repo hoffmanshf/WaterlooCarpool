@@ -7,7 +7,15 @@
 <div class="global-wrap">
     <div class="gap gap-mini"></div>
     <div class="container">
-        <h1 class="page-title">Booking History</h1>
+        <div class="col-md-9">
+            <h1 class="page-title">Rider History</h1>
+        </div>
+        <div class="col-md-3">
+            <div class="gap gap-small"></div>
+            <span class="pull-right">
+                <a th:href="@{/user/booking/driver}" class="btn btn-s-md btn-danger"><i class="fa fa-fw fa-exchange"></i> Switch Account</a>
+            </span>
+        </div>
     </div>
     <div class="gap gap-small"></div>
 
@@ -26,7 +34,7 @@
                         </li>
                         <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
                         </li>
-                        <li><a th:href="@{/user/booking}"><i class="fa fa-clock-o"></i>Booking History</a>
+                        <li><a th:href="@{/user/booking/rider}"><i class="fa fa-clock-o"></i>Booking History</a>
                         </li>
                         <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
                         </li>

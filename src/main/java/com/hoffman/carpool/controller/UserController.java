@@ -123,17 +123,46 @@ public class UserController {
         return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/booking", method = RequestMethod.GET)
-    public String getBookingHistory(Principal principal, Model model) {
+    @RequestMapping(value = "/booking/rider", method = RequestMethod.GET)
+    public String getRiderBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferences = BookingReferenceProcessor(user, bookingReferences);
+        bookingReferences = RiderBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
-        return "bookingHistory";
+        return "riderBookingHistory";
     }
 
-    private List<BookingReference> BookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
+    @RequestMapping(value = "/booking/driver", method = RequestMethod.GET)
+    public String getDriverBookingHistory(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        List<BookingReference> bookingReferences = bookingService.findAll();
+        bookingReferences = DriverBookingReferenceProcessor(user, bookingReferences);
+        model.addAttribute("user", user);
+        model.addAttribute("bookingReferences", bookingReferences);
+        return "driverBookingHistory";
+    }
+
+    private List<BookingReference> RiderBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
+        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
+        for (final BookingReference reference: UserBookingReferences) {
+            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+                reference.setOwner(true);
+            }
+            List<RiderAccount> accounts = reference.getPassengerList();
+            if (accounts != null) {
+                for (RiderAccount account : accounts) {
+                    if (account.getUsername().equalsIgnoreCase(user.getUsername())) {
+                        bookingReferences.add(reference);
+                        break;
+                    }
+                }
+            }
+        }
+        return bookingReferences;
+    }
+
+    private List<BookingReference> DriverBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
             if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
@@ -143,15 +172,6 @@ public class UserController {
                 if (reference.getDriverAccount().getUsername().equalsIgnoreCase(user.getUsername())) {
                     bookingReferences.add(reference);
                     continue;
-                }
-            }
-            List<RiderAccount> accounts = reference.getPassengerList();
-            if (accounts != null) {
-                for (RiderAccount account : accounts) {
-                    if (account.getUsername().equalsIgnoreCase(user.getUsername())) {
-                        bookingReferences.add(reference);
-                        break;
-                    }
                 }
             }
         }
