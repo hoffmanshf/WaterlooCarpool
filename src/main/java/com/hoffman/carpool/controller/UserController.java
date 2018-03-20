@@ -22,11 +22,16 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
 public class UserController {
+
+    private static final String riderAccountType = "Passenger";
+    private static final String driverAccountType = "Driver";
 
     @Autowired
     private UserService userService;
@@ -127,6 +132,7 @@ public class UserController {
     public String getRiderBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
+        BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
         bookingReferences = RiderBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
@@ -137,6 +143,7 @@ public class UserController {
     public String getDriverBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
+        BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
         bookingReferences = DriverBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
@@ -176,6 +183,23 @@ public class UserController {
             }
         }
         return bookingReferences;
+    }
+
+    private void BookingReferenceStatusProcessor(final String accountType, List<BookingReference> UserBookingReferences) {
+        Date today = new Date();
+        for (final BookingReference reference: UserBookingReferences) {
+            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
+                if (reference.getDate().before(today)) {
+                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
+                        reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
+                        bookingService.saveBooking(reference);
+                    } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
+                        reference.setBookingStatus(BookingReferenceStatus.COMPLETE);
+                        bookingService.saveBooking(reference);
+                    }
+                }
+            }
+        }
     }
 
 }

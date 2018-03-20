@@ -17,6 +17,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import java.net.URI;
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -50,6 +51,7 @@ public class AccountController {
 
         List<BookingReference> bookingReferences = bookingService.findAll(sortByDateASC);
 
+        BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
         bookingReferences = BookingReferenceProcessor(riderAccountType, user, bookingReferences);
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", bookingReferences);
@@ -82,6 +84,7 @@ public class AccountController {
         Sort sortType = getSortType(sort);
 
         List<BookingReference> bookingReferences = bookingService.findAll(sortType);
+        BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
 
         if (bookingReferences.size() == 0) {
@@ -143,6 +146,7 @@ public class AccountController {
             bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortType);
         }
 
+        BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
         model.addAttribute("bookingReferences", bookingReferences);
 
@@ -212,6 +216,7 @@ public class AccountController {
             bookingReferences = bookingService.searchBookingReferenceWithoutDate(arrivalCity, departureCity, sortType);
         }
 
+        BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
         bookingReferences = BookingReferenceProcessor(driverAccountType, user, bookingReferences);
 
         if (passengerNumber != null && StringUtils.isNotEmpty(passengerNumber)) {
@@ -252,12 +257,31 @@ public class AccountController {
                 if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
                     reference.setOwner(true);
                 }
-                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) && reference.getPassengerNumber() != 0) {
+                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) &&
+                        !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE) &&
+                        !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED) && reference.getPassengerNumber() != 0) {
                     bookingReferences.add(reference);
                 }
             }
         }
         return bookingReferences;
+    }
+
+    private void BookingReferenceStatusProcessor(final String accountType, List<BookingReference> UserBookingReferences) {
+        Date today = new Date();
+        for (final BookingReference reference: UserBookingReferences) {
+            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
+                if (reference.getDate().before(today)) {
+                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
+                        reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
+                        bookingService.saveBooking(reference);
+                    } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
+                        reference.setBookingStatus(BookingReferenceStatus.COMPLETE);
+                        bookingService.saveBooking(reference);
+                    }
+                }
+            }
+        }
     }
 
     private String AddressCityProcessor(final String address) {

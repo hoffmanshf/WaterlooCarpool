@@ -99,6 +99,11 @@
                                 <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>
                             </li>
                         </ul>
+
+                        <input type="hidden"
+                               name="${_csrf.parameterName}"
+                               value="${_csrf.token}"/>
+
                         <a class="btn btn-primary btn-block" id="submitBooking">Accept Booking</a>
                     </div>
                     <div class="gap gap-small"></div>
@@ -106,7 +111,10 @@
             </div>
         </div>
     </form>
+    <div class="gap gap-small"></div>
 </div>
+
+<div th:replace="common/header :: footer"/>
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 <script th:inline="javascript">

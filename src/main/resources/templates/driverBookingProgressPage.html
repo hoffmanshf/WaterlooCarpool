@@ -102,13 +102,14 @@
                                     <div class="gap gap-mini"></div>
                                     <div class="post-item">
                                         <div class="caption wrapper-lg">
-                                            <tr data-th-each="passenger : ${passengers}">
+                                            <tr data-th-each="reservation : ${reservations}">
                                                 <div class="row">
                                                     <div class="col-md-3">
                                                         <p><strong>Passenger name</strong></p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p><td data-th-text="${passenger.firstName}">...</td> <td data-th-text="${passenger.lastName}">...</td></p>
+                                                        <p><td data-th-text="${reservation.passenger.firstName}">...</td> <td data-th-text="${reservation.passenger.lastName}">...</td></p>
+                                                        <p><strong>reserved for <td data-th-text="${reservation.seatsOccupied}">...</td> seat(s)</strong></p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -116,7 +117,7 @@
                                                         <p><strong>Contact phone</strong></p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p><td data-th-text="${passenger.phone}">...</td></p>
+                                                        <p><td data-th-text="${reservation.passenger.phone}">...</td></p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -124,7 +125,7 @@
                                                         <p><strong>Contact email</strong></p>
                                                     </div>
                                                     <div class="col-md-6">
-                                                        <p><td data-th-text="${passenger.email}">...</td></p>
+                                                        <p><td data-th-text="${reservation.passenger.email}">...</td></p>
                                                     </div>
                                                 </div>
                                                 <div class="line line-dashed b-b line-lg pull-in"></div>
@@ -171,6 +172,10 @@
                     </section>
                 </section>
             </section>
+            <input type="hidden"
+                   name="${_csrf.parameterName}"
+                   value="${_csrf.token}"/>
+
             <div class="col-md-5">
                 <a class="btn btn-danger btn-block" id="submitBooking">Cancel Booking</a>
             </div>

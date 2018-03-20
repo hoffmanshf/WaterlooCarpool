@@ -26,7 +26,6 @@ public class BookingController {
     private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
     private static final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
-
     @Autowired
     private BookingService bookingService;
 
@@ -247,12 +246,10 @@ public class BookingController {
             return "driverBookingAcceptPage";
         }
 
-        if (riderAccount != null) {
-            final String riderName = riderAccount.getUsername();
-            if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) && riderName.equalsIgnoreCase(principal.getName())) {
-                return "driverBookingCancelProgressPage";
-            }
+        if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
+            return "driverBookingAcceptPage";
         }
+
 
         return "redirect:/user/booking/driver";
     }
@@ -319,7 +316,21 @@ public class BookingController {
             List<RiderAccount> distinctPassengers = passengers.stream()
                     .distinct()
                     .collect(Collectors.toList());
-            model.addAttribute("passengers", distinctPassengers);
+            int seatsOccupied = 0;
+            List<BookingReferenceReservation> reservations = new ArrayList<>();
+            for (RiderAccount distinctPassenger: distinctPassengers) {
+                BookingReferenceReservation reservation = new BookingReferenceReservation();
+                for (RiderAccount passenger: passengers) {
+                    if (distinctPassenger.getUsername().equalsIgnoreCase(passenger.getUsername())) {
+                        seatsOccupied += 1;
+                    }
+                }
+                reservation.setPassenger(distinctPassenger);
+                reservation.setSeatsOccupied(seatsOccupied);
+                reservations.add(reservation);
+            }
+            model.addAttribute("reservations", reservations);
+//            model.addAttribute("passengers", distinctPassengers);
             return "driverBookingProgressPage";
         } else {
             return "redirect:/user/booking/driver";
