@@ -153,9 +153,9 @@ public class UserController {
     private List<BookingReference> RiderBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-                reference.setOwner(true);
-            }
+//            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+//                reference.setOwner(true);
+//            }
             List<RiderAccount> accounts = reference.getPassengerList();
             if (accounts != null) {
                 for (RiderAccount account : accounts) {
@@ -172,9 +172,9 @@ public class UserController {
     private List<BookingReference> DriverBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-                reference.setOwner(true);
-            }
+//            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+//                reference.setOwner(true);
+//            }
             if (reference.getDriverAccount() != null) {
                 if (reference.getDriverAccount().getUsername().equalsIgnoreCase(user.getUsername())) {
                     bookingReferences.add(reference);

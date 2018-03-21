@@ -7,6 +7,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.TravelMode;
+import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.GoogleDistanceMatrixService;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class GoogleDistanceMatrixServiceImpl implements GoogleDistanceMatrixServ
             return distanceMatrix;
 
         } catch (ApiException e) {
-            System.out.println(e.getMessage());
+            throw new UServiceException("TXN_103","", "Api parse error", e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
