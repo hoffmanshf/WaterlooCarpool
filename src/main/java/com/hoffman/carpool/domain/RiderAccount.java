@@ -22,10 +22,6 @@ public class RiderAccount {
         return riderAccountId;
     }
 
-    public void setRiderAccountId(Long riderAccountId) {
-        this.riderAccountId = riderAccountId;
-    }
-
     public String getUsername() {
         return username;
     }
