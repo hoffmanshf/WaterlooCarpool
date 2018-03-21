@@ -67,7 +67,6 @@ public class BookingController {
 
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
-        bookingReference.setRiderAccount(riderAccount);
         List<RiderAccount> passengerList = new ArrayList<RiderAccount>();
         passengerList.add(riderAccount);
         bookingReference.setPassengerList(passengerList);
@@ -250,7 +249,6 @@ public class BookingController {
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         final String author = bookingReference.getAuthor();
         User user = userService.findByUsername(author);
-        RiderAccount riderAccount = bookingReference.getRiderAccount();
 
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("user", user);

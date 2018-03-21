@@ -37,10 +37,6 @@ public class BookingReference {
     @ManyToOne
     @JoinColumn(name = "driver_account_id")
     private DriverAccount driverAccount;
-
-    @ManyToOne
-    @JoinColumn(name = "rider_account_id")
-    private RiderAccount riderAccount;
     
     @ManyToMany
     @JoinTable(name = "PASSENGER_LIST",
@@ -158,14 +154,6 @@ public class BookingReference {
 
     public void setDriverAccount(DriverAccount driverAccount) {
         this.driverAccount = driverAccount;
-    }
-
-    public RiderAccount getRiderAccount() {
-        return riderAccount;
-    }
-
-    public void setRiderAccount(RiderAccount riderAccount) {
-        this.riderAccount = riderAccount;
     }
 
     public List<RiderAccount> getPassengerList() {
