@@ -117,7 +117,10 @@
                                                     </div>
                                                     <div class="col-md-6">
                                                         <p><td data-th-text="${reservation.passenger.firstName}">...</td> <td data-th-text="${reservation.passenger.lastName}">...</td></p>
-                                                        <p><strong>reserved for <td data-th-text="${reservation.seatsOccupied}">...</td> seat(s)</strong></p>
+                                                        <p><strong>reserved for <td data-th-text="${reservation.seatsOccupied}">...</td>
+                                                            <span th:if="${reservation.seatsOccupied} == 1">seat</span>
+                                                            <span th:if="${reservation.seatsOccupied} != 1">seats</span>
+                                                        </strong></p>
                                                     </div>
                                                 </div>
                                                 <div class="row">
@@ -143,7 +146,18 @@
                                                     <p><strong>Seats available</strong></p>
                                                 </div>
                                                 <div class="col-md-6">
-                                                    <p><td data-th-text="${bookingReference.passengerNumber}">...</td> seats left</p>
+                                                    <p><td data-th-text="${bookingReference.passengerNumber}">...</td>
+                                                    <span th:if="${bookingReference.passengerNumber} == 1">seat</span>
+                                                    <span th:if="${bookingReference.passengerNumber} != 1">seats</span>
+                                                    left</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <p><strong>Price per seat</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p>CAD <td data-th-text="${bookingReference.price}">...</td>.00</p>
                                                 </div>
                                             </div>
                                             <div class="row">
@@ -193,13 +207,13 @@
             <!--<div class="booking-item-deails-date-location">-->
                 <!--<ul>-->
                     <!--<li>-->
-                        <!--<h5>Pick Up:</h5>-->
+                        <!--<h5>Pick Up</h5>-->
                         <!--<p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.departure}">...</td></p>-->
                         <!--<p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>-->
                         <!--<p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.time}">...</td></p>-->
                     <!--</li>-->
                     <!--<li>-->
-                        <!--<h5>Drop Off:</h5>-->
+                        <!--<h5>Drop Off</h5>-->
                         <!--<p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.arrival}">...</td></p>-->
                         <!--<p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>-->
                         <!--<p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i>12:00 AM</p>-->

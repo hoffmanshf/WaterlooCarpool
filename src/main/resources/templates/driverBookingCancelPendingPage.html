@@ -27,7 +27,10 @@
                     <div class="col-md-3">
                         <div class="gap gap-small"></div>
                         <p class="booking-item-header-price"><small>price</small>  <span class="text-lg">$</span><span class="text-lg" data-th-text="${bookingReference.price}">...</span>/person</p>
-                        <p class="booking-item-flight-class pull-right"><small><td data-th-text="${bookingReference.passengerNumber}">...</td> seats left</small></p>
+                        <p class="booking-item-flight-class pull-right"><small><td data-th-text="${bookingReference.passengerNumber}">...</td>
+                            <span th:if="${bookingReference.passengerNumber} == 1">seat</span>
+                            <span th:if="${bookingReference.passengerNumber} != 1">seats</span>
+                            left</small></p>
                     </div>
                 </div>
             </header>
@@ -88,13 +91,13 @@
                     <div class="booking-item-deails-date-location">
                         <ul>
                             <li>
-                                <h5>Pick Up:</h5>
+                                <h5>Pick Up</h5>
                                 <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.departure}">...</td></p>
                                 <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>
                                 <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.time}">...</td></p>
                             </li>
                             <li>
-                                <h5>Drop Off:</h5>
+                                <h5>Drop Off</h5>
                                 <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.arrival}">...</td></p>
                                 <p><i class="fa fa-location-arrow box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.duration}">...</td></p>
                             </li>

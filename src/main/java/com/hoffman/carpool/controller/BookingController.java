@@ -266,17 +266,20 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
-    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal, RedirectAttributes redirectAttributes) {
+    public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal,
+                                      @RequestParam(value = "seatsReserved") Integer seatsReserved, RedirectAttributes redirectAttributes) {
 
         User user = userService.findByUsername(principal.getName());
         RiderAccount riderAccount = user.getRiderAccount();
 
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         int availableSeats = bookingReference.getPassengerNumber();
-        availableSeats -= 1;
+        availableSeats -= seatsReserved;
         bookingReference.setPassengerNumber(availableSeats);
         List<RiderAccount> passengerList = bookingReference.getPassengerList();
-        passengerList.add(riderAccount);
+        for (int i = 0; i < seatsReserved; ++i) {
+            passengerList.add(riderAccount);
+        }
         bookingReference.setPassengerList(passengerList);
         model.addAttribute("bookingReference", bookingReference);
 
