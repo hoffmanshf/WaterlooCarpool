@@ -374,9 +374,10 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.POST)
-    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, @RequestParam(value = "cancelNotes") String cancelNotes, Model model) {
         BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
+        bookingReference.setCancelNotes(cancelNotes);
         model.addAttribute("bookingReference", bookingReference);
 
         bookingService.saveBooking(bookingReference);

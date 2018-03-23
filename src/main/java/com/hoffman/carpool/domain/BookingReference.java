@@ -27,6 +27,7 @@ public class BookingReference {
     private String paymentMethod;
     private int price;
     private String notes;
+    private String cancelNotes;
 
     private String duration;
     private String distance;
@@ -220,5 +221,13 @@ public class BookingReference {
 
     public void setArrivalTime(GregorianCalendar arrivalTime) {
         this.arrivalTime = arrivalTime;
+    }
+
+    public String getCancelNotes() {
+        return cancelNotes;
+    }
+
+    public void setCancelNotes(String cancelNotes) {
+        this.cancelNotes = cancelNotes;
     }
 }
