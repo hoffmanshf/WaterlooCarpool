@@ -2,6 +2,7 @@ package com.hoffman.carpool.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class BookingReference {
     private String bookingStatus;
 
     private Date date;
+    private GregorianCalendar arrivalTime;
     private String dateForSearch;
     private String dayOfWeek;
     private String dayOfMonth;
@@ -210,5 +212,13 @@ public class BookingReference {
 
     public void setDistance(String distance) {
         this.distance = distance;
+    }
+
+    public GregorianCalendar getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(GregorianCalendar arrivalTime) {
+        this.arrivalTime = arrivalTime;
     }
 }

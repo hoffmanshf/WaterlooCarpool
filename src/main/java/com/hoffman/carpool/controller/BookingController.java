@@ -4,6 +4,7 @@ import com.google.maps.model.DistanceMatrix;
 import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
+import com.hoffman.carpool.service.EmailNotificationService;
 import com.hoffman.carpool.service.GoogleDistanceMatrixService;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +19,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
+import static java.lang.Math.toIntExact;
 
 @Controller
 @RequestMapping("booking")
@@ -36,6 +38,9 @@ public class BookingController {
 
     @Autowired
     private GoogleDistanceMatrixService distanceMatrixService;
+
+    @Autowired
+    private EmailNotificationService emailNotificationService;
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
     public String createRiderBooking(Model model) {
@@ -100,6 +105,15 @@ public class BookingController {
         String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
 
+        DistanceMatrix distanceMatrix = distanceMatrixService.estimateRouteTime(departure, arrival);
+        String distance = distanceMatrix.rows[0].elements[0].distance.humanReadable;
+        String duration = distanceMatrix.rows[0].elements[0].duration.humanReadable;
+        long durationData = distanceMatrix.rows[0].elements[0].duration.inSeconds;
+        int actualDuration = toIntExact(durationData);
+        calendar.add(Calendar.SECOND, actualDuration);
+        bookingReference.setArrivalTime(calendar);
+
+
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateForSearch = formatter.format(date);
 
@@ -120,10 +134,6 @@ public class BookingController {
         final String author = driverAccount.getUsername();
         bookingReference.setAuthor(author);
         bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
-
-        DistanceMatrix distanceMatrix = distanceMatrixService.estimateRouteTime(departure, arrival);
-        String distance = distanceMatrix.rows[0].elements[0].distance.humanReadable;
-        String duration = distanceMatrix.rows[0].elements[0].duration.humanReadable;
 
         bookingReference.setDistance(distance);
         bookingReference.setDuration(duration);
@@ -288,6 +298,19 @@ public class BookingController {
         bookingService.saveBooking(bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
 
+        GregorianCalendar departureCalendar = new GregorianCalendar();
+        departureCalendar.setTime(bookingReference.getDate());
+
+        StringBuilder summary = new StringBuilder();
+        summary.append("From ");
+        summary.append(bookingReference.getDeparture());
+        summary.append(" To ");
+        summary.append(bookingReference.getArrival());
+
+        CalendarEvent calendarEvent = new CalendarEvent("Waterloo Carpool", departureCalendar, bookingReference.getArrivalTime(), summary.toString(), "notification", "1");
+
+        emailNotificationService.sendNotification(user.getEmail(), calendarEvent);
+
         return "redirect:/booking/driverBooking/success";
     }
 
@@ -344,7 +367,6 @@ public class BookingController {
                 reservations.add(reservation);
             }
             model.addAttribute("reservations", reservations);
-//            model.addAttribute("passengers", distinctPassengers);
             return "driverBookingProgressPage";
         } else {
             return "redirect:/user/booking/driver";
