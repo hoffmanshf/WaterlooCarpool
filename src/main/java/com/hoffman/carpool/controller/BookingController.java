@@ -105,15 +105,6 @@ public class BookingController {
         String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
 
-        DistanceMatrix distanceMatrix = distanceMatrixService.estimateRouteTime(departure, arrival);
-        String distance = distanceMatrix.rows[0].elements[0].distance.humanReadable;
-        String duration = distanceMatrix.rows[0].elements[0].duration.humanReadable;
-        long durationData = distanceMatrix.rows[0].elements[0].duration.inSeconds;
-        int actualDuration = toIntExact(durationData);
-        calendar.add(Calendar.SECOND, actualDuration);
-        bookingReference.setArrivalTime(calendar);
-
-
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateForSearch = formatter.format(date);
 
@@ -135,10 +126,8 @@ public class BookingController {
         bookingReference.setAuthor(author);
         bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
 
-        bookingReference.setDistance(distance);
-        bookingReference.setDuration(duration);
-
         bookingService.createBooking(bookingReference);
+        distanceMatrixService.estimateRouteTime(departure, arrival, calendar, bookingReference);
         return "redirect:/userFront";
     }
 

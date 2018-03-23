@@ -1,7 +1,9 @@
 package com.hoffman.carpool.service;
 
-import com.google.maps.model.DistanceMatrix;
+import com.hoffman.carpool.domain.BookingReference;
+
+import java.util.GregorianCalendar;
 
 public interface GoogleDistanceMatrixService {
-    public DistanceMatrix estimateRouteTime(String departure, String arrival);
+    void estimateRouteTime(String departure, String arrival, GregorianCalendar calendar, BookingReference bookingReference);
 }

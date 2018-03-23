@@ -7,9 +7,18 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.TravelMode;
+import com.hoffman.carpool.domain.BookingReference;
 import com.hoffman.carpool.error.UServiceException;
+import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.GoogleDistanceMatrixService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+
+import static java.lang.Math.toIntExact;
 
 @Service
 public class GoogleDistanceMatrixServiceImpl implements GoogleDistanceMatrixService {
@@ -17,8 +26,12 @@ public class GoogleDistanceMatrixServiceImpl implements GoogleDistanceMatrixServ
     private static final String API_KEY = "AIzaSyACQSMkZbQvQwPw-dp-HcRI88mvxNMyaSQ";
     private static final GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
 
+    @Autowired
+    private BookingService bookingService;
+
     @Override
-    public DistanceMatrix estimateRouteTime(String departure, String arrival) {
+    @Async("googleServiceExecutor")
+    public void estimateRouteTime(String departure, String arrival, GregorianCalendar calendar, BookingReference bookingReference) {
         try {
             DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
 
@@ -28,13 +41,19 @@ public class GoogleDistanceMatrixServiceImpl implements GoogleDistanceMatrixServ
                     .avoid(DirectionsApi.RouteRestriction.TOLLS)
                     .language("en-CA")
                     .await();
-            return distanceMatrix;
-
+            String distance = distanceMatrix.rows[0].elements[0].distance.humanReadable;
+            String duration = distanceMatrix.rows[0].elements[0].duration.humanReadable;
+            long durationData = distanceMatrix.rows[0].elements[0].duration.inSeconds;
+            int actualDuration = toIntExact(durationData);
+            calendar.add(Calendar.SECOND, actualDuration);
+            bookingReference.setArrivalTime(calendar);
+            bookingReference.setDistance(distance);
+            bookingReference.setDuration(duration);
+            bookingService.saveBooking(bookingReference);
         } catch (ApiException e) {
             throw new UServiceException("TXN_103","", "Api parse error", e);
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
-        return null;
     }
 }

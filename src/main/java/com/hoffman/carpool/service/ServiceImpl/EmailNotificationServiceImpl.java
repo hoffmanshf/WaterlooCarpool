@@ -8,16 +8,16 @@ import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.ValidationException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
-import javax.swing.text.Document;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 
 @Service
@@ -26,7 +26,9 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
     @Autowired
     private JavaMailSender sender;
 
-    public void sendNotification (String toAddress, final CalendarEvent calendarEvent) {
+    @Override
+    @Async("emailNotificationExecutor")
+    public void sendNotification (String toAddress, final CalendarEvent calendarEvent) throws MailException {
 
         Calendar calendar = CalendarEventUtil.createEventCalendar(calendarEvent);
         byte[] attachmentData = calendarAsByteArray(calendar);
@@ -47,7 +49,7 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-    }
+        }
 
     private byte[] calendarAsByteArray(final Calendar iCalendar) {
         byte[] bytes;
