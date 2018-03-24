@@ -1,7 +1,7 @@
 package com.hoffman.carpool.controller;
 
 
-import com.hoffman.carpool.dao.RoleDao;
+import com.hoffman.carpool.repository.RoleRepository;
 import com.hoffman.carpool.domain.DriverAccount;
 import com.hoffman.carpool.domain.RiderAccount;
 import com.hoffman.carpool.domain.User;
@@ -25,7 +25,7 @@ public class HomeController {
     private UserService userService;
 
     @Autowired
-    private RoleDao roleDao;
+    private RoleRepository roleRepository;
 
     @RequestMapping("/")
     public String home() {
@@ -62,7 +62,7 @@ public class HomeController {
             return "signup";
         } else {
             Set<UserRole> userRoles = new HashSet<>();
-            userRoles.add(new UserRole(user, roleDao.findByName("ROLE_USER")));
+            userRoles.add(new UserRole(user, roleRepository.findByName("ROLE_USER")));
 
             userService.createUser(user, userRoles);
 

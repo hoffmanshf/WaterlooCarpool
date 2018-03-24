@@ -5,8 +5,8 @@ import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.CarService;
 import com.hoffman.carpool.service.UserService;
+import com.hoffman.carpool.util.BookingReferenceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -21,10 +21,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 @RequestMapping("/user")
@@ -41,6 +38,9 @@ public class UserController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private BookingReferenceUtil bookingReferenceUtil;
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Principal principal, Model model) {
@@ -132,8 +132,8 @@ public class UserController {
     public String getRiderBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
-        BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
-        bookingReferences = RiderBookingReferenceProcessor(user, bookingReferences);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
+        bookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
         return "riderBookingHistory";
@@ -143,63 +143,11 @@ public class UserController {
     public String getDriverBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
-        BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
-        bookingReferences = DriverBookingReferenceProcessor(user, bookingReferences);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
+        bookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
         return "driverBookingHistory";
-    }
-
-    private List<BookingReference> RiderBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
-        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: UserBookingReferences) {
-//            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-//                reference.setOwner(true);
-//            }
-            List<RiderAccount> accounts = reference.getPassengerList();
-            if (accounts != null) {
-                for (RiderAccount account : accounts) {
-                    if (account.getUsername().equalsIgnoreCase(user.getUsername())) {
-                        bookingReferences.add(reference);
-                        break;
-                    }
-                }
-            }
-        }
-        return bookingReferences;
-    }
-
-    private List<BookingReference> DriverBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
-        List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
-        for (final BookingReference reference: UserBookingReferences) {
-//            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-//                reference.setOwner(true);
-//            }
-            if (reference.getDriverAccount() != null) {
-                if (reference.getDriverAccount().getUsername().equalsIgnoreCase(user.getUsername())) {
-                    bookingReferences.add(reference);
-                    continue;
-                }
-            }
-        }
-        return bookingReferences;
-    }
-
-    private void BookingReferenceStatusProcessor(final String accountType, List<BookingReference> UserBookingReferences) {
-        Date today = new Date();
-        for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
-                if (reference.getDate().before(today)) {
-                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
-                        reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
-                        bookingService.saveBooking(reference);
-                    } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
-                        reference.setBookingStatus(BookingReferenceStatus.COMPLETE);
-                        bookingService.saveBooking(reference);
-                    }
-                }
-            }
-        }
     }
 
 }

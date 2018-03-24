@@ -1,8 +1,7 @@
 package com.hoffman.carpool.service.ServiceImpl;
 
-import com.hoffman.carpool.dao.CarDao;
-import com.hoffman.carpool.dao.DriverAccountDao;
-import com.hoffman.carpool.dao.RiderAccountDao;
+import com.hoffman.carpool.repository.DriverAccountRepository;
+import com.hoffman.carpool.repository.RiderAccountRepository;
 import com.hoffman.carpool.domain.Car;
 import com.hoffman.carpool.domain.DriverAccount;
 import com.hoffman.carpool.domain.RiderAccount;
@@ -16,10 +15,10 @@ import org.springframework.stereotype.Service;
 public class AccountServiceImpl implements AccountService {
 
     @Autowired
-    private DriverAccountDao driverAccountDao;
+    private DriverAccountRepository driverAccountRepository;
 
     @Autowired
-    private RiderAccountDao riderAccountDao;
+    private RiderAccountRepository riderAccountRepository;
 
     @Autowired
     private CarService carService;
@@ -34,8 +33,8 @@ public class AccountServiceImpl implements AccountService {
         driverAccount.setFirstName(user.getFirstName());
         driverAccount.setLastName(user.getLastName());
         driverAccount.setCar(carService.createCar(car));
-        driverAccountDao.save(driverAccount);
-        return driverAccountDao.findByDriverAccountId(driverAccount.getDriverAccountId());
+        driverAccountRepository.save(driverAccount);
+        return driverAccountRepository.findByDriverAccountId(driverAccount.getDriverAccountId());
     }
 
     @Override
@@ -46,7 +45,7 @@ public class AccountServiceImpl implements AccountService {
         riderAccount.setUsername(user.getUsername());
         riderAccount.setFirstName(user.getFirstName());
         riderAccount.setLastName(user.getLastName());
-        riderAccountDao.save(riderAccount);
-        return riderAccountDao.findByRiderAccountId(riderAccount.getRiderAccountId());
+        riderAccountRepository.save(riderAccount);
+        return riderAccountRepository.findByRiderAccountId(riderAccount.getRiderAccountId());
     }
 }

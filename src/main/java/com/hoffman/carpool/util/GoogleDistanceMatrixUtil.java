@@ -1,4 +1,4 @@
-package com.hoffman.carpool.service.ServiceImpl;
+package com.hoffman.carpool.util;
 
 import com.google.maps.DirectionsApi;
 import com.google.maps.DistanceMatrixApi;
@@ -10,18 +10,17 @@ import com.google.maps.model.TravelMode;
 import com.hoffman.carpool.domain.BookingReference;
 import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
-import com.hoffman.carpool.service.GoogleDistanceMatrixService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 import static java.lang.Math.toIntExact;
 
-@Service
-public class GoogleDistanceMatrixServiceImpl implements GoogleDistanceMatrixService {
+@Component
+public class GoogleDistanceMatrixUtil {
 
     private static final String API_KEY = "AIzaSyACQSMkZbQvQwPw-dp-HcRI88mvxNMyaSQ";
     private static final GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
@@ -29,7 +28,6 @@ public class GoogleDistanceMatrixServiceImpl implements GoogleDistanceMatrixServ
     @Autowired
     private BookingService bookingService;
 
-    @Override
     @Async("googleServiceExecutor")
     public void estimateRouteTime(String departure, String arrival, GregorianCalendar calendar, BookingReference bookingReference) {
         try {

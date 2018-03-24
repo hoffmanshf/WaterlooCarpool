@@ -26,11 +26,14 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
     @Autowired
     private JavaMailSender sender;
 
+    @Autowired
+    private CalendarEventUtil calendarEventUtil;
+
     @Override
     @Async("emailNotificationExecutor")
     public void sendNotification (String toAddress, final CalendarEvent calendarEvent) throws MailException {
 
-        Calendar calendar = CalendarEventUtil.createEventCalendar(calendarEvent);
+        Calendar calendar = calendarEventUtil.createEventCalendar(calendarEvent);
         byte[] attachmentData = calendarAsByteArray(calendar);
 
         MimeMessage mimeMessage = sender.createMimeMessage();

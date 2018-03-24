@@ -1,7 +1,7 @@
 package com.hoffman.carpool.service.ServiceImpl;
 
-import com.hoffman.carpool.dao.RoleDao;
-import com.hoffman.carpool.dao.UserDao;
+import com.hoffman.carpool.repository.RoleRepository;
+import com.hoffman.carpool.repository.UserRepository;
 import com.hoffman.carpool.domain.User;
 import com.hoffman.carpool.domain.security.UserRole;
 import com.hoffman.carpool.service.AccountService;
@@ -22,10 +22,10 @@ public class UserServiceImpl implements UserService {
     private static final Logger LOG = LoggerFactory.getLogger(UserService.class);
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Autowired
-    private RoleDao roleDao;
+    private RoleRepository roleRepository;
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
@@ -35,12 +35,12 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User findByUsername(String username) {
-        return userDao.findByUsername(username);
+        return userRepository.findByUsername(username);
     }
 
     @Override
     public User findByEmail(String email) {
-        return userDao.findByEmail(email);
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -72,7 +72,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User createUser(User user, Set<UserRole> userRoles) {
-        User localUser = userDao.findByUsername(user.getUsername());
+        User localUser = userRepository.findByUsername(user.getUsername());
 
         if (localUser != null) {
             LOG.info("User with username {} already exist. Nothing will be done. ", user.getUsername());
@@ -81,7 +81,7 @@ public class UserServiceImpl implements UserService {
             user.setPassword(encryptedPassword);
 
             for (UserRole ur : userRoles) {
-                roleDao.save(ur.getRole());
+                roleRepository.save(ur.getRole());
             }
 
             user.getUserRoles().addAll(userRoles);
@@ -89,7 +89,7 @@ public class UserServiceImpl implements UserService {
             user.setDriverAccount(accountService.createDriverAccount(user));
             user.setRiderAccount(accountService.createRiderAccount(user));
 
-            localUser = userDao.save(user);
+            localUser = userRepository.save(user);
         }
 
         return localUser;
@@ -97,6 +97,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User saveUser(User user) {
-        return userDao.save(user);
+        return userRepository.save(user);
     }
 }

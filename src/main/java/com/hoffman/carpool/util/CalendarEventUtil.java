@@ -7,9 +7,11 @@ import net.fortuna.ical4j.model.DateTime;
 import net.fortuna.ical4j.model.component.VEvent;
 import net.fortuna.ical4j.model.property.*;
 import org.apache.commons.lang.StringUtils;
+import org.springframework.stereotype.Component;
 
 import java.net.URI;
 
+@Component
 public class CalendarEventUtil {
 
     public static Calendar createEventCalendar(final CalendarEvent calendarEvent) {

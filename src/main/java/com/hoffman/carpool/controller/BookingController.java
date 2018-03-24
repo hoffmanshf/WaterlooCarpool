@@ -1,11 +1,11 @@
 package com.hoffman.carpool.controller;
 
-import com.google.maps.model.DistanceMatrix;
 import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.EmailNotificationService;
-import com.hoffman.carpool.service.GoogleDistanceMatrixService;
+import com.hoffman.carpool.util.DateTimeConverterUtil;
+import com.hoffman.carpool.util.GoogleDistanceMatrixUtil;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -19,7 +19,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.stream.Collectors;
-import static java.lang.Math.toIntExact;
 
 @Controller
 @RequestMapping("booking")
@@ -37,10 +36,13 @@ public class BookingController {
     private UserService userService;
 
     @Autowired
-    private GoogleDistanceMatrixService distanceMatrixService;
+    private EmailNotificationService emailNotificationService;
 
     @Autowired
-    private EmailNotificationService emailNotificationService;
+    private GoogleDistanceMatrixUtil googleDistanceMatrixUtil;
+
+    @Autowired
+    private DateTimeConverterUtil dateTimeConverterUtil;
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
     public String createRiderBooking(Model model) {
@@ -54,14 +56,14 @@ public class BookingController {
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
     public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source, Model model, Principal principal) {
 
-        Date date = StringToDateConverter(source);
+        Date date = dateTimeConverterUtil.StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         String month = monthNames[calendar.get(Calendar.MONTH)];
         String dayOfWeek = dayNames[calendar.get(Calendar.DAY_OF_WEEK) - 1];
         String dayOfMonth = new Integer(calendar.get(Calendar.DAY_OF_MONTH)).toString();
 
-        String time = DateToTimeConverter(date);
+        String time = dateTimeConverterUtil.DateToTimeConverter(date);
 
         bookingReference.setDayOfMonth(dayOfMonth);
         bookingReference.setDayOfWeek(dayOfWeek);
@@ -98,7 +100,7 @@ public class BookingController {
     public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source,
                                           @RequestParam(value = "departure") String departure, @RequestParam(value = "arrival") String arrival, Principal principal) {
 
-        Date date = StringToDateConverter(source);
+        Date date = dateTimeConverterUtil.StringToDateConverter(source);
         GregorianCalendar calendar = new GregorianCalendar();
         calendar.setTime(date);
         String month = monthNames[calendar.get(Calendar.MONTH)];
@@ -108,7 +110,7 @@ public class BookingController {
         SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
         String dateForSearch = formatter.format(date);
 
-        String time = DateToTimeConverter(date);
+        String time = dateTimeConverterUtil.DateToTimeConverter(date);
 
         bookingReference.setDayOfMonth(dayOfMonth);
         bookingReference.setDayOfWeek(dayOfWeek);
@@ -127,31 +129,8 @@ public class BookingController {
         bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
 
         bookingService.createBooking(bookingReference);
-        distanceMatrixService.estimateRouteTime(departure, arrival, calendar, bookingReference);
+        googleDistanceMatrixUtil.estimateRouteTime(departure, arrival, calendar, bookingReference);
         return "redirect:/userFront";
-    }
-
-    private Date StringToDateConverter(final String source) {
-        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-        Date date = null;
-
-        try {
-            if (!source.isEmpty() && source != null) {
-                date = format.parse(source);
-            }
-        } catch (ParseException e) {
-            throw new UServiceException("TXN_101","", "Date parse error", e);
-        }
-        return date;
-    }
-
-    private String DateToTimeConverter(final Date date) {
-
-        String time = null;
-        if (date != null) {
-            time = DateFormat.getTimeInstance(DateFormat.SHORT).format(date);
-        }
-        return time;
     }
 
     @RequestMapping(value="/info", method = RequestMethod.GET)
