@@ -2,9 +2,7 @@ package com.hoffman.carpool.controller;
 
 import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.service.AccountService;
-import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.UserService;
-import com.hoffman.carpool.util.BookingReferenceUtil;
 import com.hoffman.carpool.domain.PageWrapper;
 import com.hoffman.carpool.util.PaginationUtil;
 import com.hoffman.carpool.util.URIBuilderUtil;
@@ -33,13 +31,7 @@ public class AccountController {
     private UserService userService;
 
     @Autowired
-    private BookingService bookingService;
-
-    @Autowired
     private AccountService accountService;
-
-    @Autowired
-    private BookingReferenceUtil bookingReferenceUtil;
 
     @Autowired
     private PaginationUtil paginationUtil;
@@ -51,15 +43,15 @@ public class AccountController {
     public String riderAccount(Model model, Principal principal,
                                @RequestParam(value = "page") Optional<Integer> page) {
 
-        User user = userService.findByUsername(principal.getName());
-        RiderAccount riderAccount = user.getRiderAccount();
-
-        List<BookingReference> bookingReferences = bookingService.findAll(SortingType.sortByDateASC);
-
-        bookingReferenceUtil.BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
-        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(riderAccountType, user, bookingReferences);
-        model.addAttribute("riderAccount", riderAccount);
-        model.addAttribute("bookingReferences", bookingReferences);
+//        User user = userService.findByUsername(principal.getName());
+//        RiderAccount riderAccount = user.getRiderAccount();
+//
+//        List<BookingReference> bookingReferences = bookingService.findAll(SortingType.sortByDateASC);
+//
+//        bookingReferenceUtil.BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
+//        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(riderAccountType, user, bookingReferences);
+//        model.addAttribute("riderAccount", riderAccount);
+//        model.addAttribute("bookingReferences", bookingReferences);
 
         return "riderAccount";
     }

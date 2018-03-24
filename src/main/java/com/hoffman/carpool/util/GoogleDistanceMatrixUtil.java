@@ -15,6 +15,7 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.GregorianCalendar;
 
 import static java.lang.Math.toIntExact;
@@ -28,8 +29,14 @@ public class GoogleDistanceMatrixUtil {
     @Autowired
     private BookingService bookingService;
 
+    @Autowired
+    private DateTimeConverterUtil dateTimeConverterUtil;
+
     @Async("googleServiceExecutor")
-    public void estimateRouteTime(String departure, String arrival, GregorianCalendar calendar, BookingReference bookingReference) {
+    public void estimateRouteTime(String departure, String arrival, String source, BookingReference bookingReference) {
+        Date date = dateTimeConverterUtil.StringToDateConverter(source);
+        GregorianCalendar calendar = new GregorianCalendar();
+        calendar.setTime(date);
         try {
             DistanceMatrixApiRequest req = DistanceMatrixApi.newRequest(context);
 

@@ -1,8 +1,8 @@
-package com.hoffman.carpool.service.ServiceImpl;
+package com.hoffman.carpool.util;
 
+import com.hoffman.carpool.domain.BookingReference;
 import com.hoffman.carpool.domain.CalendarEvent;
 import com.hoffman.carpool.error.UServiceException;
-import com.hoffman.carpool.service.EmailNotificationService;
 import com.hoffman.carpool.util.CalendarEventUtil;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
@@ -12,6 +12,7 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
@@ -19,9 +20,10 @@ import javax.mail.internet.MimeMessage;
 import javax.mail.util.ByteArrayDataSource;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.util.GregorianCalendar;
 
-@Service
-public class EmailNotificationServiceImpl implements EmailNotificationService {
+@Component
+public class EmailNotificationUtil {
 
     @Autowired
     private JavaMailSender sender;
@@ -29,9 +31,20 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
     @Autowired
     private CalendarEventUtil calendarEventUtil;
 
-    @Override
     @Async("emailNotificationExecutor")
-    public void sendNotification (String toAddress, final CalendarEvent calendarEvent) throws MailException {
+    public void sendNotification (final String toAddress, final BookingReference bookingReference) throws MailException {
+
+        GregorianCalendar departureCalendar = new GregorianCalendar();
+        departureCalendar.setTime(bookingReference.getDate());
+
+        StringBuilder summary = new StringBuilder();
+        summary.append("From ");
+        summary.append(bookingReference.getDeparture());
+        summary.append(" To ");
+        summary.append(bookingReference.getArrival());
+
+        CalendarEvent calendarEvent = new CalendarEvent("Waterloo Carpool", departureCalendar, bookingReference.getArrivalTime(), summary.toString(), "notification", "1");
+
 
         Calendar calendar = calendarEventUtil.createEventCalendar(calendarEvent);
         byte[] attachmentData = calendarAsByteArray(calendar);
@@ -52,7 +65,7 @@ public class EmailNotificationServiceImpl implements EmailNotificationService {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
-        }
+    }
 
     private byte[] calendarAsByteArray(final Calendar iCalendar) {
         byte[] bytes;
