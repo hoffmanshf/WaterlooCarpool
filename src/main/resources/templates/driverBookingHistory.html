@@ -68,9 +68,7 @@
                                 <!--<td data-th-text="${bookingReference.passengerNumber}">...</td>-->
                                 <!--<td data-th-text="${bookingReference.paymentMethod}">...</td>-->
                                 <!--<td data-th-text="${bookingReference.notes}">...</td>-->
-
-                                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
-                                    <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
+                                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}">...</a></th>
                             </tr>
                             </tbody>
                         </table>

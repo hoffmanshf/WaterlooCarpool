@@ -29,7 +29,7 @@
             <div class="nav-drop booking-sort pull-right">
                 <!--<label class="booking-sort-title">Sort by&nbsp;</label>-->
                 <div class="btn-group m-r">
-                    <!--<form th:action="@{${uri2}}" method="get">-->
+                    <!--<form th:action="@{${sortingURI}}" method="get">-->
                         <!--<div class="input-group">-->
                             <!--&lt;!&ndash;<span class="input-group-addon">Sort by</span>&ndash;&gt;-->
                             <!--<select class="js-example-basic-single" name="sort" id="sort" style="width: 160px" onchange="this.form.submit()">-->
@@ -42,19 +42,19 @@
                         <!--</div>-->
                     <!--</form>-->
                     <!--<ul class="list-unstyled">-->
-                        <!--<li><a th:href="@{${uri2}(sort=price-asc)}"><i class="fa fa-angle-double-right"></i> Price: Low to High</a></li>-->
-                        <!--<li><a th:href="@{${uri2}(sort=price-desc)}"><i class="fa fa-angle-double-right"></i> Price: High to Low</a></li>-->
-                        <!--<li><a th:href="@{${uri2}(sort=date-asc)}"><i class="fa fa-angle-double-right"></i> Date: Old to New</a></li>-->
-                        <!--<li><a th:href="@{${uri2}(sort=date-desc)}"><i class="fa fa-angle-double-right"></i> Date: New to Old</a></li>-->
+                        <!--<li><a th:href="@{${sortingURI}(sort=price-asc)}"><i class="fa fa-angle-double-right"></i> Price: Low to High</a></li>-->
+                        <!--<li><a th:href="@{${sortingURI}(sort=price-desc)}"><i class="fa fa-angle-double-right"></i> Price: High to Low</a></li>-->
+                        <!--<li><a th:href="@{${sortingURI}(sort=date-asc)}"><i class="fa fa-angle-double-right"></i> Date: Old to New</a></li>-->
+                        <!--<li><a th:href="@{${sortingURI}(sort=date-desc)}"><i class="fa fa-angle-double-right"></i> Date: New to Old</a></li>-->
                     <!--</ul>-->
                         <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             Sort: Filter By Type&nbsp;<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
-                            <li><a th:href="@{${uri2}(sort=date-asc)}">Date: Old to New</a></li>
-                            <li><a th:href="@{${uri2}(sort=date-desc)}">Date: New to Old</a></li>
-                            <li><a th:href="@{${uri2}(sort=price-asc)}">Price: Low to High</a></li>
-                            <li><a th:href="@{${uri2}(sort=price-desc)}">Price: High to Low</a></li>
+                            <li><a th:href="@{${sortingURI}(sort=date-asc)}">Date: Old to New</a></li>
+                            <li><a th:href="@{${sortingURI}(sort=date-desc)}">Date: New to Old</a></li>
+                            <li><a th:href="@{${sortingURI}(sort=price-asc)}">Price: Low to High</a></li>
+                            <li><a th:href="@{${sortingURI}(sort=price-desc)}">Price: High to Low</a></li>
                         </ul>
                 </div>
             </div>
@@ -124,8 +124,12 @@
                                         <h5><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></h5>
                                         <p><td data-th-text="${bookingReference.time}">...</td></p>
                                     </div>
-                                    <div class="col-md-3"><span class="booking-item-price">$</span><span class="booking-item-price" data-th-text="${bookingReference.price}">...</span><span>/person</span>
-                                        <p class="booking-item-flight-class"><td data-th-text="${bookingReference.passengerNumber}">...</td> seats left</p>
+                                    <div class="col-md-3">
+                                        <span class="booking-item-price">$</span><span class="booking-item-price" data-th-text="${bookingReference.price}">...</span><span>/person</span>
+                                        <p class="booking-item-flight-class"><td data-th-text="${bookingReference.passengerNumber}">...</td>
+                                        <span th:if="${bookingReference.passengerNumber} == 1">seat</span>
+                                        <span th:if="${bookingReference.passengerNumber} != 1">seats</span>
+                                        left</p>
                                         <a class="btn btn-primary" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">Select</a>
                                         <a class="btn btn-primary" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">Select</a>
                                     </div>
@@ -138,17 +142,14 @@
                                         <ul class="list">
                                             <li>Leaving from: <td data-th-text="${bookingReference.departure}">...</td></li>
                                             <li>Destination: <td data-th-text="${bookingReference.arrival}">...</td></li>
-                                            <li>Travel Time: <td data-th-text="${bookingReference.date}">...</td></li>
+                                            <li>Departure Time: <td data-th-text="${bookingReference.dateForSearch}">...</td> <td data-th-text="${bookingReference.time}">...</td></li>
                                             <li>Payment Method: <td data-th-text="${bookingReference.paymentMethod}">...</td></li>
                                         </ul>
-                                        <h5 class="list-title">Driver Contact</h5>
+                                        <h5 class="list-title">Trip Estimates</h5>
                                         <ul class="list">
-                                            <li>First Name: <td data-th-text="${bookingReference.driverAccount.firstName}">...</td></li>
-                                            <li>Last Name: <td data-th-text="${bookingReference.driverAccount.lastName}">...</td></li>
-                                            <li>Phone: <td data-th-text="${bookingReference.driverAccount.phone}">...</td></li>
-                                            <li>Email: <td data-th-text="${bookingReference.driverAccount.email}">...</td></li>
+                                            <li>Distance: <td data-th-text="${bookingReference.distance}">...</td></li>
+                                            <li>Duration: <td data-th-text="${bookingReference.duration}">...</td></li>
                                         </ul>
-                                        <p>Trip estimated time: 2h 12m</p>
                                     </div>
                                 </div>
                             </div>
@@ -167,23 +168,23 @@
         <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1 and bookingReferences.getSize() != 0}">
             <ul class="pagination">
                 <li th:class="${bookingReferences.number == 0} ? disabled">
-                    <a class="pageLink" th:href="@{${uri}(page=1)}">&laquo;</a>
+                    <a class="pageLink" th:href="@{${paginationURI}(page=1)}">&laquo;</a>
                 </li>
                 <li th:class="${bookingReferences.number == 0} ? disabled">
-                    <a class="pageLink" th:href="@{${uri}(page=${bookingReferences.number})}">Previous</a>
+                    <a class="pageLink" th:href="@{${paginationURI}(page=${bookingReferences.number})}">Previous</a>
                 </li>
                 <li th:class="${bookingReferences.number == (page - 1)} ? 'active pointer-disabled'"
                     th:each="page : ${#numbers.sequence(wrapper.startPage, wrapper.endPage)}">
-                    <a class="pageLink" th:href="@{${uri}(page=${page})}"
+                    <a class="pageLink" th:href="@{${paginationURI}(page=${page})}"
                        th:text="${page}"></a>
                 </li>
                 <li th:class="${bookingReferences.number + 1 == bookingReferences.totalPages} ? disabled">
                     <a class="pageLink"
-                       th:href="@{${uri}(page=${bookingReferences.number + 2})}">Next</a>
+                       th:href="@{${paginationURI}(page=${bookingReferences.number + 2})}">Next</a>
                 </li>
                 <li th:class="${bookingReferences.number + 1 == bookingReferences.totalPages} ? disabled">
                     <a class="pageLink"
-                       th:href="@{${uri}(page=${bookingReferences.totalPages})}">&raquo;</a>
+                       th:href="@{${paginationURI}(page=${bookingReferences.totalPages})}">&raquo;</a>
                 </li>
             </ul>
         </div>

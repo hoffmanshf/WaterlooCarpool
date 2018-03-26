@@ -1,122 +1,166 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<style>
+    #map {
+        width: 150%;
+        height: 300px;
+    }
+</style>
 <head th:replace="common/header :: common-header"/>
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
+
 <div class="container">
-    <div class="row main">
-        <div class="col-md-6">
-            <h2 class="title">Booking Info</h2>
-            <hr/>
-            <form th:action="@{/booking/riderBooking/accept?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
-                <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
-                <div class="form-group">
-                    <label for="departure">Departure</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-map-marker fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.departure}" id="departure"
-                                   name="departure" roleId="departure" readonly="readonly"/>
+    <form th:action="@{/booking/riderBooking/accept?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
+        <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
+        <div class="booking-item-details">
+            <header class="booking-item-header">
+                <div class="row">
+                    <div class="col-md-9">
+                        <h2 class="lh1em">Itinerary Detail</h2>
+                        <ul class="list list-inline text-small">
+                            <li><a th:href="'mailto:' + ${riderOwner.email}"><i class="fa fa-envelope"></i> E-mail Rider</a>
+                            </li>
+                            <li><i class="fa fa-phone"></i> <td data-th-text="${riderOwner.phone}">...</td></li>
+                        </ul>
+                    </div>
+                    <!--<div class="col-md-3">-->
+                        <!--<div class="gap gap-small"></div>-->
+                        <!--<span class="booking-item-price" data-th-text="${bookingReference.passengerNumber}">...</span>-->
+                        <!--<span th:if="${bookingReference.passengerNumber} == 1">passenger</span>-->
+                        <!--<span th:if="${bookingReference.passengerNumber} != 1">passengers</span>-->
+                        <!--<p class="booking-item-flight-class">check price</p>-->
+                    <!--</div>-->
+                </div>
+            </header>
+            <div class="row row-wrap">
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="map"/>
+                        </div>
+                        <div class="col-md-7">
+                            <div class="booking-item-price-calc">
+                                <div class="row row-wrap">
+                                    <div class="col-md-7">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <br/>
+                    <p class="text-small">Arrive at your destination in style with this air-conditioned automatic. With room for 4 passengers and 2 pieces of luggage, it's ideal for small groups looking to get from A to B in comfort. Price can change at any moment so book now to avoid disappointment!</p>
+
+                    <hr/>
+                    <div class="row row-wrap">
+                        <div class="col-md-4">
+                            <h5>Car Features</h5>
+                            <ul class="booking-item-features booking-item-features-expand clearfix">
+                                <li><i class="fa fa-male"></i><span class="booking-item-feature-title">Up to 4 Passengers</span>
+                                </li>
+                                <li><i class="fa fa-briefcase"></i><span class="booking-item-feature-title">2 Pieces of Laggage</span>
+                                </li>
+                                <li><i class="fa fa-car"></i><span class="booking-item-feature-title">Automatic Transmission</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Default Equipment</h5>
+                            <ul class="booking-item-features booking-item-features-expand clearfix">
+                                <li><i class="fa fa-thermometer-empty"></i><span class="booking-item-feature-title">Climate Control</span>
+                                </li>
+                                <li><i class="fa fa-music"></i><span class="booking-item-feature-title">Stereo CD/MP3</span>
+                                </li>
+                                <li><i class="fa fa-wifi"></i><span class="booking-item-feature-title">In-Car Wi-Fi</span>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="col-md-4">
+                            <h5>Pickup Features</h5>
+                            <ul class="booking-item-features booking-item-features-expand booking-item-features-dark clearfix">
+                                <li><i class="fa fa-plane"></i><span class="booking-item-feature-title">Terminal Pickup</span>
+                                </li>
+                                <li><i class="fa fa-street-view"></i><span class="booking-item-feature-title">Door to Door</span>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
+                <div class="col-md-3">
+                    <div class="booking-item-deails-date-location">
+                        <ul>
+                            <li>
+                                <h5>Pick Up</h5>
+                                <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.departure}">...</td></p>
+                                <p><i class="fa fa-calendar box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></p>
+                                <p><i class="fa fa-clock-o box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.time}">...</td></p>
+                            </li>
+                            <li>
+                                <h5>Drop Off</h5>
+                                <p><i class="fa fa-map-marker box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.arrival}">...</td></p>
+                                <p><i class="fa fa-location-arrow box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.duration}">...</td></p>
+                                <p><i class="fa fa-user box-icon-inline box-icon-gray"></i><td data-th-text="${bookingReference.passengerNumber}">...</td>
+                                <span th:if="${bookingReference.passengerNumber} == 1">passenger</span>
+                                <span th:if="${bookingReference.passengerNumber} != 1">passengers</span>
+                                </p>
+                            </li>
+                        </ul>
+                        <input type="hidden"
+                               name="${_csrf.parameterName}"
+                               value="${_csrf.token}"/>
 
-                <div class="form-group">
-                    <label for="arrival" class="cols-sm-2 control-label">Arrival</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-map-marker fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.arrival}" id="arrival"
-                                   name="arrival" roleId="arrival" readonly="readonly"/>
-                        </div>
+                        <a class="btn btn-primary btn-block" id="submitBooking">Accept Booking</a>
                     </div>
+                    <div class="gap gap-small"></div>
                 </div>
-
-                <div class="form-group">
-                    <label for="date" class="cols-sm-2 control-label">Travel Date</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-calendar fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.date}" id="date"
-                                   name="date" roleId="date" readonly="readonly"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="passengerNumber" class="cols-sm-2 control-label">Passenger</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.passengerNumber}" id="passengerNumber"
-                                   name="passengerNumber" roleId="passengerNumber" readonly="readonly"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="paymentMethod" class="cols-sm-2 control-label">Payment Method</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-credit-card fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.paymentMethod}" id="paymentMethod"
-                                   name="paymentMethod" roleId="paymentMethod" readonly="readonly"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="notes" class="cols-sm-2 control-label">Notes</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-bookmark fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.notes}" id="notes" placeholder="none"
-                                   name="notes" roleId="notes" readonly="readonly"/>
-                        </div>
-                    </div>
-                </div>
-
-                <h2 class="title">Passenger Contact Info</h2>
-                <hr/>
-
-                <div class="form-group">
-                    <label for="phone" class="cols-sm-2 control-label">Phone</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-phone fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.riderAccount.phone}" id="phone"
-                                   name="phone" roleId="phone" readonly="readonly"/>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="email" class="cols-sm-2 control-label">Email</label>
-                    <div class="cols-sm-10">
-                        <div class="input-group">
-                            <span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-                            <input type="text" class="form-control" th:value="${bookingReference.riderAccount.email}" id="email"
-                                   name="email" roleId="email" readonly="readonly"/>
-                        </div>
-                    </div>
-                </div>
-
-                <input type="hidden"
-                       name="${_csrf.parameterName}"
-                       value="${_csrf.token}"/>
-
-                <br/>
-                <div class="form-group ">
-                    <a class="btn btn-primary btn-block" id="submitBooking">Accept Booking</a>
-                </div>
-
-            </form>
-
+            </div>
         </div>
-    </div>
+    </form>
+    <div class="gap gap-small"></div>
 </div>
 
+<div th:replace="common/header :: footer"/>
+
 <div th:replace="common/header :: body-bottom-scripts"/>
+<script th:inline="javascript">
+    function initMap() {
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer;
+        var map = new google.maps.Map(document.getElementById('map'), {
+            zoom: 7,
+            center: {lat: 43.6532, lng: -79.3832}
+        });
+        directionsDisplay.setMap(map);
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+        var depart = /*[[${bookingReference.departure}]]*/ 'departure';
+        var arrive = /*[[${bookingReference.arrival}]]*/ 'arrival';
+
+        directionsService.route({
+            origin: depart,
+            destination: arrive,
+            travelMode: 'DRIVING'
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }
+    $(function() {
+        var maximum = /*[[${bookingReference.passengerNumber}]]*/ 'passengerNumber';
+        $("input[id='spinner']").TouchSpin({
+            value: 1,
+            min: 1,
+            max: maximum,
+            step: 1,
+        });
+    });
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDy3AhiOW3Z4C3GZptz5bMLWoXsL6KjyAM&amp;callback=initMap"></script>
 
 </body>
 </html>

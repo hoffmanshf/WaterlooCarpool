@@ -1,4 +1,4 @@
-package com.hoffman.carpool.util;
+package com.hoffman.carpool.domain;
 
 public class PageWrapper {
 

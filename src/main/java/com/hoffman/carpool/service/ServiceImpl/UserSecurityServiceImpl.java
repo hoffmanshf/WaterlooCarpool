@@ -1,6 +1,6 @@
 package com.hoffman.carpool.service.ServiceImpl;
 
-import com.hoffman.carpool.dao.UserDao;
+import com.hoffman.carpool.repository.UserRepository;
 import com.hoffman.carpool.domain.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,11 +17,11 @@ public class UserSecurityServiceImpl implements UserDetailsService {
     private static final Logger LOG = LoggerFactory.getLogger(UserSecurityServiceImpl.class);
 
     @Autowired
-    private UserDao userDao;
+    private UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        User user = userDao.findByUsername(username);
+        User user = userRepository.findByUsername(username);
         if (null == user) {
             LOG.warn("Username {} not found", username);
             throw new UsernameNotFoundException("Username " + username + " not found");

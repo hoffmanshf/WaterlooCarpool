@@ -2,6 +2,7 @@ package com.hoffman.carpool.domain;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 @Entity
@@ -13,6 +14,7 @@ public class BookingReference {
     private String bookingStatus;
 
     private Date date;
+    private GregorianCalendar arrivalTime;
     private String dateForSearch;
     private String dayOfWeek;
     private String dayOfMonth;
@@ -25,6 +27,10 @@ public class BookingReference {
     private String paymentMethod;
     private int price;
     private String notes;
+//    private String cancelNotes;
+
+    private String duration;
+    private String distance;
 
     private String accountType;
     private String author;
@@ -34,16 +40,18 @@ public class BookingReference {
     @ManyToOne
     @JoinColumn(name = "driver_account_id")
     private DriverAccount driverAccount;
-
-    @ManyToOne
-    @JoinColumn(name = "rider_account_id")
-    private RiderAccount riderAccount;
     
     @ManyToMany
     @JoinTable(name = "PASSENGER_LIST",
             joinColumns = { @JoinColumn(name = "booking_reference_id") },
             inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
     private List<RiderAccount> passengerList;
+
+    @ManyToMany
+    @JoinTable(name = "CANCELLED_PASSENGER_LIST",
+            joinColumns = { @JoinColumn(name = "booking_reference_id") },
+            inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
+    private List<RiderAccount> cancelledPassengerList;
 
     public long getBookingReferenceId() {
         return bookingReferenceId;
@@ -157,20 +165,20 @@ public class BookingReference {
         this.driverAccount = driverAccount;
     }
 
-    public RiderAccount getRiderAccount() {
-        return riderAccount;
-    }
-
-    public void setRiderAccount(RiderAccount riderAccount) {
-        this.riderAccount = riderAccount;
-    }
-
     public List<RiderAccount> getPassengerList() {
         return passengerList;
     }
 
     public void setPassengerList(List<RiderAccount> passengerList) {
         this.passengerList = passengerList;
+    }
+
+    public List<RiderAccount> getCancelledPassengerList() {
+        return cancelledPassengerList;
+    }
+
+    public void setCancelledPassengerList(List<RiderAccount> cancelledPassengerList) {
+        this.cancelledPassengerList = cancelledPassengerList;
     }
 
     public String getAuthor() {
@@ -204,4 +212,36 @@ public class BookingReference {
     public void setDateForSearch(String dateForSearch) {
         this.dateForSearch = dateForSearch;
     }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
+
+    public String getDistance() {
+        return distance;
+    }
+
+    public void setDistance(String distance) {
+        this.distance = distance;
+    }
+
+    public GregorianCalendar getArrivalTime() {
+        return arrivalTime;
+    }
+
+    public void setArrivalTime(GregorianCalendar arrivalTime) {
+        this.arrivalTime = arrivalTime;
+    }
+
+//    public String getCancelNotes() {
+//        return cancelNotes;
+//    }
+//
+//    public void setCancelNotes(String cancelNotes) {
+//        this.cancelNotes = cancelNotes;
+//    }
 }

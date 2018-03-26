@@ -18,16 +18,8 @@ public class RiderAccount {
     private String email;
     private String phone;
 
-    @OneToMany(mappedBy = "riderAccount", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JsonIgnore
-    private List<BookingReference> bookingReferences;
-
     public Long getRiderAccountId() {
         return riderAccountId;
-    }
-
-    public void setRiderAccountId(Long riderAccountId) {
-        this.riderAccountId = riderAccountId;
     }
 
     public String getUsername() {
@@ -70,11 +62,4 @@ public class RiderAccount {
         this.phone = phone;
     }
 
-    public List<BookingReference> getBookingReferences() {
-        return bookingReferences;
-    }
-
-    public void setBookingReferences(List<BookingReference> bookingReferences) {
-        this.bookingReferences = bookingReferences;
-    }
 }

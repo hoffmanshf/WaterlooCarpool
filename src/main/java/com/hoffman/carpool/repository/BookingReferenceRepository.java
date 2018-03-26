@@ -1,4 +1,4 @@
-package com.hoffman.carpool.dao;
+package com.hoffman.carpool.repository;
 
 import com.hoffman.carpool.domain.BookingReference;
 import org.springframework.data.domain.Sort;
@@ -6,7 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
 
-public interface BookingReferenceDao extends CrudRepository<BookingReference, Long> {
+public interface BookingReferenceRepository extends CrudRepository<BookingReference, Long> {
     List<BookingReference> findAll();
     List<BookingReference> findAll(Sort sort);
     List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(String arrival, String departure, String date, Sort sort);

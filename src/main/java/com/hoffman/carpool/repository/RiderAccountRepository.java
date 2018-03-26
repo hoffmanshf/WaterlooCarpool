@@ -1,8 +1,8 @@
-package com.hoffman.carpool.dao;
+package com.hoffman.carpool.repository;
 
 import com.hoffman.carpool.domain.RiderAccount;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RiderAccountDao extends CrudRepository<RiderAccount,Long> {
+public interface RiderAccountRepository extends CrudRepository<RiderAccount,Long> {
     RiderAccount findByRiderAccountId(Long riderAccountId);
 }

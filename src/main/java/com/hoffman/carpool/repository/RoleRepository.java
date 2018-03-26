@@ -1,8 +1,8 @@
-package com.hoffman.carpool.dao;
+package com.hoffman.carpool.repository;
 
 import com.hoffman.carpool.domain.security.Role;
 import org.springframework.data.repository.CrudRepository;
 
-public interface RoleDao extends CrudRepository<Role, Integer> {
+public interface RoleRepository extends CrudRepository<Role, Integer> {
     Role findByName(String name);
 }

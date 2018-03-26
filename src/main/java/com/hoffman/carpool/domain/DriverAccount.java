@@ -29,10 +29,6 @@ public class DriverAccount {
         return driverAccountId;
     }
 
-    public void setDriverAccountId(Long driverAccountId) {
-        this.driverAccountId = driverAccountId;
-    }
-
     public String getUsername() {
         return username;
     }
@@ -79,13 +75,5 @@ public class DriverAccount {
 
     public void setCar(Car car) {
         this.car = car;
-    }
-
-    public List<BookingReference> getBookingReferences() {
-        return bookingReferences;
-    }
-
-    public void setBookingReferences(List<BookingReference> bookingReferences) {
-        this.bookingReferences = bookingReferences;
     }
 }
