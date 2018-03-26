@@ -80,7 +80,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="pull-left thumb-md avatar b-3x m-r booking-item-airline-logo">
-                                            <img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                                            <span>&nbsp;</span><img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                                             <div class="p m-t-xs m-b-xs m-l-xs text-center">
                                                 <td data-th-text="${bookingReference.author}">...</td>
                                             </div>

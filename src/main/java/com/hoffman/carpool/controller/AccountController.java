@@ -43,6 +43,8 @@ public class AccountController {
                                @RequestParam(value = "page") Optional<Integer> page) {
 
         final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
         final RiderAccount riderAccount = user.getRiderAccount();
 
         if (sort == null) {
@@ -68,7 +70,6 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("user", user);
 
         return "riderAccount";
     }
@@ -79,6 +80,8 @@ public class AccountController {
                                 @RequestParam(value = "page") Optional<Integer> page) {
 
         final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
         final DriverAccount driverAccount = user.getDriverAccount();
 
         if (sort == null) {
@@ -104,7 +107,6 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("user", user);
 
         return "driverAccount";
     }
