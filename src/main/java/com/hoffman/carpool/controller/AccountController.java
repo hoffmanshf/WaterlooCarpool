@@ -68,6 +68,7 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "riderAccount";
     }
@@ -103,6 +104,7 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -141,6 +143,7 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -179,6 +182,7 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "riderAccount";
     }
@@ -218,6 +222,7 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -257,6 +262,7 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "riderAccount";
     }

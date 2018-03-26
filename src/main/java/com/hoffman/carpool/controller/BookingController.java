@@ -31,10 +31,12 @@ public class BookingController {
     private ReservationUtil reservationUtil;
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
-    public String createRiderBooking(Model model) {
+    public String createRiderBooking(Model model, Principal principal) {
+        final User user = userService.findByUsername(principal.getName());
         final BookingReference bookingReference = new BookingReference();
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("dateString", "");
+        model.addAttribute("user", user);
 
         return "riderBooking";
     }
@@ -50,10 +52,9 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/riderBooking/view", method = RequestMethod.GET)
-    public String getRiderBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String getRiderBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        final String author = bookingReference.getAuthor();
-        User user = userService.findByUsername(author);
+        User user = userService.findByUsername(principal.getName());
 
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("user", user);
@@ -152,10 +153,12 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.GET)
-    public String createDriverBooking(Model model) {
+    public String createDriverBooking(Model model, Principal principal) {
         final BookingReference bookingReference = new BookingReference();
+        final User user = userService.findByUsername(principal.getName());
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("dateString", "");
+        model.addAttribute("user", user);
 
         return "driverBooking";
     }
@@ -170,11 +173,10 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)
-    public String getDriverBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String getDriverBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        final String author = bookingReference.getAuthor();
-        final User user = userService.findByUsername(author);
+        final User user = userService.findByUsername(principal.getName());
 
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("user", user);

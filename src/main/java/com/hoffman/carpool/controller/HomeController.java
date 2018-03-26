@@ -78,6 +78,7 @@ public class HomeController {
 
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("riderAccount", riderAccount);
+        model.addAttribute("user", user);
 
         return "userFront";
     }

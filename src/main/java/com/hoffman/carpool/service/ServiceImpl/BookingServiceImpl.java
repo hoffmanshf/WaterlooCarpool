@@ -99,7 +99,7 @@ public class BookingServiceImpl implements BookingService {
         final User author = userRepository.findByUsername(bookingReference.getAuthor());
         final String[] emails = {user.getEmail(), author.getEmail()};
         bookingReferenceRepository.save(bookingReference);
-        emailNotificationUtil.sendNotification(emails, bookingReference);
+//        emailNotificationUtil.sendNotification(emails, bookingReference);
     }
 
     @Override
@@ -111,9 +111,8 @@ public class BookingServiceImpl implements BookingService {
         bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
         final User author = userRepository.findByUsername(bookingReference.getAuthor());
         final String[] emails = {user.getEmail(), author.getEmail()};
-
         bookingReferenceRepository.save(bookingReference);
-        emailNotificationUtil.sendNotification(emails, bookingReference);
+//        emailNotificationUtil.sendNotification(emails, bookingReference);
     }
 
     @Override
