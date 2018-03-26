@@ -27,7 +27,7 @@ public class BookingReference {
     private String paymentMethod;
     private int price;
     private String notes;
-    private String cancelNotes;
+//    private String cancelNotes;
 
     private String duration;
     private String distance;
@@ -46,6 +46,12 @@ public class BookingReference {
             joinColumns = { @JoinColumn(name = "booking_reference_id") },
             inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
     private List<RiderAccount> passengerList;
+
+    @ManyToMany
+    @JoinTable(name = "CANCELLED_PASSENGER_LIST",
+            joinColumns = { @JoinColumn(name = "booking_reference_id") },
+            inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
+    private List<RiderAccount> cancelledPassengerList;
 
     public long getBookingReferenceId() {
         return bookingReferenceId;
@@ -167,6 +173,14 @@ public class BookingReference {
         this.passengerList = passengerList;
     }
 
+    public List<RiderAccount> getCancelledPassengerList() {
+        return cancelledPassengerList;
+    }
+
+    public void setCancelledPassengerList(List<RiderAccount> cancelledPassengerList) {
+        this.cancelledPassengerList = cancelledPassengerList;
+    }
+
     public String getAuthor() {
         return author;
     }
@@ -223,11 +237,11 @@ public class BookingReference {
         this.arrivalTime = arrivalTime;
     }
 
-    public String getCancelNotes() {
-        return cancelNotes;
-    }
-
-    public void setCancelNotes(String cancelNotes) {
-        this.cancelNotes = cancelNotes;
-    }
+//    public String getCancelNotes() {
+//        return cancelNotes;
+//    }
+//
+//    public void setCancelNotes(String cancelNotes) {
+//        this.cancelNotes = cancelNotes;
+//    }
 }

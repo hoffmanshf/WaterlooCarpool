@@ -27,9 +27,6 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    private static final String riderAccountType = "Passenger";
-    private static final String driverAccountType = "Driver";
-
     @Autowired
     private UserService userService;
 
@@ -132,7 +129,7 @@ public class UserController {
     public String getRiderBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.riderAccountType, bookingReferences);
         bookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
@@ -143,7 +140,7 @@ public class UserController {
     public String getDriverBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(driverAccountType, bookingReferences);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.driverAccountType, bookingReferences);
         bookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);

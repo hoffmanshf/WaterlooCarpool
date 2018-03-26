@@ -45,7 +45,7 @@
                                             <form th:action="@{/account/driverAccount/search}" method="get">
                                                 <div class="tabbable">
                                                     <div class="tab-content">
-                                                        <div class="tab-pane fade in active" id="flight-search-1">
+                                                        <div class="tab-pane fade in active" id="trip-search-1">
                                                             <div class="row">
                                                                 <div class="col-md-6">
                                                                     <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
@@ -76,30 +76,37 @@
                                         </div>
                                         <div class="tab-pane fade" id="tab-2">
                                             <h2>Search for Ride As Driver</h2>
-                                            <form>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                                                            <label>Pick-up Location</label>
-                                                            <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="departure" required="required"/>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
-                                                            <label>Drop-off Location</label>
-                                                            <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="arrival" required="required"/>
+
+                                            <form th:action="@{/account/riderAccount/search}" method="get">
+                                                <div class="tabbable">
+                                                    <div class="tab-content">
+                                                        <div class="tab-pane fade in active" id="trip-search-2">
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                                                                        <label>Pick-up Location</label>
+                                                                        <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="departure" required="required"/>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                                                                        <label>Drop-off Location</label>
+                                                                        <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="arrival" required="required"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row">
+                                                                <div class="col-md-6">
+                                                                    <div class="form-group form-group-icon-left" id="sandbox-container2"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                                                                        <label>Travel Date</label>
+                                                                        <input class="form-control" type="text" name="date"/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <button class="btn btn-primary btn-lg" type="submit">Search for trip</button>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-md-6">
-                                                        <div class="form-group form-group-icon-left" id="sandbox-container2"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
-                                                            <label>Travel Date</label>
-                                                            <input class="form-control" type="text" name="date"/>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button class="btn btn-primary btn-lg" type="submit">Search for trip</button>
                                             </form>
                                         </div>
                                     </div>

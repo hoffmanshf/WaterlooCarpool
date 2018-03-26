@@ -124,7 +124,8 @@
                                         <h5><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></h5>
                                         <p><td data-th-text="${bookingReference.time}">...</td></p>
                                     </div>
-                                    <div class="col-md-3"><span class="booking-item-price">$</span><span class="booking-item-price" data-th-text="${bookingReference.price}">...</span><span>/person</span>
+                                    <div class="col-md-3">
+                                        <span class="booking-item-price">$</span><span class="booking-item-price" data-th-text="${bookingReference.price}">...</span><span>/person</span>
                                         <p class="booking-item-flight-class"><td data-th-text="${bookingReference.passengerNumber}">...</td>
                                         <span th:if="${bookingReference.passengerNumber} == 1">seat</span>
                                         <span th:if="${bookingReference.passengerNumber} != 1">seats</span>
@@ -144,15 +145,11 @@
                                             <li>Departure Time: <td data-th-text="${bookingReference.dateForSearch}">...</td> <td data-th-text="${bookingReference.time}">...</td></li>
                                             <li>Payment Method: <td data-th-text="${bookingReference.paymentMethod}">...</td></li>
                                         </ul>
-                                        <h5 class="list-title">Driver Contact</h5>
+                                        <h5 class="list-title">Trip Estimates</h5>
                                         <ul class="list">
-                                            <li>First Name: <td data-th-text="${bookingReference.driverAccount.firstName}">...</td></li>
-                                            <li>Last Name: <td data-th-text="${bookingReference.driverAccount.lastName}">...</td></li>
-                                            <li>Phone: <td data-th-text="${bookingReference.driverAccount.phone}">...</td></li>
-                                            <li>Email: <td data-th-text="${bookingReference.driverAccount.email}">...</td></li>
+                                            <li>Distance: <td data-th-text="${bookingReference.distance}">...</td></li>
+                                            <li>Duration: <td data-th-text="${bookingReference.duration}">...</td></li>
                                         </ul>
-                                        <p>Travel distance: <td data-th-text="${bookingReference.distance}">...</td></p>
-                                        <p>Estimated duration: <td data-th-text="${bookingReference.duration}">...</td></p>
                                     </div>
                                 </div>
                             </div>

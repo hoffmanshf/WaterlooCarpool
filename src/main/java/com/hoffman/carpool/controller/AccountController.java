@@ -23,8 +23,6 @@ import java.util.Optional;
 @RequestMapping("/account")
 public class AccountController {
 
-    private static final String riderAccountType = "Passenger";
-    private static final String driverAccountType = "Driver";
     private static final int BUTTONS_TO_SHOW = 5;
 
     @Autowired
@@ -41,17 +39,35 @@ public class AccountController {
 
     @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
     public String riderAccount(Model model, Principal principal,
+                               @RequestParam(value = "sort", required = false) String sort,
                                @RequestParam(value = "page") Optional<Integer> page) {
 
-//        User user = userService.findByUsername(principal.getName());
-//        RiderAccount riderAccount = user.getRiderAccount();
-//
-//        List<BookingReference> bookingReferences = bookingService.findAll(SortingType.sortByDateASC);
-//
-//        bookingReferenceUtil.BookingReferenceStatusProcessor(riderAccountType, bookingReferences);
-//        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(riderAccountType, user, bookingReferences);
-//        model.addAttribute("riderAccount", riderAccount);
-//        model.addAttribute("bookingReferences", bookingReferences);
+        final User user = userService.findByUsername(principal.getName());
+        final RiderAccount riderAccount = user.getRiderAccount();
+
+        if (sort == null) {
+            final URI paginationURI = uriBuilderUtil.getAccountURI(AccountBaseURL.riderAccountBaseURL);
+            model.addAttribute("paginationURI", paginationURI);
+            sort = "date-asc";
+        } else {
+            final URI paginationURI = uriBuilderUtil.getAccountURI(AccountBaseURL.riderAccountBaseURL, sort);
+            model.addAttribute("paginationURI", paginationURI);
+        }
+
+        final URI sortingURI = uriBuilderUtil.getAccountURI(AccountBaseURL.riderAccountBaseURL);
+        final List<BookingReference> bookingReferences = accountService.getAccountBookingReference(sort, AccountType.riderAccountType, user);
+
+        if (bookingReferences.size() == 0) {
+            return "riderAccountNoResult";
+        }
+
+        final Page<BookingReference> pagedReferences = paginationUtil.getPagedReferences(page, bookingReferences);
+        final PageWrapper wrapper = new PageWrapper(pagedReferences.getTotalPages(), pagedReferences.getNumber(), BUTTONS_TO_SHOW);
+
+        model.addAttribute("sortingURI", sortingURI);
+        model.addAttribute("riderAccount", riderAccount);
+        model.addAttribute("bookingReferences", pagedReferences);
+        model.addAttribute("wrapper", wrapper);
 
         return "riderAccount";
     }
@@ -74,7 +90,7 @@ public class AccountController {
         }
 
         final URI sortingURI = uriBuilderUtil.getAccountURI(AccountBaseURL.driverAccountBaseURL);
-        final List<BookingReference> bookingReferences = accountService.getAccountBookingReference(sort, driverAccountType, user);
+        final List<BookingReference> bookingReferences = accountService.getAccountBookingReference(sort, AccountType.driverAccountType, user);
 
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
@@ -112,7 +128,7 @@ public class AccountController {
         }
 
         final URI sortingURI = uriBuilderUtil.getAccountSearchURI(AccountBaseURL.driverAccountSearchBaseURL, arrival, departure, date);
-        final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, driverAccountType, date, arrival, departure, user);
+        final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.driverAccountType, date, arrival, departure, user);
 
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
@@ -127,6 +143,44 @@ public class AccountController {
         model.addAttribute("wrapper", wrapper);
 
         return "driverAccount";
+    }
+
+    @RequestMapping(value = "/riderAccount/search", method = RequestMethod.GET)
+    public String searchRiderBooking(@RequestParam(value = "arrival") String arrival,
+                                      @RequestParam(value = "departure") String departure,
+                                      @RequestParam(value = "date") String date,
+                                      @RequestParam(value = "sort", required = false) String sort,
+                                      @RequestParam(value = "page") Optional<Integer> page,
+                                      Model model, Principal principal) {
+
+        final User user = userService.findByUsername(principal.getName());
+        final RiderAccount riderAccount = user.getRiderAccount();
+
+        if (sort == null) {
+            final URI paginationURI = uriBuilderUtil.getAccountSearchURI(AccountBaseURL.riderAccountSearchBaseURL, arrival, departure, date);
+            model.addAttribute("paginationURI", paginationURI);
+            sort = "date-asc";
+        } else {
+            final URI paginationURI = uriBuilderUtil.getAccountSearchURI(AccountBaseURL.riderAccountSearchBaseURL, arrival, departure, date, sort);
+            model.addAttribute("paginationURI", paginationURI);
+        }
+
+        final URI sortingURI = uriBuilderUtil.getAccountSearchURI(AccountBaseURL.riderAccountSearchBaseURL, arrival, departure, date);
+        final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.riderAccountType, date, arrival, departure, user);
+
+        if (bookingReferences.size() == 0) {
+            return "riderAccountNoResult";
+        }
+
+        final Page<BookingReference> pagedReferences = paginationUtil.getPagedReferences(page, bookingReferences);
+        final PageWrapper wrapper = new PageWrapper(pagedReferences.getTotalPages(), pagedReferences.getNumber(), BUTTONS_TO_SHOW);
+
+        model.addAttribute("sortingURI", sortingURI);
+        model.addAttribute("riderAccount", riderAccount);
+        model.addAttribute("bookingReferences", pagedReferences);
+        model.addAttribute("wrapper", wrapper);
+
+        return "riderAccount";
     }
 
     @RequestMapping(value = "/driverAccount/searchPassenger", method = RequestMethod.GET)
@@ -151,7 +205,7 @@ public class AccountController {
         }
 
         final URI sortingURI = uriBuilderUtil.getAccountSearchPassengerURI(AccountBaseURL.driverAccountSearchPassengerBaseURL, arrival, departure, date, passengerNumber);
-        final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, driverAccountType, date, arrival, departure, user, passengerNumber);
+        final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.driverAccountType, date, arrival, departure, user, passengerNumber);
 
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
@@ -166,6 +220,45 @@ public class AccountController {
         model.addAttribute("wrapper", wrapper);
 
         return "driverAccount";
+    }
+
+    @RequestMapping(value = "/riderAccount/searchPassenger", method = RequestMethod.GET)
+    public String searchPassengerRiderBooking(@RequestParam(value = "arrival") String arrival,
+                                               @RequestParam(value = "departure") String departure,
+                                               @RequestParam(value = "date") String date,
+                                               @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam(value = "sort", required = false) String sort,
+                                               @RequestParam(value = "page") Optional<Integer> page,
+                                               Model model, Principal principal) {
+
+        final User user = userService.findByUsername(principal.getName());
+        final RiderAccount riderAccount = user.getRiderAccount();
+
+        if (sort == null) {
+            final URI paginationURI = uriBuilderUtil.getAccountSearchPassengerURI(AccountBaseURL.riderAccountSearchPassengerBaseURL, arrival, departure, date, passengerNumber);
+            model.addAttribute("paginationURI", paginationURI);
+            sort = "date-asc";
+        } else {
+            final URI paginationURI = uriBuilderUtil.getAccountSearchPassengerURI(AccountBaseURL.riderAccountSearchPassengerBaseURL, arrival, departure, date, passengerNumber, sort);
+            model.addAttribute("paginationURI", paginationURI);
+        }
+
+        final URI sortingURI = uriBuilderUtil.getAccountSearchPassengerURI(AccountBaseURL.riderAccountSearchPassengerBaseURL, arrival, departure, date, passengerNumber);
+        final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.riderAccountType, date, arrival, departure, user, passengerNumber);
+
+        if (bookingReferences.size() == 0) {
+            return "riderAccountNoResult";
+        }
+
+        final Page<BookingReference> pagedReferences = paginationUtil.getPagedReferences(page, bookingReferences);
+        final PageWrapper wrapper = new PageWrapper(pagedReferences.getTotalPages(), pagedReferences.getNumber(), BUTTONS_TO_SHOW);
+
+        model.addAttribute("sortingURI", sortingURI);
+        model.addAttribute("riderAccount", riderAccount);
+        model.addAttribute("bookingReferences", pagedReferences);
+        model.addAttribute("wrapper", wrapper);
+
+        return "riderAccount";
     }
 
 }

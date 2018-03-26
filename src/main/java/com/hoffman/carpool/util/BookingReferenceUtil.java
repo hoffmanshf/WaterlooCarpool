@@ -1,9 +1,6 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.BookingReference;
-import com.hoffman.carpool.domain.BookingReferenceStatus;
-import com.hoffman.carpool.domain.RiderAccount;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -28,6 +25,10 @@ public class BookingReferenceUtil {
                 if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) &&
                         !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE) &&
                         !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED) && reference.getPassengerNumber() != 0) {
+                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) &&
+                            reference.getAccountType().equalsIgnoreCase(AccountType.riderAccountType)) {
+                        continue;
+                    }
                     bookingReferences.add(reference);
                 }
             }
@@ -38,13 +39,23 @@ public class BookingReferenceUtil {
     public static List<BookingReference> RiderBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
-//            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-//                reference.setOwner(true);
-//            }
+            if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
+                reference.setBookingStatus(BookingReferenceStatus.CANCELLED);
+            }
             List<RiderAccount> accounts = reference.getPassengerList();
+            List<RiderAccount> cancelledAccounts = reference.getCancelledPassengerList();
             if (accounts != null) {
                 for (RiderAccount account : accounts) {
-                    if (account.getUsername().equalsIgnoreCase(user.getUsername())) {
+                    if (account.getUsername().equalsIgnoreCase(user.getUsername()) && !cancelledAccounts.contains(account)) {
+                        bookingReferences.add(reference);
+                        break;
+                    }
+                }
+            }
+
+            if (cancelledAccounts != null) {
+                for (RiderAccount cancelledAccount : cancelledAccounts) {
+                    if (cancelledAccount.getUsername().equalsIgnoreCase(user.getUsername())) {
                         bookingReferences.add(reference);
                         break;
                     }
@@ -57,9 +68,9 @@ public class BookingReferenceUtil {
     public static List<BookingReference> DriverBookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
-//            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-//                reference.setOwner(true);
-//            }
+            if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
+                reference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
+            }
             if (reference.getDriverAccount() != null) {
                 if (reference.getDriverAccount().getUsername().equalsIgnoreCase(user.getUsername())) {
                     bookingReferences.add(reference);

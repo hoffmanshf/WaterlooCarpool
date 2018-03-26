@@ -32,7 +32,7 @@ public class EmailNotificationUtil {
     private CalendarEventUtil calendarEventUtil;
 
     @Async("emailNotificationExecutor")
-    public void sendNotification (final String toAddress, final BookingReference bookingReference) throws MailException {
+    public void sendNotification (final String[] toAddress, final BookingReference bookingReference) throws MailException {
 
         GregorianCalendar departureCalendar = new GregorianCalendar();
         departureCalendar.setTime(bookingReference.getDate());

@@ -11,16 +11,15 @@ import java.util.stream.Collectors;
 
 @Component
 public class ReservationUtil {
-
     public static List<BookingReferenceReservation> getBookingReservationList(final BookingReference bookingReference) {
 
         final List<RiderAccount> passengers = bookingReference.getPassengerList();
         final List<RiderAccount> distinctPassengers = passengers.stream()
                 .distinct()
                 .collect(Collectors.toList());
-        int seatsOccupied = 0;
         List<BookingReferenceReservation> reservations = new ArrayList<>();
         for (RiderAccount distinctPassenger: distinctPassengers) {
+            int seatsOccupied = 0;
             BookingReferenceReservation reservation = new BookingReferenceReservation();
             for (RiderAccount passenger: passengers) {
                 if (distinctPassenger.getUsername().equalsIgnoreCase(passenger.getUsername())) {

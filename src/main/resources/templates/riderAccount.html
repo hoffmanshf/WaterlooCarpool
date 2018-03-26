@@ -1,81 +1,192 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<style>
+    .booking-item-airline-logo > p {
+        margin-bottom: 0;
+        font-size: 12px;
+        margin-top: 5px;
+        line-height: 1.3em;
+    }
+    .booking-item-airline-logo > img {
+        width: 40px;
+    }
+</style>
 <head th:replace="common/header :: common-header"/>
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
-    <!-- /.row -->
+    <br/>
     <div class="row">
-        <div class="col-lg-6 col-md-6">
+        <div class="col-md-6">
+            <ul id="userInfo" class="breadcrumb">
+                <li><a th:href="@{/userFront}"><i class="fa fa-home"></i> Home</a></li>
+                <li class="active"><i class="fa fa-list-ul"></i> Find Post</li>
+                <li class="active">Rider Posting</li>
+            </ul>
         </div>
-        <div class="col-lg-6 col-md-6">
-            <div class="panel panel-info">
-                <div class="panel-heading">
-                    <div class="row">
-                        <a th:href="@{/account/riderAccount}">
-                            <div class="col-xs-8">
-                                <h2>Hi
-                                    <td data-th-text="${riderAccount.username}">...</td></h2>
-                            </div>
-                            <div class="col-xs-4 text-right">
-                                <h1><i class="fa fa-user" aria-hidden="true"></i></h1>
-                            </div>
-                        </a>
-                    </div>
+        <div class="col-md-6">
+            <div class="nav-drop booking-sort pull-right">
+                <div class="btn-group m-r">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                        Sort: Filter By Type&nbsp;<span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a th:href="@{${sortingURI}(sort=date-asc)}">Date: Old to New</a></li>
+                        <li><a th:href="@{${sortingURI}(sort=date-desc)}">Date: New to Old</a></li>
+                    </ul>
                 </div>
-                <a th:href="@{/booking/riderCreate}">
-                    <div class="panel-footer">
-                        <span class="pull-left">Create new trip as Rider</span>
-                        <span class="pull-right"><i class="fa fa-plus-circle"></i></span>
-                        <div class="clearfix"></div>
-                    </div>
-                </a>
             </div>
+
+
         </div>
     </div>
-    <!-- /.row -->
+
+    <div class="gap gap-mini"/>
+
+    <div class="row">
+        <div class="col-md-3">
+            <form class="booking-item-dates-change mb30" th:action="@{/account/riderAccount/searchPassenger}" method="get">
+                <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label>Pick-up Location</label>
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="departure" required="required"/>
+                </div>
+                <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
+                    <label>Drop-off Location</label>
+                    <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="arrival" required="required"/>
+                </div>
+                <div class="form-group form-group-icon-left" id="sandbox-container"><i class="fa fa-calendar input-icon input-icon-hightlight"></i>
+                    <label>Travel Date</label>
+                    <input type="text" class="form-control" name="date"/>
+                </div>
+                <div class="form-group form-group-select-plus">
+                    <label>Passengers</label>
+                    <div class="cols-sm-5">
+                        <input type="text" class="slider slider-horizontal form-control" value=""
+                               data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
+                               name="passengerNumber" id="passengerNumber"/>
+                    </div>
+                </div>
+                <input class="btn btn-primary" type="submit" value="Upadte Search" />
+            </form>
+            <br/>
+            <br/>
+        </div>
+        <div class="col-md-9">
+            <ul class="booking-list">
+                <tr data-th-each="bookingReference : ${bookingReferences}">
+                    <li>
+                        <div class="booking-item-container">
+                            <div class="booking-item">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        <div class="pull-left thumb-md avatar b-3x m-r booking-item-airline-logo">
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                                            <div class="p m-t-xs m-b-xs m-l-xs text-center">
+                                                <td data-th-text="${bookingReference.author}">...</td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="booking-item-flight-details">
+                                            <div class="booking-item-departure">
+                                                <h4>Departure</h4>
+                                                <td data-th-text="${bookingReference.departure}">...</td>
+                                            </div>
+                                            <div class="booking-item-arrival">
+                                                <h4>Arrival</h4>
+                                                <td data-th-text="${bookingReference.arrival}">...</td>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-2">
+                                        <h5><td data-th-text="${bookingReference.dayOfWeek}">...</td>, <td data-th-text="${bookingReference.month}">...</td> <td data-th-text="${bookingReference.dayOfMonth}">...</td></h5>
+                                        <p><td data-th-text="${bookingReference.time}">...</td></p>
+                                    </div>
+                                    <div class="col-md-3">
+                                        <span class="booking-item-price" data-th-text="${bookingReference.passengerNumber}">...</span>
+                                        <span th:if="${bookingReference.passengerNumber} == 1">passenger</span>
+                                        <span th:if="${bookingReference.passengerNumber} != 1">passengers</span>
+                                        <p class="booking-item-flight-class">check price</p>
+                                        <a class="btn btn-primary" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">Select</a>
+                                        <a class="btn btn-primary" th:href="@{/booking/riderBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">Select</a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="booking-item-details">
+                                <div class="row">
+                                    <div class="col-md-8">
+                                        <h5 class="list-title">Trip Details</h5>
+                                        <ul class="list">
+                                            <li>Leaving from: <td data-th-text="${bookingReference.departure}">...</td></li>
+                                            <li>Destination: <td data-th-text="${bookingReference.arrival}">...</td></li>
+                                            <li>Departure Time: <td data-th-text="${bookingReference.dateForSearch}">...</td> <td data-th-text="${bookingReference.time}">...</td></li>
+                                            <!--<li>Passenger Number: <td data-th-text="${bookingReference.passengerNumber}">...</td></li>-->
+                                        </ul>
+                                        <h5 class="list-title">Trip Estimates</h5>
+                                        <ul class="list">
+                                            <li>Distance: <td data-th-text="${bookingReference.distance}">...</td></li>
+                                            <li>Duration: <td data-th-text="${bookingReference.duration}">...</td></li>
+                                        </ul>
+                                        <!--<p>Travel distance: <td data-th-text="${bookingReference.distance}">...</td></p>-->
+                                        <!--<p>Estimated duration: <td data-th-text="${bookingReference.duration}">...</td></p>-->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                </tr>
+            </ul>
+            <!--<p class="text-right">Not what you're looking for? <a class="popup-text" href="#search-dialog" data-effect="mfp-zoom-out">Try your search again</a>-->
+            <!--</p>-->
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-md-3">
         </div>
-        <div class="col-md-9">
-            <div class="table-responsive">
-                <table id="example" class="table table-bordered table-hover table-striped">
-                    <thead>
-                    <tr>
-                        <th>Travel Date</th>
-                        <!--<th>User</th>-->
-                        <th>Departure</th>
-                        <th>Arrival</th>
-                        <!--<th>Passenger</th>-->
-                        <th>Payment Method</th>
-                        <!--<th>Notes</th>-->
-                        <th>Status</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-th-each="bookingReference : ${bookingReferences}">
-                        <td data-th-text="${bookingReference.date}">...</td>
-                        <!--<th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>-->
-                        <td data-th-text="${bookingReference.departure}">...</td>
-                        <td data-th-text="${bookingReference.arrival}">...</td>
-                        <!--<td data-th-text="${bookingReference.passengerNumber}">...</td>-->
-                        <td data-th-text="${bookingReference.paymentMethod}">...</td>
-                        <!--<td data-th-text="${bookingReference.notes}">...</td>-->
-                        <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">...</a>
-                            <a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/riderBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">...</a></th>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+        <div class="form-group col-md-9 pagination-centered" th:if="${bookingReferences.totalPages != 1 and bookingReferences.getSize() != 0}">
+            <ul class="pagination">
+                <li th:class="${bookingReferences.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{${paginationURI}(page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${bookingReferences.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{${paginationURI}(page=${bookingReferences.number})}">Previous</a>
+                </li>
+                <li th:class="${bookingReferences.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(wrapper.startPage, wrapper.endPage)}">
+                    <a class="pageLink" th:href="@{${paginationURI}(page=${page})}"
+                       th:text="${page}"></a>
+                </li>
+                <li th:class="${bookingReferences.number + 1 == bookingReferences.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{${paginationURI}(page=${bookingReferences.number + 2})}">Next</a>
+                </li>
+                <li th:class="${bookingReferences.number + 1 == bookingReferences.totalPages} ? disabled">
+                    <a class="pageLink"
+                       th:href="@{${paginationURI}(page=${bookingReferences.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
         </div>
     </div>
+    <div class="gap gap-small"></div>
 </div>
+
+<div th:replace="common/header :: footer"/>
 
 <div th:replace="common/header :: body-bottom-scripts"/>
 <script>
-    $(document).ready(function() {
-        $('#example').DataTable();
-    } );
+    $('.booking-item-container').children('.booking-item').click(function(event) {
+        if ($(this).hasClass('active')) {
+            $(this).removeClass('active');
+            $(this).parent().removeClass('active');
+        } else {
+            $(this).addClass('active');
+            $(this).parent().addClass('active');
+            $(this).delay(1500).queue(function() {
+                $(this).addClass('viewed')
+            });
+        }
+    });
 </script>
 </body>
 </html>

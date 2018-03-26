@@ -58,11 +58,24 @@ public class BookingServiceImpl implements BookingService {
         bookingReference.setAccountType(accountType);
 
         final User user = userRepository.findByUsername(principal.getName());
-        final DriverAccount driverAccount = user.getDriverAccount();
-        bookingReference.setDriverAccount(driverAccount);
+        if (accountType.equalsIgnoreCase(AccountType.driverAccountType)) {
+            final DriverAccount driverAccount = user.getDriverAccount();
+            bookingReference.setDriverAccount(driverAccount);
+            final String author = driverAccount.getUsername();
+            bookingReference.setAuthor(author);
+        } else if (accountType.equalsIgnoreCase(AccountType.riderAccountType)) {
+            final RiderAccount riderAccount = user.getRiderAccount();
+            final int seatsReserved = bookingReference.getPassengerNumber();
 
-        final String author = driverAccount.getUsername();
-        bookingReference.setAuthor(author);
+            List<RiderAccount> passengerList = new ArrayList<>();
+            for (int i = 0; i < seatsReserved; ++i) {
+                passengerList.add(riderAccount);
+            }
+            bookingReference.setPassengerList(passengerList);
+            final String author = riderAccount.getUsername();
+            bookingReference.setAuthor(author);
+        }
+
         bookingReference.setBookingStatus(BookingReferenceStatus.PENDING);
 
         bookingReferenceRepository.save(bookingReference);
@@ -83,9 +96,24 @@ public class BookingServiceImpl implements BookingService {
         }
         bookingReference.setPassengerList(passengerList);
         bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
+        final User author = userRepository.findByUsername(bookingReference.getAuthor());
+        final String[] emails = {user.getEmail(), author.getEmail()};
+        bookingReferenceRepository.save(bookingReference);
+        emailNotificationUtil.sendNotification(emails, bookingReference);
+    }
+
+    @Override
+    public void acceptRiderBooking(User user, BookingReference bookingReference) {
+
+        final DriverAccount driverAccount = user.getDriverAccount();
+
+        bookingReference.setDriverAccount(driverAccount);
+        bookingReference.setBookingStatus(BookingReferenceStatus.IN_PROGRESS);
+        final User author = userRepository.findByUsername(bookingReference.getAuthor());
+        final String[] emails = {user.getEmail(), author.getEmail()};
 
         bookingReferenceRepository.save(bookingReference);
-        emailNotificationUtil.sendNotification(user.getEmail(), bookingReference);
+        emailNotificationUtil.sendNotification(emails, bookingReference);
     }
 
     @Override
