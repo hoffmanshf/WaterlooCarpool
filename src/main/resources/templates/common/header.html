@@ -71,33 +71,73 @@
             <div class="gap gap-header"></div>
             <a th:href="@{/userFront}">
                 <img src="/images/banner.png" class="m-r-sm"/>
-                <!--<span class="hidden-nav-xs">Scale</span>-->
             </a>
-            <!--<a class="btn btn-link visible-xs" data-toggle="dropdown" data-target=".user">-->
-                <!--<i class="fa fa-cog"></i>-->
-            <!--</a>-->
         </div>
         <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+            <li class="hidden-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
+                    <i class="fa fa-bell" style="font-size: large"></i>
+                    <span class="badge badge-sm up bg-danger count">2</span>
+                </a>
+                <section class="dropdown-menu aside-xl animated fadeInDown">
+                    <section class="panel bg-white">
+                        <div class="panel-heading b-light bg-light">
+                            <strong>You have 2 notifications</strong>
+                        </div>
+                        <div class="list-group list-group-alt">
+                            <a href="#" class="media list-group-item">
+                                <span class="thumb-sm pull-left">
+                                    <img src="/images/a3.JPG" class="img-circle" style="margin: 5px"/>
+                                </span>
+                                <div class="col-xs-2">
+                                    <span class="media-body block m-b-none">
+                                        <strong>chenyu</strong> accepted your booking<br/>
+                                        <small class="text-muted">1 hour ago</small>
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="list-group list-group-alt">
+                            <a href="#" class="media list-group-item">
+                                <span class="thumb-sm pull-left">
+                                    <img src="/images/a2.JPG" class="img-circle" style="margin: 5px"/>
+                                </span>
+                                <div class="col-xs-2">
+                                    <span class="media-body block m-b-none">
+                                        <strong>andy94sb</strong> cancelled your booking<br/>
+                                        <small class="text-muted">1 hour ago</small>
+                                    </span>
+                                </div>
+                            </a>
+                        </div>
+                        <form th:action="@{/user/notification}" id="clear-notification" method="post">
+                            <div class="panel-footer text-sm">
+                                <a href="#notes">See all the notifications</a>
+                                <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
+                            </div>
+                        </form>
+                    </section>
+                </section>
+            </li>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
                     <span class="thumb-sm avatar pull-left">
                         <img th:src="@{/user/photo/viewByUsername?username=}+${user.username}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
-                        <!--<img src="/images/a1.jpg"/>-->
                     </span>
                     <span>&nbsp;<td data-th-text="${user.firstName}">...</td></span>
                     <b class="caret"></b>
                 </a>
-                <ul class="dropdown-menu animated fadeInRight">
+                <ul class="dropdown-menu animated fadeInDown">
                     <li>
                         <span class="arrow top"></span>
                         <a th:href="@{/user/profile}">Profile</a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <span class="badge bg-danger pull-right">3</span>
-                            Notifications
-                        </a>
-                    </li>
+                    <!--<li>-->
+                    <!--<a href="#" class="notification active" type="button">-->
+                    <!--<span class="badge bg-danger pull-right">3</span>-->
+                    <!--Notifications-->
+                    <!--</a>-->
+                    <!--</li>-->
                     <li>
                         <a th:href="@{/user/booking/rider}">Booking</a>
                     </li>
@@ -115,44 +155,44 @@
 
 
     <div class="container">
-            <div class="nav">
-                <ul class="slimmenu" id="slimmenu">
-                    <li class="active"><a href="/userFront">Home</a>
-                    </li>
-                    <li><a>Find Post</a>
-                        <ul>
-                            <li><a th:href="@{/account/riderAccount}">Rider</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/account/driverAccount}">Driver</a></li>
-                        </ul>
-                    </li>
-                    <li><a>Create New</a>
-                        <ul>
-                            <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a href="#">Edit Trip</a></li>-->
-                        </ul>
-                    </li>
+        <div class="nav">
+            <ul class="slimmenu" id="slimmenu">
+                <li class="active"><a th:href="@{/userFront}">Home</a>
+                </li>
+                <li><a>Find Post</a>
+                    <ul>
+                        <li><a th:href="@{/account/riderAccount}">Rider</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/account/driverAccount}">Driver</a></li>
+                    </ul>
+                </li>
+                <li><a>Create New</a>
+                    <ul>
+                        <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Edit Trip</a></li>-->
+                    </ul>
+                </li>
 
-                    <li><a>Driver Pro</a>
-                        <ul>
-                            <li><a href="#">Calendar </a></li>
-                        </ul>
-                    </li>
-                    <!--<li class="pull-right"><a>Me</a>-->
-                        <!--<ul>-->
-                            <!--<li><a th:href="@{/user/profile}">Setting</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/user/booking/rider}">Booking</a></li>-->
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a th:href="@{/logout}">Logout</a></li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                </ul>
-            </div>
+                <li><a>Driver Pro</a>
+                    <ul>
+                        <li><a href="#">Calendar </a></li>
+                    </ul>
+                </li>
+                <!--<li class="pull-right"><a>Me</a>-->
+                <!--<ul>-->
+                <!--<li><a th:href="@{/user/profile}">Setting</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a th:href="@{/user/booking/rider}">Booking</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a th:href="@{/logout}">Logout</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+            </ul>
         </div>
+    </div>
 </div>
 
 <div th:fragment="footer">

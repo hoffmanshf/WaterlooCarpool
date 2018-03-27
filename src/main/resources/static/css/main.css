@@ -62,12 +62,12 @@ small,
 }
 .badge.up {
 	position: relative;
-	top: -10px;
+	top: -12px;
 	padding: 3px 6px;
-	margin-left: -10px;
+	margin-left: -15px;
 }
 .badge-sm {
-	font-size: 85%;
+	font-size: 30%;
 	padding: 2px 5px !important;
 }
 .label-sm {
@@ -3397,7 +3397,7 @@ fieldset[disabled] .btn-dark.active {
 	display: inline-block;
 }
 .thumb-sm {
-	width: 34px;
+	width: 40px;
 	display: inline-block;
 }
 .thumb-xs {
@@ -11366,8 +11366,8 @@ aside.sidebar-left {
 	text-align: center;
 }
 span.count {
-	font-size: 48px;
-	line-height: 48px;
+	font-size: 10px;
+	line-height: 10px;
 }
 .countdown.countdown-inline {
 	width: 100%;
