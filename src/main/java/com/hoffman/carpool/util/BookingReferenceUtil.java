@@ -90,7 +90,8 @@ public class BookingReferenceUtil {
         for (final BookingReference reference: UserBookingReferences) {
             if (reference.getAccountType().equalsIgnoreCase(accountType)) {
                 if (reference.getDate().before(today)) {
-                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
+                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING) ||
+                            reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
                         reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
                         bookingService.saveBooking(reference);
                     } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
