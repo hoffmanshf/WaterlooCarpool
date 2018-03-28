@@ -87,10 +87,9 @@
 
                         <div class="list-group list-group-alt">
                                 <tr data-th-each="notification : ${user.notificationList}">
-                                    <a href="#" class="media list-group-item">
+                                    <a th:if="${notification.bookingReference.accountType} == driverAccount" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
                                         <span class="thumb-sm pull-left">
                                             <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
-                                            <!--<img src="/images/a1.JPG" class="img-circle" style="margin: 5px"/>-->
                                             </span>
                                             <div class="col-xs-2">
                                                 <span class="media-body block m-b-none">
@@ -99,6 +98,17 @@
                                                 </span>
                                             </div>
                                         </a>
+                                    <a th:if="${notification.bookingReference.accountType} == riderAccount" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
+                                        <span class="thumb-sm pull-left">
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
+                                            </span>
+                                        <div class="col-xs-2">
+                                                <span class="media-body block m-b-none">
+                                                    <td data-th-text="${notification.content}">...</td><br/>
+                                                    <small class="text-muted">View details</small>
+                                                </span>
+                                        </div>
+                                    </a>
                                 </tr>
                                 <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
                                     <div class="panel-footer text-sm">

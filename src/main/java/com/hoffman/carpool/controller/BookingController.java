@@ -88,6 +88,7 @@ public class BookingController {
 
         model.addAttribute("bookingReference", bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
+        notificationService.sendAcceptedNotification(bookingReference, user);
 
         return "redirect:/booking/riderBooking/success";
     }
@@ -119,20 +120,26 @@ public class BookingController {
             final List<BookingReferenceReservation> reservations = reservationUtil.getBookingReservationList(bookingReference);
             model.addAttribute("reservations", reservations);
             return "riderBookingProgressPage";
-        } else {
-            return "redirect:/user/booking/rider";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
+            return "riderBookingCancelledPage";
         }
+        return "redirect:/user/booking/rider";
     }
 
     @RequestMapping(value= "/riderBooking/cancel", method = RequestMethod.POST)
-    public String cancelRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String cancelRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
         bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
         model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         bookingService.saveBooking(bookingReference);
+        if (!bookingReference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+            notificationService.sendCancelledNotification(bookingReference, user);
+        }
 
-        return "redirect:/user/booking/rider";
+        return "riderBookingCancelledPage";
     }
 
     @RequestMapping(value= "/riderBooking/passenger/cancel", method = RequestMethod.POST)
@@ -156,10 +163,12 @@ public class BookingController {
         bookingReference.setPassengerNumber(seatsLeft);
         bookingReference.setBookingStatus(BookingReferenceStatus.BACK_PENDING);
         model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         bookingService.saveBooking(bookingReference);
+        notificationService.sendCancelledNotification(bookingReference, user);
 
-        return "redirect:/user/booking/rider";
+        return "riderBookingCancelledPage";
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.GET)
@@ -216,16 +225,7 @@ public class BookingController {
 
         model.addAttribute("bookingReference", bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
-
-        User author = userService.findByUsername(bookingReference.getAuthor());
-
-        Notification notification = new Notification();
-        notification.setUser(author);
-//        notification.setActive(true);
-        notification.setAuthor(user.getUsername());
-        notification.setBookingReference(bookingReference);
-        notification.setContent(String.format("%s has accepted your booking", user.getUsername()));
-        notificationService.saveNotification(notification);
+        notificationService.sendAcceptedNotification(bookingReference, user);
 
         return "redirect:/booking/driverBooking/success";
     }
@@ -251,25 +251,45 @@ public class BookingController {
 
         if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
             return "driverBookingCancelPendingPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING) &&
+                bookingReference.getPassengerList().size() == 0) {
+            return "driverBookingBackPendingPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) ||
                 bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
             final List<BookingReferenceReservation> reservations = reservationUtil.getBookingReservationList(bookingReference);
             model.addAttribute("reservations", reservations);
             return "driverBookingProgressPage";
-        } else {
-            return "redirect:/user/booking/driver";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
+            return "driverBookingCancelledPage";
         }
+        return "redirect:/user/booking/driver";
+    }
+
+    @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.GET)
+    public String getDriverBookingBackPending(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+
+        final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+
+        return "driverBookingCancelPendingPage";
     }
 
     @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.POST)
-    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
         bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
 //        bookingReference.setCancelNotes(cancelNotes);
         model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         bookingService.saveBooking(bookingReference);
+        if (!bookingReference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+            notificationService.sendCancelledNotification(bookingReference, user);
+        }
 
-        return "redirect:/user/booking/driver";
+        return "driverBookingCancelledPage";
     }
 }

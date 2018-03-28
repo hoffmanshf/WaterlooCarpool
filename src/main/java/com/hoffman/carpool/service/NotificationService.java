@@ -1,8 +1,10 @@
 package com.hoffman.carpool.service;
 
-import com.hoffman.carpool.domain.entity.Notification;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.User;
 
 public interface NotificationService {
-    Notification saveNotification(Notification notification);
+    void sendAcceptedNotification(BookingReference bookingReference, User user);
+    void sendCancelledNotification(BookingReference bookingReference, User user);
     void deleteNotification(Long id);
 }

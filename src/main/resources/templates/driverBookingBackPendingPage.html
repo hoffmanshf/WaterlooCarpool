@@ -10,11 +10,10 @@
     <div class="gap"></div>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <i class="fa fa-check round box-icon-large box-icon-center box-icon-success mb30"></i>
+            <i class="fa fa-exclamation round box-icon-large box-icon-center box-icon-warning mb30"></i>
             <h2 class="text-center">
-                <td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td>, your booking was successful!
+                <td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td>, your booking is back to pending.
             </h2>
-            <h5 class="text-center mb30">Booking details has been sent to <strong><td data-th-text="${user.email}">...</td></strong>.</h5>
             <ul id="userInfo" class="order-payment-list list mb30">
                 <li>
                     <div class="row">
@@ -23,16 +22,13 @@
                             <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td data-th-text="${bookingReference.dateForSearch}">...</td>&nbsp;<td data-th-text="${bookingReference.time}">...</td></p>
                         </div>
                         <div class="col-xs-3">
-                            <h5 class="text-right"><span class="text-lg"><td data-th-text="${bookingReference.passengerNumber}">...</td>
-                                <span th:if="${bookingReference.passengerNumber} == 1">passenger</span>
-                                <span th:if="${bookingReference.passengerNumber} != 1">passengers</span></span>
+                            <h5 class="text-right"><span class="text-lg">$<td data-th-text="${bookingReference.price}">...</td></span>
                             </h5>
                         </div>
                     </div>
                 </li>
             </ul>
-            <h5 class="text-center">See your <strong><a th:href="@{/user/booking/driver}">Booking History</a></strong> for more information. Or search for another trip at
-                <strong><a th:href="@{/userFront}">Waterloo Carpool</a></strong>.
+            <h5 class="text-center">Thank you for choosing our service. You can also<a th:href="@{/booking/driverBooking/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}"> modify or cancel</a> your trip.
             </h5>
 
         </div>
