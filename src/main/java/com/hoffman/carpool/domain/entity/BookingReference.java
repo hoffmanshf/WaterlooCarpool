@@ -1,4 +1,6 @@
-package com.hoffman.carpool.domain;
+package com.hoffman.carpool.domain.entity;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -52,6 +54,10 @@ public class BookingReference {
             joinColumns = { @JoinColumn(name = "booking_reference_id") },
             inverseJoinColumns = { @JoinColumn(name = "rider_account_id") })
     private List<RiderAccount> cancelledPassengerList;
+
+    @OneToMany(mappedBy = "bookingReference", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Notification> notificationList;
 
     public long getBookingReferenceId() {
         return bookingReferenceId;
@@ -237,7 +243,15 @@ public class BookingReference {
         this.arrivalTime = arrivalTime;
     }
 
-//    public String getCancelNotes() {
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
+    }
+
+    //    public String getCancelNotes() {
 //        return cancelNotes;
 //    }
 //

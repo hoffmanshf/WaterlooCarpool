@@ -77,45 +77,38 @@
             <li class="hidden-xs">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
                     <i class="fa fa-bell" style="font-size: large"></i>
-                    <span class="badge badge-sm up bg-danger count">2</span>
+                    <span th:if="${user.notificationList.size()} != 0" class="badge badge-sm up bg-danger count"><td data-th-text="${user.notificationList.size()}">...</td></span>
                 </a>
                 <section class="dropdown-menu aside-xl animated fadeInDown">
                     <section class="panel bg-white">
                         <div class="panel-heading b-light bg-light">
-                            <strong>You have 2 notifications</strong>
+                            <strong>You have <td data-th-text="${user.notificationList.size()}">...</td> notifications</strong>
                         </div>
+
                         <div class="list-group list-group-alt">
-                            <a href="#" class="media list-group-item">
-                                <span class="thumb-sm pull-left">
-                                    <img src="/images/a3.JPG" class="img-circle" style="margin: 5px"/>
-                                </span>
-                                <div class="col-xs-2">
-                                    <span class="media-body block m-b-none">
-                                        <strong>chenyu</strong> accepted your booking<br/>
-                                        <small class="text-muted">1 hour ago</small>
-                                    </span>
-                                </div>
-                            </a>
+                                <tr data-th-each="notification : ${user.notificationList}">
+                                    <a href="#" class="media list-group-item">
+                                        <span class="thumb-sm pull-left">
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
+                                            <!--<img src="/images/a1.JPG" class="img-circle" style="margin: 5px"/>-->
+                                            </span>
+                                            <div class="col-xs-2">
+                                                <span class="media-body block m-b-none">
+                                                    <td data-th-text="${notification.content}">...</td><br/>
+                                                    <small class="text-muted">View details</small>
+                                                </span>
+                                            </div>
+                                        </a>
+                                </tr>
+                                <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
+                                    <div class="panel-footer text-sm">
+                                        <a href="#notes">See all the notifications</a>
+                                        <input type="hidden" name="_method" value="delete" />
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
+                                    </div>
+                                </form>
                         </div>
-                        <div class="list-group list-group-alt">
-                            <a href="#" class="media list-group-item">
-                                <span class="thumb-sm pull-left">
-                                    <img src="/images/a2.JPG" class="img-circle" style="margin: 5px"/>
-                                </span>
-                                <div class="col-xs-2">
-                                    <span class="media-body block m-b-none">
-                                        <strong>andy94sb</strong> cancelled your booking<br/>
-                                        <small class="text-muted">1 hour ago</small>
-                                    </span>
-                                </div>
-                            </a>
-                        </div>
-                        <form th:action="@{/user/notification}" id="clear-notification" method="post">
-                            <div class="panel-footer text-sm">
-                                <a href="#notes">See all the notifications</a>
-                                <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
-                            </div>
-                        </form>
                     </section>
                 </section>
             </li>
@@ -348,9 +341,6 @@
     <script src="/js/tweet.js"></script>
     <script src="/js/countdown.js"></script>
     <script src="/js/gridrotator.js"></script>
-
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>-->
 
     <!--main app plugin js-->
     <script src="/js/app.plugin.js"></script>

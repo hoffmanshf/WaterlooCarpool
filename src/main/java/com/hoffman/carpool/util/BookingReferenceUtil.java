@@ -1,6 +1,10 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.constant.BookingReferenceStatus;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;

@@ -2,9 +2,9 @@ package com.hoffman.carpool.controller;
 
 
 import com.hoffman.carpool.repository.RoleRepository;
-import com.hoffman.carpool.domain.DriverAccount;
-import com.hoffman.carpool.domain.RiderAccount;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.DriverAccount;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.domain.security.UserRole;
 import com.hoffman.carpool.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;

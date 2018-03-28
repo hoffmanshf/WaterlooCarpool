@@ -1,6 +1,6 @@
 package com.hoffman.carpool.service;
 
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.domain.security.UserRole;
 
 import java.util.Set;

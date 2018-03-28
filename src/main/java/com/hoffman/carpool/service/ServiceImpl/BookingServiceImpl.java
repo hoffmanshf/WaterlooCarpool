@@ -1,19 +1,22 @@
 package com.hoffman.carpool.service.ServiceImpl;
 
-import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.constant.BookingReferenceStatus;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.DriverAccount;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.repository.BookingReferenceRepository;
 import com.hoffman.carpool.repository.UserRepository;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.util.DateTimeConverterUtil;
 import com.hoffman.carpool.util.EmailNotificationUtil;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
 import java.text.SimpleDateFormat;
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 public class BookingServiceImpl implements BookingService {

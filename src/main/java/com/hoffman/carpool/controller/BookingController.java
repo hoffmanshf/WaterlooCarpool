@@ -1,7 +1,14 @@
 package com.hoffman.carpool.controller;
 
 import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.constant.BookingReferenceStatus;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.Notification;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
+import com.hoffman.carpool.service.NotificationService;
 import com.hoffman.carpool.util.GoogleDistanceMatrixUtil;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.ReservationUtil;
@@ -23,6 +30,9 @@ public class BookingController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private GoogleDistanceMatrixUtil googleDistanceMatrixUtil;
@@ -206,6 +216,16 @@ public class BookingController {
 
         model.addAttribute("bookingReference", bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
+
+        User author = userService.findByUsername(bookingReference.getAuthor());
+
+        Notification notification = new Notification();
+        notification.setUser(author);
+//        notification.setActive(true);
+        notification.setAuthor(user.getUsername());
+        notification.setBookingReference(bookingReference);
+        notification.setContent(String.format("%s has accepted your booking", user.getUsername()));
+        notificationService.saveNotification(notification);
 
         return "redirect:/booking/driverBooking/success";
     }

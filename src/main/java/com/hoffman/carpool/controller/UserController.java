@@ -1,9 +1,14 @@
 package com.hoffman.carpool.controller;
 
-import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.Car;
+import com.hoffman.carpool.domain.entity.Notification;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.CarService;
+import com.hoffman.carpool.service.NotificationService;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.BookingReferenceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +26,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -35,6 +41,9 @@ public class UserController {
 
     @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    private NotificationService notificationService;
 
     @Autowired
     private BookingReferenceUtil bookingReferenceUtil;
@@ -145,6 +154,18 @@ public class UserController {
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
         return "driverBookingHistory";
+    }
+
+    @RequestMapping(value = "/notification", method = RequestMethod.DELETE)
+    public String deleteNotification(Principal principal) {
+        User user = userService.findByUsername(principal.getName());
+        List<Notification> notificationList = user.getNotificationList();
+        if (notificationList != null) {
+            for (Notification notification : notificationList) {
+                notificationService.deleteNotification(notification.getNotificationId());
+            }
+        }
+        return "redirect:/userFront";
     }
 
 }

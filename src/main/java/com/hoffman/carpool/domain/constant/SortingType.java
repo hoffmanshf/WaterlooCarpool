@@ -1,4 +1,4 @@
-package com.hoffman.carpool.domain;
+package com.hoffman.carpool.domain.constant;
 
 import org.springframework.data.domain.Sort;
 

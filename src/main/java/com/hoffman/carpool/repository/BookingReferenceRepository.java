@@ -1,6 +1,6 @@
 package com.hoffman.carpool.repository;
 
-import com.hoffman.carpool.domain.BookingReference;
+import com.hoffman.carpool.domain.entity.BookingReference;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.repository.CrudRepository;
 

@@ -1,4 +1,4 @@
-package com.hoffman.carpool.domain;
+package com.hoffman.carpool.domain.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.hoffman.carpool.domain.security.Authority;
@@ -9,6 +9,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -38,6 +39,10 @@ public class User implements UserDetails{
 
     @OneToOne
     private RiderAccount riderAccount;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Notification> notificationList;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JsonIgnore
@@ -137,21 +142,12 @@ public class User implements UserDetails{
         this.userRoles = userRoles;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", firstName='" + firstName + '\'' +
-                ", lastName='" + lastName + '\'' +
-                ", email='" + email + '\'' +
-                ", phone='" + phone + '\'' +
-                ", enabled=" + enabled +
-                ", driverAccount=" + driverAccount +
-                ", riderAccount=" + riderAccount +
-                ", userRoles=" + userRoles +
-                '}';
+    public List<Notification> getNotificationList() {
+        return notificationList;
+    }
+
+    public void setNotificationList(List<Notification> notificationList) {
+        this.notificationList = notificationList;
     }
 
     @Override
