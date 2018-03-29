@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<style>
+    html {
+        background-color: #F4F4F4;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+
+<div class="container">
+    <div class="gap"></div>
+
+    <section class="vbox">
+        <section class="scrollable wrapper">
+            <div class="timeline">
+                <article class="timeline-item active">
+                    <div class="timeline-caption">
+                        <div class="panel bg-primary lt no-borders">
+                            <div class="panel-body">
+                                <span class="timeline-icon"><i class="fa fa-bell-o time-icon bg-primary"></i></span>
+                                <span class="timeline-date">7:30 am</span>
+                                <div class="text-sm">Wake up</div>
+                                <h5>Me</h5>
+                                <div class="m-t-sm timeline-action">
+                                    <span class="h3 pull-left m-r-sm">7:40</span>
+                                    <button class="btn btn-sm btn-default btn-bg"><i class="fa fa-pause"></i> Pause</button>
+                                    <button class="btn btn-sm btn-default btn-bg"><i class="fa fa-check"></i> Confirm</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <!--<article class="timeline-item">-->
+                    <!--<div class="timeline-caption">-->
+                        <!--<div class="panel panel-default">-->
+                            <!--<div class="panel-body">-->
+                                <!--<span class="arrow left"></span>-->
+                                <!--<span class="timeline-icon"><i class="fa fa-phone time-icon bg-primary"></i></span>-->
+                                <!--<span class="timeline-date">12:25 am</span>-->
+                                <!--<div class="text-sm">Call to</div>-->
+                                <!--<h5>-->
+                                    <!--Jason Cokde (021-254-3523)-->
+                                <!--</h5>-->
+                            <!--</div>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</article>-->
+                <article class="timeline-item alt">
+                    <div class="timeline-caption">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span class="arrow right"></span>
+                                <span class="timeline-icon"><i class="fa fa-male time-icon bg-success"></i></span>
+                                <span class="timeline-date">9:20 am</span>
+                                <div class="text-sm">Appointment</div>
+                                <h5>
+                                    Pickup passengers at BK
+                                </h5>
+                                <p>4 passengers</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <div class="timeline-caption">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span class="arrow left"></span>
+                                <span class="timeline-icon"><i class="fa fa-car time-icon bg-dark"></i></span>
+                                <span class="timeline-date">9:30 am</span>
+                                <div class="text-sm">Departure</div>
+                                <h5>
+                                    Waterloo, ON, Canada
+                                </h5>
+                                <p>2 passengers</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item alt">
+                    <div class="timeline-caption">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span class="arrow right"></span>
+                                <span class="timeline-icon"><i class="fa fa-exchange time-icon bg-primary"></i></span>
+                                <span class="timeline-date">10:40 am</span>
+                                <div class="text-sm">Transition</div>
+                                <h5>
+                                    230 Queens Quay West, Toronto, ON, Canada
+                                </h5>
+                                <p>Drop Haofeng Song</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item">
+                    <div class="timeline-caption">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span class="arrow left"></span>
+                                <span class="timeline-icon"><i class="fa fa-exchange time-icon bg-primary"></i></span>
+                                <span class="timeline-date">10:50 am</span>
+                                <div class="text-sm">Transition</div>
+                                <h5>
+                                    125 Peter St, Toronto, ON, Canada
+                                </h5>
+                                <p>Drop Andy Lin</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <article class="timeline-item alt">
+                    <div class="timeline-caption">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <span class="arrow right"></span>
+                                <span class="timeline-icon"><i class="fa fa-car time-icon bg-dark"></i></span>
+                                <span class="timeline-date">11:00 am</span>
+                                <div class="text-sm">Destination</div>
+                                <h5>
+                                    Toronto, ON, Canada
+                                </h5>
+                                <p>Drive back</p>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+                <div class="timeline-footer"><a href="#"><i class="fa fa-code time-icon inline-block bg-dark"></i></a></div>
+            </div>
+        </section>
+    </section>
+
+
+
+
+    <div class="gap"></div>
+</div>
+
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>
