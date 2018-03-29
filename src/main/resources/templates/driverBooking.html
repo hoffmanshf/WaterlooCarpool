@@ -45,9 +45,9 @@
                 <div class="form-group">
                     <label class="cols-sm-2 control-label" for="price">Price per seat:</label>
                     <div class="cols-sm-5">
-                        <input type="text" required="required" class="slider slider-horizontal form-control" value=""
+                        <input type="number" required="required" class="slider slider-horizontal form-control" value="10"
                                data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="10" data-slider-orientation="horizontal"
-                               th:value="${bookingReference.price}" name="price" id="price"/>
+                               name="price" id="price"/>
                     </div>
                 </div>
 
@@ -96,7 +96,7 @@
                 <div class="form-group">
                     <label for="paymentMethod">Choose your payment method:</label>
                     <select class="form-control" th:value="${bookingReference.paymentMethod}" name="paymentMethod" id="paymentMethod">
-                        <option disabled="disabled" selected="selected" > -- select the method --</option>
+                        <!--<option disabled="disabled" selected="selected" > &#45;&#45; select the method &#45;&#45;</option>-->
                         <option>&nbsp;Cash</option>
                         <option>&nbsp;e-Transfer</option>
                         <option>&nbsp;WeChat Pay</option>

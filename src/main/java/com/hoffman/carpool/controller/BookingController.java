@@ -225,9 +225,11 @@ public class BookingController {
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
     public String createDriverBookingPost(@ModelAttribute("bookingReference") BookingReference bookingReference, @ModelAttribute("dateString") String source,
                                           @RequestParam(value = "passengerNumber", required = false) int passengerNumber,
+                                          @RequestParam(value = "price", required = false) int price,
                                           @RequestParam(value = "departure") String departure, @RequestParam(value = "arrival") String arrival, Principal principal, RedirectAttributes redirectAttributes) {
 
         bookingReference.setPassengerNumber(passengerNumber);
+        bookingReference.setPrice(price);
         bookingService.createBooking(bookingReference, source, AccountType.driverAccountType, principal);
         googleDistanceMatrixUtil.estimateRouteTime(departure, arrival, source, bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReference.getBookingReferenceId());
