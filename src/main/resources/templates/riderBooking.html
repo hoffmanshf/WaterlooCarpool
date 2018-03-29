@@ -11,8 +11,8 @@
                 <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
 
                 <div class="form-group">
-                    <label for="dateString">Pick your departure time:</label>
-                    <div class="input-append date form_datetime input-group" data-view="hour">
+                    <label>Pick your departure time:</label>
+                    <div class="input-append date input-group" data-view="hour" id="form_datetime">
                         <input class="form-control" type="text" value="" data-readonly="data-readonly"
                                th:value="${dateString}" name="dateString"
                                id="dateString" required="required"/>
@@ -34,11 +34,53 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label" for="passengerNumber">Passenger number:</label>
+                    <label class="cols-sm-2 control-label">Passenger number:</label>
                     <div class="cols-sm-5">
-                        <input type="text" required="required" class="slider slider-horizontal form-control" value=""
+                        <input type="number" required="required" class="slider slider-horizontal form-control" value="1"
                                data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
-                               th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber"/>
+                               name="passengerNumber" id="passengerNumber"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Service required:</label>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Door to Door</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Luggage</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Non-smoking</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Pet authorized</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -51,12 +93,42 @@
                         <!--<option>&nbsp;WeChat Pay</option>-->
                     <!--</select>-->
                 <!--</div>-->
-
+                <div class="form-group">
+                    <label>I need a drive back</label>
+                    <div class="cols-sm-5">
+                        <div class="checkbox">
+                            <label class="switch" style="padding-left:0px;">
+                                <input type="checkbox" id="switch" name="switch"/>
+                                <span></span>
+                            </label>
+                            <!--<input type="checkbox" data-toggle="toggle" data-onstyle="success" data-target="switch" id="switch" name="switch"/>-->
+                        </div>
+                    </div>
+                </div>
+                <div id="hidden-fields" class="panel-collapse">
+                    <div class="form-group">
+                        <label>Pick your back time:</label>
+                        <div class="input-append date input-group" data-view="hour" id="form_datetime2">
+                            <input class="form-control" type="text" value="" data-readonly="data-readonly"
+                                   th:value="${backDateString}" name="backDateString"
+                                       id="backDateString"/>
+                            <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
+                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="cols-sm-2 control-label">Return passenger number:</label>
+                        <div class="cols-sm-5">
+                            <input type="number" class="slider slider-horizontal form-control" value="1"
+                                   data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
+                                   name="returnPassengerNumber" id="returnPassengerNumber"/>
+                        </div>
+                    </div>
+                </div>
                 <div class="form-group">
                     <label for="notes">Notes:</label>
                     <textarea th:value="${bookingReference.notes}" class="form-control" name="notes" id="notes" placeholder="Notes" ></textarea>
                 </div>
-
 
                 <input type="hidden"
                        name="${_csrf.parameterName}"

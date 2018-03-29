@@ -11,8 +11,8 @@
                 <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
 
                 <div class="form-group">
-                    <label for="dateString">Pick your departure time:</label>
-                    <div class="input-append date form_datetime input-group" data-view="hour">
+                    <label>Pick your departure time:</label>
+                    <div class="input-append date input-group" id="form_datetime" data-view="hour">
                         <input class="form-control" type="text" value="" data-readonly="data-readonly"
                                th:value="${dateString}" name="dateString"
                                id="dateString" required="required"/>
@@ -34,11 +34,11 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label" for="passengerNumber">Passenger number:</label>
+                    <label class="cols-sm-2 control-label">Passenger number:</label>
                     <div class="cols-sm-5">
-                        <input type="text" required="required" class="slider slider-horizontal form-control" value=""
+                        <input type="number" class="slider slider-horizontal form-control" value="1"
                                data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
-                               th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber"/>
+                               name="passengerNumber" id="passengerNumber"/>
                     </div>
                 </div>
 
@@ -48,6 +48,48 @@
                         <input type="text" required="required" class="slider slider-horizontal form-control" value=""
                                data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="10" data-slider-orientation="horizontal"
                                th:value="${bookingReference.price}" name="price" id="price"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Service provide:</label>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Door to Door</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Luggage</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Non-smoking</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Pet authorized</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
