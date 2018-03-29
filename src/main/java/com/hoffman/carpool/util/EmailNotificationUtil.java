@@ -1,9 +1,8 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.BookingReference;
+import com.hoffman.carpool.domain.entity.BookingReference;
 import com.hoffman.carpool.domain.CalendarEvent;
 import com.hoffman.carpool.error.UServiceException;
-import com.hoffman.carpool.util.CalendarEventUtil;
 import net.fortuna.ical4j.data.CalendarOutputter;
 import net.fortuna.ical4j.model.Calendar;
 import net.fortuna.ical4j.model.ValidationException;
@@ -13,7 +12,6 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;

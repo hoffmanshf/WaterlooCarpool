@@ -1,6 +1,11 @@
 package com.hoffman.carpool.controller;
 
-import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountBaseURL;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.DriverAccount;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.AccountService;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.domain.PageWrapper;
@@ -43,6 +48,8 @@ public class AccountController {
                                @RequestParam(value = "page") Optional<Integer> page) {
 
         final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
         final RiderAccount riderAccount = user.getRiderAccount();
 
         if (sort == null) {
@@ -78,6 +85,8 @@ public class AccountController {
                                 @RequestParam(value = "page") Optional<Integer> page) {
 
         final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
         final DriverAccount driverAccount = user.getDriverAccount();
 
         if (sort == null) {
@@ -141,6 +150,7 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -179,6 +189,7 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "riderAccount";
     }
@@ -218,6 +229,7 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -257,6 +269,7 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
+        model.addAttribute("user", user);
 
         return "riderAccount";
     }

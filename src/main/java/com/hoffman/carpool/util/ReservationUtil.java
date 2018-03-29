@@ -1,8 +1,8 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.BookingReference;
+import com.hoffman.carpool.domain.entity.BookingReference;
 import com.hoffman.carpool.domain.BookingReferenceReservation;
-import com.hoffman.carpool.domain.RiderAccount;
+import com.hoffman.carpool.domain.entity.RiderAccount;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;

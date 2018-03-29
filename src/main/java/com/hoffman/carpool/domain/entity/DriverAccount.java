@@ -1,25 +1,25 @@
-package com.hoffman.carpool.domain;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
+package com.hoffman.carpool.domain.entity;
 
 import javax.persistence.*;
-import java.util.List;
 
 @Entity
-public class RiderAccount {
+public class DriverAccount {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "riderAccountId")
-    private Long riderAccountId;
+    @Column(name = "driverAccountId")
+    private Long driverAccountId;
     private String username;
     private String firstName;
     private String lastName;
     private String email;
     private String phone;
 
-    public Long getRiderAccountId() {
-        return riderAccountId;
+    @OneToOne
+    private Car car;
+
+    public Long getDriverAccountId() {
+        return driverAccountId;
     }
 
     public String getUsername() {
@@ -62,4 +62,11 @@ public class RiderAccount {
         this.phone = phone;
     }
 
+    public Car getCar() {
+        return car;
+    }
+
+    public void setCar(Car car) {
+        this.car = car;
+    }
 }

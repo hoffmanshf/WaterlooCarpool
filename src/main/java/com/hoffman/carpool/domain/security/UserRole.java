@@ -1,7 +1,7 @@
 package com.hoffman.carpool.domain.security;
 
 
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.User;
 
 import javax.persistence.*;
 

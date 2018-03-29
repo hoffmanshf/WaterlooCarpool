@@ -1,9 +1,9 @@
 package com.hoffman.carpool.service;
 
-import com.hoffman.carpool.domain.BookingReference;
-import com.hoffman.carpool.domain.DriverAccount;
-import com.hoffman.carpool.domain.RiderAccount;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.DriverAccount;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 
 import java.util.List;
 

@@ -7,7 +7,7 @@ import com.google.maps.GeoApiContext;
 import com.google.maps.errors.ApiException;
 import com.google.maps.model.DistanceMatrix;
 import com.google.maps.model.TravelMode;
-import com.hoffman.carpool.domain.BookingReference;
+import com.hoffman.carpool.domain.entity.BookingReference;
 import com.hoffman.carpool.error.UServiceException;
 import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;

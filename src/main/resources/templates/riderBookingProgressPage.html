@@ -143,6 +143,17 @@
                                             </tr>
                                             <div class="row">
                                                 <div class="col-md-3">
+                                                    <p><strong>Seats available</strong></p>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    <p><td data-th-text="${bookingReference.passengerNumber}">...</td>
+                                                    <span th:if="${bookingReference.passengerNumber} == 1">seat</span>
+                                                    <span th:if="${bookingReference.passengerNumber} != 1">seats</span>
+                                                    left</p>
+                                                </div>
+                                            </div>
+                                            <div class="row">
+                                                <div class="col-md-3">
                                                     <p><strong>Cancellation cost</strong></p>
                                                 </div>
                                                 <div class="col-md-6">

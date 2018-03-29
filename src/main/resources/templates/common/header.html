@@ -62,47 +62,140 @@
 <body>
 <!-- Navigation -->
 <div th:fragment="navbar">
-    <img class="img-responsive" src="/images/banner.png" alt="banner"/>
+    <!--<img class="img-responsive" src="/images/banner.png" alt="banner"/>-->
+    <header class="header header-md navbar navbar-fixed-top-xs box-shadow" style="background-color: #282828">
+        <div class="navbar-header aside-md dk">
+            <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
+                <i class="fa fa-bars"></i>
+            </a>
+            <div class="gap gap-header"></div>
+            <a th:href="@{/userFront}">
+                <img src="/images/banner.png" class="m-r-sm"/>
+            </a>
+        </div>
+        <ul class="nav navbar-nav navbar-right m-n hidden-xs nav-user user">
+            <li class="hidden-xs">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
+                    <i class="fa fa-bell" style="font-size: large"></i>
+                    <span th:if="${user.notificationList.size()} != 0" class="badge badge-sm up bg-danger count"><td data-th-text="${user.notificationList.size()}">...</td></span>
+                </a>
+                <section class="dropdown-menu aside-xl animated fadeInDown">
+                    <section class="panel bg-white">
+                        <div class="panel-heading b-light bg-light">
+                            <strong>You have <td data-th-text="${user.notificationList.size()}">...</td> notifications</strong>
+                        </div>
 
-        <div class="container">
-            <div class="nav">
-                <ul class="slimmenu" id="slimmenu">
-                    <li class="active"><a href="/userFront">Home</a>
+                        <div class="list-group list-group-alt">
+                                <tr data-th-each="notification : ${user.notificationList}">
+                                    <a th:if="${notification.bookingReference.accountType} == driverAccount" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
+                                        <span class="thumb-sm pull-left">
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
+                                            </span>
+                                            <div class="col-xs-2">
+                                                <span class="media-body block m-b-none">
+                                                    <td data-th-text="${notification.content}">...</td><br/>
+                                                    <small class="text-muted">View details</small>
+                                                </span>
+                                            </div>
+                                        </a>
+                                    <a th:if="${notification.bookingReference.accountType} == riderAccount" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
+                                        <span class="thumb-sm pull-left">
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
+                                            </span>
+                                        <div class="col-xs-2">
+                                                <span class="media-body block m-b-none">
+                                                    <td data-th-text="${notification.content}">...</td><br/>
+                                                    <small class="text-muted">View details</small>
+                                                </span>
+                                        </div>
+                                    </a>
+                                </tr>
+                                <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
+                                    <div class="panel-footer text-sm">
+                                        <a href="#notes">See all the notifications</a>
+                                        <input type="hidden" name="_method" value="delete" />
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
+                                    </div>
+                                </form>
+                        </div>
+                    </section>
+                </section>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
+                    <span class="thumb-sm avatar pull-left">
+                        <img th:src="@{/user/photo/viewByUsername?username=}+${user.username}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                    </span>
+                    <span>&nbsp;<td data-th-text="${user.firstName}">...</td></span>
+                    <b class="caret"></b>
+                </a>
+                <ul class="dropdown-menu animated fadeInDown">
+                    <li>
+                        <span class="arrow top"></span>
+                        <a th:href="@{/user/profile}">Profile</a>
                     </li>
-                    <li><a>Find Post</a>
-                        <ul>
-                            <li><a th:href="@{/account/riderAccount}">Rider</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/account/driverAccount}">Driver</a></li>
-                        </ul>
+                    <!--<li>-->
+                    <!--<a href="#" class="notification active" type="button">-->
+                    <!--<span class="badge bg-danger pull-right">3</span>-->
+                    <!--Notifications-->
+                    <!--</a>-->
+                    <!--</li>-->
+                    <li>
+                        <a th:href="@{/user/booking/rider}">Booking</a>
                     </li>
-                    <li><a>Create New</a>
-                        <ul>
-                            <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
-                            <!--<li role="separator" class="divider"></li>-->
-                            <!--<li><a href="#">Edit Trip</a></li>-->
-                        </ul>
+                    <li>
+                        <a href="#">Help</a>
                     </li>
-
-                    <li><a>Driver Pro</a>
-                        <ul>
-                            <li><a href="#">Calendar </a></li>
-                        </ul>
-                    </li>
-                    <li class="pull-right"><a>Me</a>
-                        <ul>
-                            <li><a th:href="@{/user/profile}">Setting</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/user/booking/rider}">Booking</a></li>
-                            <li role="separator" class="divider"></li>
-                            <li><a th:href="@{/logout}">Logout</a></li>
-                        </ul>
+                    <li class="divider"></li>
+                    <li>
+                        <a th:href="@{/logout}">Logout</a>
                     </li>
                 </ul>
-            </div>
+            </li>
+        </ul>
+    </header>
+
+
+    <div class="container">
+        <div class="nav">
+            <ul class="slimmenu" id="slimmenu">
+                <li class="active"><a th:href="@{/userFront}">Home</a>
+                </li>
+                <li><a>Find Post</a>
+                    <ul>
+                        <li><a th:href="@{/account/riderAccount}">Rider</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/account/driverAccount}">Driver</a></li>
+                    </ul>
+                </li>
+                <li><a>Create New</a>
+                    <ul>
+                        <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
+                        <!--<li role="separator" class="divider"></li>-->
+                        <!--<li><a href="#">Edit Trip</a></li>-->
+                    </ul>
+                </li>
+
+                <li><a>Driver Pro</a>
+                    <ul>
+                        <li><a href="#">Calendar </a></li>
+                    </ul>
+                </li>
+                <!--<li class="pull-right"><a>Me</a>-->
+                <!--<ul>-->
+                <!--<li><a th:href="@{/user/profile}">Setting</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a th:href="@{/user/booking/rider}">Booking</a></li>-->
+                <!--<li role="separator" class="divider"></li>-->
+                <!--<li><a th:href="@{/logout}">Logout</a></li>-->
+                <!--</ul>-->
+                <!--</li>-->
+            </ul>
         </div>
+    </div>
 </div>
 
 <div th:fragment="footer">
@@ -258,9 +351,6 @@
     <script src="/js/tweet.js"></script>
     <script src="/js/countdown.js"></script>
     <script src="/js/gridrotator.js"></script>
-
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>-->
-    <!--<script src="https://cdnjs.cloudflare.com/ajax/libs/knockout/3.4.2/knockout-min.js"></script>-->
 
     <!--main app plugin js-->
     <script src="/js/app.plugin.js"></script>

@@ -1,5 +1,7 @@
 package com.hoffman.carpool.domain;
 
+import com.hoffman.carpool.domain.entity.RiderAccount;
+
 public class BookingReferenceReservation {
 
     private RiderAccount passenger;

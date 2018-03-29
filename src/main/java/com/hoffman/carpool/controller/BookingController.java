@@ -1,7 +1,14 @@
 package com.hoffman.carpool.controller;
 
 import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.constant.BookingReferenceStatus;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.Notification;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
+import com.hoffman.carpool.service.NotificationService;
 import com.hoffman.carpool.util.GoogleDistanceMatrixUtil;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.ReservationUtil;
@@ -25,16 +32,21 @@ public class BookingController {
     private UserService userService;
 
     @Autowired
+    private NotificationService notificationService;
+
+    @Autowired
     private GoogleDistanceMatrixUtil googleDistanceMatrixUtil;
 
     @Autowired
     private ReservationUtil reservationUtil;
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
-    public String createRiderBooking(Model model) {
+    public String createRiderBooking(Model model, Principal principal) {
+        final User user = userService.findByUsername(principal.getName());
         final BookingReference bookingReference = new BookingReference();
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("dateString", "");
+        model.addAttribute("user", user);
 
         return "riderBooking";
     }
@@ -50,10 +62,9 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/riderBooking/view", method = RequestMethod.GET)
-    public String getRiderBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String getRiderBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        final String author = bookingReference.getAuthor();
-        User user = userService.findByUsername(author);
+        User user = userService.findByUsername(principal.getName());
 
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("user", user);
@@ -77,6 +88,7 @@ public class BookingController {
 
         model.addAttribute("bookingReference", bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
+        notificationService.sendAcceptedNotification(bookingReference, user);
 
         return "redirect:/booking/riderBooking/success";
     }
@@ -108,20 +120,30 @@ public class BookingController {
             final List<BookingReferenceReservation> reservations = reservationUtil.getBookingReservationList(bookingReference);
             model.addAttribute("reservations", reservations);
             return "riderBookingProgressPage";
-        } else {
-            return "redirect:/user/booking/rider";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
+            return "riderBookingCancelledPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE)) {
+            return "riderBookingCompletePage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
+            return "riderBookingExpiredPage";
         }
+        return "redirect:/user/booking/rider";
     }
 
     @RequestMapping(value= "/riderBooking/cancel", method = RequestMethod.POST)
-    public String cancelRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String cancelRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
         bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
         model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         bookingService.saveBooking(bookingReference);
+        if (!bookingReference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+            notificationService.sendCancelledNotification(bookingReference, user);
+        }
 
-        return "redirect:/user/booking/rider";
+        return "riderBookingCancelledPage";
     }
 
     @RequestMapping(value= "/riderBooking/passenger/cancel", method = RequestMethod.POST)
@@ -145,17 +167,21 @@ public class BookingController {
         bookingReference.setPassengerNumber(seatsLeft);
         bookingReference.setBookingStatus(BookingReferenceStatus.BACK_PENDING);
         model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         bookingService.saveBooking(bookingReference);
+        notificationService.sendCancelledNotification(bookingReference, user);
 
-        return "redirect:/user/booking/rider";
+        return "riderBookingCancelledPage";
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.GET)
-    public String createDriverBooking(Model model) {
+    public String createDriverBooking(Model model, Principal principal) {
         final BookingReference bookingReference = new BookingReference();
+        final User user = userService.findByUsername(principal.getName());
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("dateString", "");
+        model.addAttribute("user", user);
 
         return "driverBooking";
     }
@@ -170,11 +196,10 @@ public class BookingController {
     }
 
     @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)
-    public String getDriverBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String getDriverBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        final String author = bookingReference.getAuthor();
-        final User user = userService.findByUsername(author);
+        final User user = userService.findByUsername(principal.getName());
 
         model.addAttribute("bookingReference", bookingReference);
         model.addAttribute("user", user);
@@ -204,6 +229,7 @@ public class BookingController {
 
         model.addAttribute("bookingReference", bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
+        notificationService.sendAcceptedNotification(bookingReference, user);
 
         return "redirect:/booking/driverBooking/success";
     }
@@ -229,25 +255,49 @@ public class BookingController {
 
         if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
             return "driverBookingCancelPendingPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING) &&
+                bookingReference.getPassengerList().size() == 0) {
+            return "driverBookingBackPendingPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) ||
                 bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
             final List<BookingReferenceReservation> reservations = reservationUtil.getBookingReservationList(bookingReference);
             model.addAttribute("reservations", reservations);
             return "driverBookingProgressPage";
-        } else {
-            return "redirect:/user/booking/driver";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
+            return "driverBookingCancelledPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE)) {
+            return "driverBookingCompletePage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
+            return "driverBookingExpiredPage";
         }
+        return "redirect:/user/booking/driver";
+    }
+
+    @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.GET)
+    public String getDriverBookingBackPending(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+
+        final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+
+        return "driverBookingCancelPendingPage";
     }
 
     @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.POST)
-    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model) {
+    public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
         bookingReference.setBookingStatus(BookingReferenceStatus.CANCELLED);
 //        bookingReference.setCancelNotes(cancelNotes);
         model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
 
         bookingService.saveBooking(bookingReference);
+        if (!bookingReference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+            notificationService.sendCancelledNotification(bookingReference, user);
+        }
 
-        return "redirect:/user/booking/driver";
+        return "driverBookingCancelledPage";
     }
 }

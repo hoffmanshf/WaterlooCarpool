@@ -2,7 +2,7 @@ package com.hoffman.carpool.service.ServiceImpl;
 
 import com.hoffman.carpool.repository.RoleRepository;
 import com.hoffman.carpool.repository.UserRepository;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.domain.security.UserRole;
 import com.hoffman.carpool.service.AccountService;
 import com.hoffman.carpool.service.UserService;

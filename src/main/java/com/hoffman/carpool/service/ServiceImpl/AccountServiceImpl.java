@@ -1,6 +1,6 @@
 package com.hoffman.carpool.service.ServiceImpl;
 
-import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.entity.*;
 import com.hoffman.carpool.repository.BookingReferenceRepository;
 import com.hoffman.carpool.repository.CarRepository;
 import com.hoffman.carpool.repository.DriverAccountRepository;

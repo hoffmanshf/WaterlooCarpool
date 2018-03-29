@@ -1,6 +1,10 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.*;
+import com.hoffman.carpool.domain.constant.AccountType;
+import com.hoffman.carpool.domain.constant.BookingReferenceStatus;
+import com.hoffman.carpool.domain.entity.BookingReference;
+import com.hoffman.carpool.domain.entity.RiderAccount;
+import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -86,7 +90,8 @@ public class BookingReferenceUtil {
         for (final BookingReference reference: UserBookingReferences) {
             if (reference.getAccountType().equalsIgnoreCase(accountType)) {
                 if (reference.getDate().before(today)) {
-                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING)) {
+                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING) ||
+                            reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
                         reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
                         bookingService.saveBooking(reference);
                     } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {

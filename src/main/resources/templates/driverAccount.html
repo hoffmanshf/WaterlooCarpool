@@ -15,39 +15,19 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
-    <br/>
     <div class="row">
+        <br/>
         <div class="col-md-6">
             <ul id="userInfo" class="breadcrumb">
                 <li><a th:href="@{/userFront}"><i class="fa fa-home"></i> Home</a></li>
                 <li class="active"><i class="fa fa-list-ul"></i> Find Post</li>
                 <li class="active">Driver Posting</li>
-                <!--<li class="active">Driver Posting</li>-->
             </ul>
         </div>
         <div class="col-md-6">
             <div class="nav-drop booking-sort pull-right">
-                <!--<label class="booking-sort-title">Sort by&nbsp;</label>-->
                 <div class="btn-group m-r">
-                    <!--<form th:action="@{${sortingURI}}" method="get">-->
-                        <!--<div class="input-group">-->
-                            <!--&lt;!&ndash;<span class="input-group-addon">Sort by</span>&ndash;&gt;-->
-                            <!--<select class="js-example-basic-single" name="sort" id="sort" style="width: 160px" onchange="this.form.submit()">-->
-                                <!--<option></option>-->
-                                <!--<option value="price-asc">Price: Low to High</option>-->
-                                <!--<option value="price-desc">Price: High to Low</option>-->
-                                <!--<option value="date-asc">Date: Old to New</option>-->
-                                <!--<option value="date-desc">Date: New to Old</option>-->
-                            <!--</select>-->
-                        <!--</div>-->
-                    <!--</form>-->
-                    <!--<ul class="list-unstyled">-->
-                        <!--<li><a th:href="@{${sortingURI}(sort=price-asc)}"><i class="fa fa-angle-double-right"></i> Price: Low to High</a></li>-->
-                        <!--<li><a th:href="@{${sortingURI}(sort=price-desc)}"><i class="fa fa-angle-double-right"></i> Price: High to Low</a></li>-->
-                        <!--<li><a th:href="@{${sortingURI}(sort=date-asc)}"><i class="fa fa-angle-double-right"></i> Date: Old to New</a></li>-->
-                        <!--<li><a th:href="@{${sortingURI}(sort=date-desc)}"><i class="fa fa-angle-double-right"></i> Date: New to Old</a></li>-->
-                    <!--</ul>-->
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
                             Sort: Filter By Type&nbsp;<span class="caret"></span>
                         </button>
                         <ul class="dropdown-menu" role="menu">
@@ -58,7 +38,6 @@
                         </ul>
                 </div>
             </div>
-
 
         </div>
     </div>
@@ -102,7 +81,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="pull-left thumb-md avatar b-3x m-r booking-item-airline-logo">
-                                            <img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                                            <span>&nbsp;</span><img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                                             <div class="p m-t-xs m-b-xs m-l-xs text-center">
                                                 <td data-th-text="${bookingReference.author}">...</td>
                                             </div>
@@ -189,7 +168,8 @@
             </ul>
         </div>
     </div>
-    <div class="gap gap-small"></div>
+    <div class="gap"></div>
+
 </div>
 
 <div th:replace="common/header :: footer"/>

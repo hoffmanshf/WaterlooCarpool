@@ -1,6 +1,6 @@
 package com.hoffman.carpool.repository;
 
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.User;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;

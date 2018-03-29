@@ -1,7 +1,7 @@
 package com.hoffman.carpool.service.ServiceImpl;
 
 import com.hoffman.carpool.repository.UserRepository;
-import com.hoffman.carpool.domain.User;
+import com.hoffman.carpool.domain.entity.User;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

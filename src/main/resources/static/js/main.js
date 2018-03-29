@@ -626,7 +626,7 @@ $('.input-daterange input[name="end"]').datepicker('setDate', '+7d');
 $('input.time-pick').timepicker({
     minuteStep: 15,
     showInpunts: false
-})
+});
 
 $('input.date-pick-years').datepicker({
     startView: 2
@@ -1041,3 +1041,14 @@ function tagline_vertical_slide() {
 function abortTimer() { // to be called when you want to stop the timer
     clearInterval(tid);
 }
+
+$(document).on("click", ".notification", function(e) {
+    e.preventDefault();
+
+    var $badge = $(this).find('.badge'),
+        count = Number($badge.text()),
+        active = $(this).hasClass('active');
+
+    $badge.text(active ? "" : count + 1);
+    $(this).toggleClass('active');
+});

@@ -1,6 +1,6 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.BookingReference;
+import com.hoffman.carpool.domain.entity.BookingReference;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;

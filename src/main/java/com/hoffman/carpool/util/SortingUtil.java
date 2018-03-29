@@ -1,6 +1,6 @@
 package com.hoffman.carpool.util;
 
-import com.hoffman.carpool.domain.SortingType;
+import com.hoffman.carpool.domain.constant.SortingType;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
 
