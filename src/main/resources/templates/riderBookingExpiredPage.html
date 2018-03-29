@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+
+<div class="container">
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <i class="fa fa-exclamation round box-icon-large box-icon-center box-icon-warning mb30"></i>
+            <h2 class="text-center">
+                <td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td>, your booking was expired.
+            </h2>
+            <ul id="userInfo" class="order-payment-list list mb30">
+                <li>
+                    <div class="row">
+                        <div class="col-xs-9">
+                            <h5><i class="fa fa-car"></i> Travel from <td data-th-text="${bookingReference.departure}">...</td> to <td data-th-text="${bookingReference.arrival}">...</td></h5>
+                            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<td data-th-text="${bookingReference.dateForSearch}">...</td>&nbsp;<td data-th-text="${bookingReference.time}">...</td></p>
+                        </div>
+                        <div class="col-xs-3">
+                            <h5 class="text-right"><span class="text-lg"><td data-th-text="${bookingReference.passengerNumber}">...</td>
+                                <span th:if="${bookingReference.passengerNumber} == 1">passenger</span>
+                                <span th:if="${bookingReference.passengerNumber} != 1">passengers</span></span>
+                            </h5>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <h5 class="text-center">Thank you for choosing our service. You can search for another trip at<strong><a th:href="@{/userFront}"> Waterloo Carpool</a></strong>.
+            </h5>
+
+        </div>
+    </div>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="gap"></div>
+    <div class="gap gap-mini"></div>
+</div>
+
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

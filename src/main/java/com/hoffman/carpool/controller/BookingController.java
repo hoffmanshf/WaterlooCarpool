@@ -122,6 +122,10 @@ public class BookingController {
             return "riderBookingProgressPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
             return "riderBookingCancelledPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE)) {
+            return "riderBookingCompletePage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
+            return "riderBookingExpiredPage";
         }
         return "redirect:/user/booking/rider";
     }
@@ -261,6 +265,10 @@ public class BookingController {
             return "driverBookingProgressPage";
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED)) {
             return "driverBookingCancelledPage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE)) {
+            return "driverBookingCompletePage";
+        } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
+            return "driverBookingExpiredPage";
         }
         return "redirect:/user/booking/driver";
     }
