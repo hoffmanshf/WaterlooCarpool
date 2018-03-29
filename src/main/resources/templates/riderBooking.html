@@ -13,7 +13,7 @@
                 <div class="form-group">
                     <label>Pick your departure time:</label>
                     <div class="input-append date input-group" data-view="hour" id="form_datetime">
-                        <input class="form-control" type="text" value="" data-readonly="data-readonly"
+                        <input class="form-control" type="text" value=""
                                th:value="${dateString}" name="dateString"
                                id="dateString" required="required"/>
                         <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -83,7 +83,6 @@
                         </div>
                     </div>
                 </div>
-
                 <!--<div class="form-group">-->
                     <!--<label for="paymentMethod">Choose your payment method:</label>-->
                     <!--<select class="form-control" th:value="${bookingReference.paymentMethod}" name="paymentMethod" id="paymentMethod">-->
@@ -95,13 +94,11 @@
                 <!--</div>-->
                 <div class="form-group">
                     <label>I need a drive back</label>
-                    <div class="cols-sm-5">
-                        <div class="checkbox">
-                            <label class="switch" style="padding-left:0px;">
-                                <input type="checkbox" id="switch" name="switch"/>
-                                <span></span>
-                            </label>
-                            <!--<input type="checkbox" data-toggle="toggle" data-onstyle="success" data-target="switch" id="switch" name="switch"/>-->
+                    <div class="form-group">
+                        <div class="cols-sm-10">
+                            <div class="checkbox">
+                                <input type="checkbox" data-toggle="toggle" data-onstyle="success" data-on="Yes" data-off="No" data-target="switch" id="switch" name="switch"/>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -109,7 +106,7 @@
                     <div class="form-group">
                         <label>Pick your back time:</label>
                         <div class="input-append date input-group" data-view="hour" id="form_datetime2">
-                            <input class="form-control" type="text" value="" data-readonly="data-readonly"
+                            <input class="form-control" type="text" value=""
                                    th:value="${backDateString}" name="backDateString"
                                        id="backDateString"/>
                             <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
