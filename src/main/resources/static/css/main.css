@@ -1,17 +1,17 @@
 hr {
-	-moz-border-bottom-colors: none;
-	-moz-border-image: none;
-	-moz-border-left-colors: none;
-	-moz-border-right-colors: none;
-	-moz-border-top-colors: none;
-	border-color: #EEEEEE -moz-use-text-color #FFFFFF;
+	/*-moz-border-bottom-colors: none;*/
+	/*-moz-border-image: none;*/
+	/*-moz-border-left-colors: none;*/
+	/*-moz-border-right-colors: none;*/
+	/*-moz-border-top-colors: none;*/
+	border-color: #A0A7AA;
 	border-style: solid none;
-	border-width: 1px 0;
-	margin: 18px 0;
-	border: 0;
-	height: 1px;
-	background: #333;
-	background-image: linear-gradient(to right, #ccc, #333, #ccc);
+	/*border-width: 1px 0;*/
+	/*margin: 18px 0;*/
+	/*border: 0;*/
+	/*height: 1px;*/
+	/*background: #333;*/
+	/*background-image: linear-gradient(to right, #ccc, #333, #ccc);*/
 }
 
 html {

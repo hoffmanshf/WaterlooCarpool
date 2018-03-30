@@ -1,5 +1,14 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<style>
+    html {
+        background-color: #F2F4F8;
+        -webkit-background-size: cover;
+        -moz-background-size: cover;
+        -o-background-size: cover;
+        background-size: cover;
+    }
+</style>
 <head th:replace="common/header :: common-header" />
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <section id="content" class="m-t-lg wrapper-md animated fadeInUp">
@@ -8,9 +17,9 @@
             <form class="form-signin" method="post" th:action="@{/signup}">
                 <div class="panel-heading">
                     <div class="panel-title text-center">
-                        <h1 class="title">Sign Up</h1>
-                        <hr />
+                        <h3 class="title">Sign Up</h3>
                     </div>
+                    <hr/>
                 </div>
                 <div class="form-group">
                     <label for="firstName" class="cols-sm-2 control-label">First Name</label>
@@ -81,10 +90,9 @@
                 <button type="submit" class="btn btn-primary btn-lg btn-block login-button">Sign up!</button>
             </div>
 
-            <hr />
-
+            <hr/>
             <div class="form-group ">
-                <a  class="btn btn-info btn-lg btn-block login-button" th:href="@{/}">Cancel</a>
+                <a  class="btn btn-lg btn-default btn-block" th:href="@{/}">Cancel</a>
             </div>
             </form>
         </section>

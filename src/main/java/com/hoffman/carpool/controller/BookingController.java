@@ -13,7 +13,6 @@ import com.hoffman.carpool.util.GoogleDistanceMatrixUtil;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.ReservationUtil;
 import org.apache.commons.lang3.StringUtils;
-import org.codehaus.groovy.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -226,7 +225,8 @@ public class BookingController {
     public String createDriverBookingPost(@ModelAttribute("bookingReference") BookingReference bookingReference, @ModelAttribute("dateString") String source,
                                           @RequestParam(value = "passengerNumber", required = false) int passengerNumber,
                                           @RequestParam(value = "price", required = false) int price,
-                                          @RequestParam(value = "departure") String departure, @RequestParam(value = "arrival") String arrival, Principal principal, RedirectAttributes redirectAttributes) {
+                                          @RequestParam(value = "departure") String departure,
+                                          @RequestParam(value = "arrival") String arrival, Principal principal, RedirectAttributes redirectAttributes) {
 
         bookingReference.setPassengerNumber(passengerNumber);
         bookingReference.setPrice(price);
