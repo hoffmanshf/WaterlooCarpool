@@ -112,7 +112,7 @@
                                 </tr>
                                 <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
                                     <div class="panel-footer text-sm">
-                                        <a href="#notes">See all the notifications</a>
+                                        <a th:href="@{/user/booking/rider}">See all the booking history</a>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
