@@ -10,11 +10,12 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 
-<div class="container">
+<div class="container main">
+    <div class="gap gap-mini"></div>
     <form th:action="@{/booking/riderBooking/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
         <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
         <div class="booking-item-details">
-            <header class="booking-item-header">
+            <header>
                 <div class="row">
                     <div class="col-md-9">
                         <h2 class="lh1em">Itinerary Detail</h2>
@@ -24,13 +25,6 @@
                             <li><i class="fa fa-phone"></i> <td data-th-text="${riderOwner.phone}">...</td></li>
                         </ul>
                     </div>
-                    <!--<div class="col-md-3">-->
-                        <!--<div class="gap gap-small"></div>-->
-                        <!--<span class="booking-item-price" data-th-text="${bookingReference.passengerNumber}">...</span>-->
-                        <!--<span th:if="${bookingReference.passengerNumber} == 1">passenger</span>-->
-                        <!--<span th:if="${bookingReference.passengerNumber} != 1">passengers</span>-->
-                        <!--<p class="booking-item-flight-class">check price</p>-->
-                    <!--</div>-->
                 </div>
             </header>
             <div class="row row-wrap">

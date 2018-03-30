@@ -10,11 +10,12 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 
-<div class="container">
+<div class="container main">
+    <div class="gap gap-mini"></div>
     <form th:action="@{/booking/driverBooking/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
         <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
         <div class="booking-item-details">
-            <header class="booking-item-header">
+            <header>
                 <div class="row">
                     <div class="col-md-9">
                         <h2 class="lh1em">Itinerary Detail</h2>

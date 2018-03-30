@@ -4,6 +4,7 @@
 <body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
 <head th:replace="common/header :: navbar"/>
 <div class="container main">
+    <div class="gap gap-mini"></div>
     <div class="row">
         <div class="col-md-6">
             <h3>Create new drive</h3>
@@ -11,9 +12,9 @@
                 <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
 
                 <div class="form-group">
-                    <label for="dateString">Pick your departure time:</label>
-                    <div class="input-append date form_datetime input-group" data-view="hour">
-                        <input class="form-control" type="text" value="" data-readonly="data-readonly"
+                    <label>Pick your departure time:</label>
+                    <div class="input-append date input-group" id="form_datetime" data-view="hour">
+                        <input class="form-control" type="text" value=""
                                th:value="${dateString}" name="dateString"
                                id="dateString" required="required"/>
                         <span class="input-group-addon"><i class="fa fa-times" aria-hidden="true"></i></span>
@@ -34,27 +35,69 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="cols-sm-2 control-label" for="passengerNumber">Passenger number:</label>
+                    <label class="cols-sm-2 control-label">Passenger number:</label>
                     <div class="cols-sm-5">
-                        <input type="text" required="required" class="slider slider-horizontal form-control" value=""
+                        <input type="number" class="slider slider-horizontal form-control" value="1"
                                data-slider-min="1" data-slider-max="7" data-slider-step="1" data-slider-value="1" data-slider-orientation="horizontal"
-                               th:value="${bookingReference.passengerNumber}" name="passengerNumber" id="passengerNumber"/>
+                               name="passengerNumber" id="passengerNumber"/>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label class="cols-sm-2 control-label" for="price">Price per seat:</label>
                     <div class="cols-sm-5">
-                        <input type="text" required="required" class="slider slider-horizontal form-control" value=""
+                        <input type="number" required="required" class="slider slider-horizontal form-control" value="10"
                                data-slider-min="10" data-slider-max="100" data-slider-step="5" data-slider-value="10" data-slider-orientation="horizontal"
-                               th:value="${bookingReference.price}" name="price" id="price"/>
+                               name="price" id="price"/>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Service provide:</label>
+                    <div class="row">
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Door to Door</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Luggage</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Non-smoking</span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="checkbox i-checks">
+                                <label>
+                                    <input type="checkbox" value=""/>
+                                    <i></i>
+                                    <span>Pet authorized</span>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
                 <div class="form-group">
                     <label for="paymentMethod">Choose your payment method:</label>
                     <select class="form-control" th:value="${bookingReference.paymentMethod}" name="paymentMethod" id="paymentMethod">
-                        <option disabled="disabled" selected="selected" > -- select the method --</option>
+                        <!--<option disabled="disabled" selected="selected" > &#45;&#45; select the method &#45;&#45;</option>-->
                         <option>&nbsp;Cash</option>
                         <option>&nbsp;e-Transfer</option>
                         <option>&nbsp;WeChat Pay</option>

@@ -71,7 +71,13 @@ $(function() {
     });
 });
 
-$(".form_datetime[data-view='hour']").datetimepicker({
+$("#form_datetime[data-view='hour']").datetimepicker({
+    format: "yyyy-mm-dd hh:ii",
+    autoclose: true,
+    minuteStep: 10,
+    startDate: new Date()
+});
+$("#form_datetime2[data-view='hour']").datetimepicker({
     format: "yyyy-mm-dd hh:ii",
     autoclose: true,
     minuteStep: 10,

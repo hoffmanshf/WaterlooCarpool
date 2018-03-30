@@ -12,6 +12,7 @@ import com.hoffman.carpool.service.NotificationService;
 import com.hoffman.carpool.util.GoogleDistanceMatrixUtil;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.ReservationUtil;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -52,13 +53,47 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
-    public String createRiderBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source,
-                                         @RequestParam(value = "departure") String departure, @RequestParam(value = "arrival") String arrival, Principal principal) {
+    public String createRiderBookingPost(@ModelAttribute("bookingReference") BookingReference bookingReference,
+                                         @ModelAttribute("dateString") String dateSource,
+                                         @ModelAttribute("backDateString") String backDateSource,
+                                         @RequestParam(value = "departure") String departure,
+                                         @RequestParam(value = "arrival") String arrival,
+                                         @RequestParam(value = "passengerNumber", required = false) int passengerNumber,
+                                         @RequestParam(value = "returnPassengerNumber", required = false) int returnPassengerNumber,
+                                         Principal principal, RedirectAttributes redirectAttributes) {
+        bookingReference.setPassengerNumber(passengerNumber);
+        bookingService.createBooking(bookingReference, dateSource, AccountType.riderAccountType, principal);
+        googleDistanceMatrixUtil.estimateRouteTime(departure, arrival, dateSource, bookingReference);
+        redirectAttributes.addAttribute("bookingReferenceId", bookingReference.getBookingReferenceId());
 
-        bookingService.createBooking(bookingReference, source, AccountType.riderAccountType, principal);
-        googleDistanceMatrixUtil.estimateRouteTime(departure, arrival, source, bookingReference);
+        if (backDateSource != null && StringUtils.isNotEmpty(backDateSource)) {
+            BookingReference secondBookingReference = new BookingReference();
+            secondBookingReference.setPassengerNumber(returnPassengerNumber);
+            secondBookingReference.setArrival(bookingReference.getDeparture());
+            secondBookingReference.setDeparture(bookingReference.getArrival());
+            secondBookingReference.setNotes(bookingReference.getNotes());
+            bookingService.createBooking(secondBookingReference, backDateSource, AccountType.riderAccountType, principal);
+            googleDistanceMatrixUtil.estimateRouteTime(arrival, departure, backDateSource, secondBookingReference);
+            redirectAttributes.addAttribute("bookingReferenceId2", secondBookingReference.getBookingReferenceId());
+        }
 
-        return "redirect:/userFront";
+        return "redirect:/booking/riderBooking/submitted";
+    }
+
+    @RequestMapping(value = "/riderBooking/submitted",method = RequestMethod.GET)
+    public String riderBookingSubmitted(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId,
+                                        @RequestParam(value = "bookingReferenceId2", required = false) Long bookingReferenceId2,
+                                        Model model, Principal principal) {
+
+        final User user = userService.findByUsername(principal.getName());
+        final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        model.addAttribute("bookingReference", bookingReference);
+        if (bookingReferenceId2 != null) {
+            final BookingReference bookingReference2 = bookingService.findBookingReference(bookingReferenceId2);
+            model.addAttribute("bookingReference2", bookingReference2);
+        }
+        model.addAttribute("user", user);
+        return "riderBookingSubmittedPage";
     }
 
     @RequestMapping(value= "/riderBooking/view", method = RequestMethod.GET)
@@ -187,12 +222,29 @@ public class BookingController {
     }
 
     @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
-    public String createDriverBookingPost(@ModelAttribute("booking") BookingReference bookingReference, @ModelAttribute("dateString") String source,
-                                          @RequestParam(value = "departure") String departure, @RequestParam(value = "arrival") String arrival, Principal principal) {
+    public String createDriverBookingPost(@ModelAttribute("bookingReference") BookingReference bookingReference, @ModelAttribute("dateString") String source,
+                                          @RequestParam(value = "passengerNumber", required = false) int passengerNumber,
+                                          @RequestParam(value = "price", required = false) int price,
+                                          @RequestParam(value = "departure") String departure,
+                                          @RequestParam(value = "arrival") String arrival, Principal principal, RedirectAttributes redirectAttributes) {
 
+        bookingReference.setPassengerNumber(passengerNumber);
+        bookingReference.setPrice(price);
         bookingService.createBooking(bookingReference, source, AccountType.driverAccountType, principal);
         googleDistanceMatrixUtil.estimateRouteTime(departure, arrival, source, bookingReference);
-        return "redirect:/userFront";
+        redirectAttributes.addAttribute("bookingReferenceId", bookingReference.getBookingReferenceId());
+
+        return "redirect:/booking/driverBooking/submitted";
+    }
+
+    @RequestMapping(value = "/driverBooking/submitted", method = RequestMethod.GET)
+    public String driverBookingSubmitted(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+
+        final User user = userService.findByUsername(principal.getName());
+        final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+        return "driverBookingSubmittedPage";
     }
 
     @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)

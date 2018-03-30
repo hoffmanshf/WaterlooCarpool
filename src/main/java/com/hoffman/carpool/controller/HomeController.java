@@ -82,4 +82,13 @@ public class HomeController {
 
         return "userFront";
     }
+
+    @RequestMapping("/timeline")
+    public String timeline(Principal principal, Model model) {
+
+        User user = userService.findByUsername(principal.getName());
+        model.addAttribute("user", user);
+
+        return "timeline";
+    }
 }
