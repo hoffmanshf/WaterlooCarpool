@@ -9,6 +9,7 @@ import com.hoffman.carpool.domain.entity.RiderAccount;
 import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.NotificationService;
+import com.hoffman.carpool.util.BookingReferenceUtil;
 import com.hoffman.carpool.util.GoogleDistanceMatrixUtil;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.ReservationUtil;
@@ -40,6 +41,9 @@ public class BookingController {
 
     @Autowired
     private ReservationUtil reservationUtil;
+
+    @Autowired
+    private BookingReferenceUtil bookingReferenceUtil;
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
     public String createRiderBooking(Model model, Principal principal) {
@@ -351,5 +355,27 @@ public class BookingController {
         }
 
         return "driverBookingCancelledPage";
+    }
+
+    @RequestMapping(value = "/rider", method = RequestMethod.GET)
+    public String getRiderBookingHistory(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        List<BookingReference> bookingReferences = bookingService.findAll();
+        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.riderAccountType, bookingReferences);
+        bookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
+        model.addAttribute("user", user);
+        model.addAttribute("bookingReferences", bookingReferences);
+        return "riderBookingHistory";
+    }
+
+    @RequestMapping(value = "/driver", method = RequestMethod.GET)
+    public String getDriverBookingHistory(Principal principal, Model model) {
+        User user = userService.findByUsername(principal.getName());
+        List<BookingReference> bookingReferences = bookingService.findAll();
+        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.driverAccountType, bookingReferences);
+        bookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
+        model.addAttribute("user", user);
+        model.addAttribute("bookingReferences", bookingReferences);
+        return "driverBookingHistory";
     }
 }

@@ -1,16 +1,12 @@
 package com.hoffman.carpool.controller;
 
-import com.hoffman.carpool.domain.constant.AccountType;
-import com.hoffman.carpool.domain.entity.BookingReference;
 import com.hoffman.carpool.domain.entity.Car;
 import com.hoffman.carpool.domain.entity.Notification;
 import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.error.UServiceException;
-import com.hoffman.carpool.service.BookingService;
 import com.hoffman.carpool.service.CarService;
 import com.hoffman.carpool.service.NotificationService;
 import com.hoffman.carpool.service.UserService;
-import com.hoffman.carpool.util.BookingReferenceUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -39,13 +35,7 @@ public class UserController {
     private CarService carService;
 
     @Autowired
-    private BookingService bookingService;
-
-    @Autowired
     private NotificationService notificationService;
-
-    @Autowired
-    private BookingReferenceUtil bookingReferenceUtil;
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Principal principal, Model model) {
@@ -131,28 +121,6 @@ public class UserController {
         final HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.IMAGE_PNG);
         return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
-    }
-
-    @RequestMapping(value = "/booking/rider", method = RequestMethod.GET)
-    public String getRiderBookingHistory(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.riderAccountType, bookingReferences);
-        bookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
-        model.addAttribute("user", user);
-        model.addAttribute("bookingReferences", bookingReferences);
-        return "riderBookingHistory";
-    }
-
-    @RequestMapping(value = "/booking/driver", method = RequestMethod.GET)
-    public String getDriverBookingHistory(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.driverAccountType, bookingReferences);
-        bookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
-        model.addAttribute("user", user);
-        model.addAttribute("bookingReferences", bookingReferences);
-        return "driverBookingHistory";
     }
 
     @RequestMapping(value = "/notification", method = RequestMethod.DELETE)
