@@ -19,22 +19,20 @@ public class BookingReferenceUtil {
     @Autowired
     private BookingService bookingService;
 
-    public static List<BookingReference> BookingReferenceProcessor(final String accountType, final User user, List<BookingReference> UserBookingReferences) {
+    public static List<BookingReference> BookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();
         for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
-                if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
-                    reference.setOwner(true);
+            if (reference.getAuthor().equalsIgnoreCase(user.getUsername())) {
+                reference.setOwner(true);
+            }
+            if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) &&
+                    !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE) &&
+                    !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED) && reference.getPassengerNumber() != 0) {
+                if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) &&
+                        reference.getAccountType().equalsIgnoreCase(AccountType.riderAccountType)) {
+                    continue;
                 }
-                if (!reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.CANCELLED) &&
-                        !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.COMPLETE) &&
-                        !reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED) && reference.getPassengerNumber() != 0) {
-                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS) &&
-                            reference.getAccountType().equalsIgnoreCase(AccountType.riderAccountType)) {
-                        continue;
-                    }
-                    bookingReferences.add(reference);
-                }
+                bookingReferences.add(reference);
             }
         }
         return bookingReferences;
@@ -85,19 +83,17 @@ public class BookingReferenceUtil {
         return bookingReferences;
     }
 
-    public void BookingReferenceStatusProcessor(final String accountType, List<BookingReference> UserBookingReferences) {
+    public void BookingReferenceStatusProcessor(List<BookingReference> UserBookingReferences) {
         Date today = new Date();
         for (final BookingReference reference: UserBookingReferences) {
-            if (reference.getAccountType().equalsIgnoreCase(accountType)) {
-                if (reference.getDate().before(today)) {
-                    if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING) ||
-                            reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
-                        reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
-                        bookingService.saveBooking(reference);
-                    } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
-                        reference.setBookingStatus(BookingReferenceStatus.COMPLETE);
-                        bookingService.saveBooking(reference);
-                    }
+            if (reference.getDate().before(today)) {
+                if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.PENDING) ||
+                        reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.BACK_PENDING)) {
+                    reference.setBookingStatus(BookingReferenceStatus.EXPIRED);
+                    bookingService.saveBooking(reference);
+                } else if (reference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.IN_PROGRESS)) {
+                    reference.setBookingStatus(BookingReferenceStatus.COMPLETE);
+                    bookingService.saveBooking(reference);
                 }
             }
         }

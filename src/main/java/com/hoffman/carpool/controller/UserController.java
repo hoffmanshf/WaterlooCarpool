@@ -148,8 +148,8 @@ public class UserController {
     @RequestMapping(value = "/booking/rider", method = RequestMethod.GET)
     public String getRiderBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
-        List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.riderAccountType, bookingReferences);
+        List<BookingReference> bookingReferences = bookingService.findByAccountType(AccountType.riderAccountType);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(bookingReferences);
         bookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);
@@ -159,8 +159,8 @@ public class UserController {
     @RequestMapping(value = "/booking/driver", method = RequestMethod.GET)
     public String getDriverBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
-        List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(AccountType.driverAccountType, bookingReferences);
+        List<BookingReference> bookingReferences = bookingService.findByAccountType(AccountType.driverAccountType);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(bookingReferences);
         bookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
         model.addAttribute("bookingReferences", bookingReferences);

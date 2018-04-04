@@ -129,6 +129,11 @@ public class BookingServiceImpl implements BookingService {
     }
 
     @Override
+    public List<BookingReference> findByAccountType(String accountType) {
+        return bookingReferenceRepository.findByAccountType(accountType);
+    }
+
+    @Override
     public BookingReference saveBooking(BookingReference bookingReference) {
         return bookingReferenceRepository.save(bookingReference);
     }
