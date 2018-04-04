@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<head th:replace="common/header :: common-header"/>
+<body roleId="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+<head th:replace="common/header :: navbar"/>
+<div class="container main">
+<section id="content">
+    <section class="vbox">
+        <section class="scrollable padder">
+            <div class="m-b-md">
+                <h3 class="m-b-none">Form wizard</h3>
+            </div>
+            <div class="row">
+                <div class="col-md-9">
+                    <form id="wizardform" method="get" action="">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <ul class="nav nav-tabs font-bold">
+                                    <li><a href="#step1" data-toggle="tab">Step 1</a></li>
+                                    <li><a href="#step2" data-toggle="tab">Step 2</a></li>
+                                    <li><a href="#step3" data-toggle="tab">Step 3</a></li>
+                                </ul>
+                            </div>
+                            <div class="panel-body">
+                                <p>This twitter bootstrap plugin builds a wizard out of a formatter tabbable structure. It allows to build a wizard functionality using buttons to go through the different wizard steps and using events allows to hook into each step individually.</p>
+                                <div class="line line-lg"></div>
+                                <h4>Validate Form</h4>
+                                <div class="progress progress-xs m-t-md">
+                                    <div class="progress-bar bg-success"></div>
+                                </div>
+                                <div class="tab-content">
+                                    <div class="tab-pane" id="step1">
+                                        <p>Your website:</p>
+                                        <input type="text" class="form-control" data-trigger="change" data-required="true" data-type="url" placeholder="website"/>
+                                        <p class="m-t">Your email:</p>
+                                        <input type="text" class="form-control" data-trigger="change" data-required="true" data-type="email" placeholder="email address"/>
+                                    </div>
+                                    <div class="tab-pane" id="step2">
+                                        <p>Your email:</p>
+                                        <input type="text" class="form-control" data-trigger="change" data-required="true" data-type="email" placeholder="email address"/>
+                                    </div>
+                                    <div class="tab-pane" id="step3">This is step 3</div>
+                                    <ul class="pager wizard m-b-sm">
+                                        <li class="previous first" style="display:none;"><a href="#">First</a></li>
+                                        <li class="previous"><a href="#">Previous</a></li>
+                                        <li class="next last" style="display:none;"><a href="#">Last</a></li>
+                                        <li class="next"><a href="#">Next</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </section>
+    <a href="#" class="hide nav-off-screen-block" data-toggle="class:nav-off-screen,open" data-target="#nav,html"></a>
+</section>
+    <div class="gap"></div>
+</div>
+<div th:replace="common/header :: footer"/>
+
+<div th:replace="common/header :: body-bottom-scripts"/>
+
+</body>
+</html>

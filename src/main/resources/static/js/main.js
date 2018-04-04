@@ -56,6 +56,41 @@ $(document).ready(function() {
 
 });
 
+$(document).ready(function() {
+    var confirm = function() {
+        bootbox.confirm({
+            title: "Booking Confirmation",
+            message: "Do you really want to modify this booking?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fa fa-times"></i> Cancel'
+                },
+                confirm: {
+                    label: '<i class="fa fa-check"></i> Confirm'
+                }
+            },
+            callback: function (result) {
+                if (result == true) {
+                    $('#updateForm').submit();
+                } else {
+                    console.log("Scheduling cancelled.");
+                }
+            }
+        });
+    };
+
+    $.toggleShowPassword({
+        field: '#password',
+        control: "#showPassword"
+    });
+
+
+    $('#updateBooking').click(function () {
+        confirm();
+    });
+
+});
+
 $(function() {
 
     var checkbox = $("#switch");
