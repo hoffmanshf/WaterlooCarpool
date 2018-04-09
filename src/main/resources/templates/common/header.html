@@ -15,12 +15,12 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" />
 
     <!-- Google Fonts -->
-    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel='stylesheet' type='text/css' />
-    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel='stylesheet' type='text/css' />
-    <link href="css/font.css" rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Passion+One' rel="stylesheet" type="text/css" />
+    <link href='https://fonts.googleapis.com/css?family=Oxygen' rel="stylesheet" type="text/css" />
+    <link href="/css/font.css" rel="stylesheet" type="text/css" />
 
     <!--bootstrap date-time picker-->
-    <link href='https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.css' rel='stylesheet'/>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/smalot-bootstrap-datetimepicker/2.4.4/css/bootstrap-datetimepicker.css' rel="stylesheet"/>
     <link href="/css/bootstrap-datepicker.css" rel="stylesheet" />
 
     <!--data table-->
@@ -42,18 +42,14 @@
     <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />-->
     <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.10/select2-bootstrap.css" rel="stylesheet" />-->
 
-    <!--icon-->
-    <link href="css/icon.css" rel="stylesheet" type="text/css" />
-    <link href="css/icomoon.css" rel="stylesheet" />
-
     <!--animate-->
-    <link href="css/animate.css" rel="stylesheet" type="text/css" />
+    <link href="/css/animate.css" rel="stylesheet" type="text/css" />
 
     <!--calendar-->
-    <link href="css/bootstrap_calendar.css" rel="stylesheet" type="text/css" />
+    <link href="/css/bootstrap_calendar.css" rel="stylesheet" type="text/css" />
 
     <!--vector map-->
-    <link rel="stylesheet" href="/js/jvectormap/jquery-jvectormap-1.2.2.css" type="text/css" />
+    <link href="/js/jvectormap/jquery-jvectormap-1.2.2.css" rel="stylesheet" type="text/css" />
 
     <!-- Custom CSS -->
     <!--<link href="css/scrolling-nav.css" rel="stylesheet" />-->
@@ -62,7 +58,6 @@
 <body>
 <!-- Navigation -->
 <div th:fragment="navbar">
-    <!--<img class="img-responsive" src="/images/banner.png" alt="banner"/>-->
     <header class="header header-md navbar navbar-fixed-top-xs box-shadow" style="background-color: #282828">
         <div class="navbar-header aside-md dk">
             <a class="btn btn-link visible-xs" data-toggle="class:nav-off-screen,open" data-target="#nav,html">
@@ -84,7 +79,6 @@
                         <div class="panel-heading b-light bg-light">
                             <strong>You have <td data-th-text="${user.notificationList.size()}">...</td> notifications</strong>
                         </div>
-
                         <div class="list-group list-group-alt">
                                 <tr data-th-each="notification : ${user.notificationList}">
                                     <a th:if="${notification.bookingReference.accountType} == driverAccount" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
@@ -112,7 +106,7 @@
                                 </tr>
                                 <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
                                     <div class="panel-footer text-sm">
-                                        <a href="#notes">See all the notifications</a>
+                                        <a th:href="@{/user/booking/rider}">See all the booking history</a>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
@@ -149,7 +143,6 @@
             </li>
         </ul>
     </header>
-
 
     <div class="container">
         <div class="nav">
@@ -274,7 +267,6 @@
     <script src='https://cdn.rawgit.com/ianchen0419/bootstrap-datetimepicker/master/js/bootstrap-datetimepicker.js'></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.7.1/js/bootstrap-datepicker.min.js"></script>
 
-
     <!--bootbox-->
     <script src="/js/bootbox.min.js"></script>
 
@@ -336,6 +328,8 @@
     <script src="/js/tweet.js"></script>
     <script src="/js/countdown.js"></script>
     <script src="/js/gridrotator.js"></script>
+    <script src="/js/wizard/jquery.bootstrap.wizard.js"></script>
+    <script src="/js/wizard/demo.js"></script>
 
     <!--main app plugin js-->
     <script src="/js/app.plugin.js"></script>

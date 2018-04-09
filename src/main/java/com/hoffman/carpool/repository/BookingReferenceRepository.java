@@ -8,7 +8,8 @@ import java.util.List;
 
 public interface BookingReferenceRepository extends CrudRepository<BookingReference, Long> {
     List<BookingReference> findAll();
-    List<BookingReference> findAll(Sort sort);
-    List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(String arrival, String departure, String date, Sort sort);
-    List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContaining(String arrival, String departure, Sort sort);
+    List<BookingReference> findByAccountType(String accountType);
+    List<BookingReference> findByAccountType(String accountType, Sort sort);
+    List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearchAndAccountType(String arrival, String departure, String date, String accountType, Sort sort);
+    List<BookingReference> findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndAccountType(String arrival, String departure, String accountType, Sort sort);
 }

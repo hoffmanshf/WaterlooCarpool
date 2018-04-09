@@ -12,5 +12,6 @@ public interface BookingService {
     void acceptRiderBooking(User user, BookingReference bookingReference);
     BookingReference findBookingReference(Long id);
     List<BookingReference> findAll();
+    List<BookingReference> findByAccountType(String accountType);
     BookingReference saveBooking(BookingReference bookingReference);
 }

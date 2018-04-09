@@ -66,9 +66,9 @@ public class AccountServiceImpl implements AccountService {
     @Override
     public List<BookingReference> getAccountBookingReference(final String sort, final String accountType, final User user) {
         final Sort sortType = sortingUtil.getSortType(sort);
-        List<BookingReference> bookingReferences = bookingReferenceRepository.findAll(sortType);
-        bookingReferenceUtil.BookingReferenceStatusProcessor(accountType, bookingReferences);
-        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(accountType, user, bookingReferences);
+        List<BookingReference> bookingReferences = bookingReferenceRepository.findByAccountType(accountType, sortType);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(bookingReferences);
+        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(user, bookingReferences);
         return bookingReferences;
     }
 
@@ -83,13 +83,13 @@ public class AccountServiceImpl implements AccountService {
         final Sort sortType = sortingUtil.getSortType(sort);
 
         if (date != null && StringUtils.isNotEmpty(date)) {
-            bookingReferences = bookingReferenceRepository.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearch(arrivalCity, departureCity, date, sortType);
+            bookingReferences = bookingReferenceRepository.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearchAndAccountType(arrivalCity, departureCity, date, accountType, sortType);
         } else {
-            bookingReferences = bookingReferenceRepository.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContaining(arrivalCity, departureCity, sortType);
+            bookingReferences = bookingReferenceRepository.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndAccountType(arrivalCity, departureCity, accountType, sortType);
         }
 
-        bookingReferenceUtil.BookingReferenceStatusProcessor(accountType, bookingReferences);
-        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(accountType, user, bookingReferences);
+        bookingReferenceUtil.BookingReferenceStatusProcessor(bookingReferences);
+        bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(user, bookingReferences);
 
         if (passengerNumber.length > 0) {
             if (passengerNumber != null && StringUtils.isNotEmpty(passengerNumber[0])) {

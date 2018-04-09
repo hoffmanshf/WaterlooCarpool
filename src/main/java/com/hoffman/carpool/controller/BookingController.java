@@ -4,7 +4,6 @@ import com.hoffman.carpool.domain.*;
 import com.hoffman.carpool.domain.constant.AccountType;
 import com.hoffman.carpool.domain.constant.BookingReferenceStatus;
 import com.hoffman.carpool.domain.entity.BookingReference;
-import com.hoffman.carpool.domain.entity.Notification;
 import com.hoffman.carpool.domain.entity.RiderAccount;
 import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
@@ -351,5 +350,16 @@ public class BookingController {
         }
 
         return "driverBookingCancelledPage";
+    }
+
+    @RequestMapping(value= "/driverBooking/update", method = RequestMethod.GET)
+    public String updateDriverBookingForm(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
+
+        final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
+        final User user = userService.findByUsername(principal.getName());
+        model.addAttribute("bookingReference", bookingReference);
+        model.addAttribute("user", user);
+
+        return "driverBookingUpdatePage";
     }
 }
