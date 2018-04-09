@@ -136,10 +136,41 @@ The application was based on **Spring Framework** and frontend template engine *
 
 ### Login and Signup
 
+![image](https://user-images.githubusercontent.com/24725550/38515631-c4fb3a00-3c02-11e8-87b9-20e070329a0e.png)
+
+![image](https://user-images.githubusercontent.com/24725550/38515791-3f981472-3c03-11e8-9249-49d884f9e94e.png)
+
 ### Home Page
+
+![image](https://user-images.githubusercontent.com/24725550/38515815-51df52f8-3c03-11e8-951c-64eb8e1e6d80.png)
 
 ### Booking Reference List
 
+![image](https://user-images.githubusercontent.com/24725550/38515941-c41b8fe4-3c03-11e8-8c53-4b2a1b486342.png)
+
+### Booking Search Sidebar
+
+![image](https://user-images.githubusercontent.com/24725550/38516398-0fc2b8b8-3c05-11e8-9e4a-2db46a590f6e.png)
+
+### Itineary Detail
+
+![image](https://user-images.githubusercontent.com/24725550/38516147-4f32a3ec-3c04-11e8-96c7-e758ec7a46d7.png)
+
+### Booking Submit Page
+
+![image](https://user-images.githubusercontent.com/24725550/38516256-a5519954-3c04-11e8-8253-0abc630211a3.png)
+
+### Booking History
+
+![image](https://user-images.githubusercontent.com/24725550/38516175-62dbff2e-3c04-11e8-9308-9de0d6f3b407.png)
+
+### In-Progress Booking
+
+![image](https://user-images.githubusercontent.com/24725550/38516197-71879a38-3c04-11e8-9426-ff45115ff7ee.png)
+
+### Booking Success Page
+
+![image](https://user-images.githubusercontent.com/24725550/38515972-de670432-3c03-11e8-9367-0536e78b4ce8.png)
 
 ## Building the Project
     $ ./gradlew jar
