@@ -108,3 +108,57 @@ The application was based on **Spring Framework** and frontend template engine *
   </dependency>
 </dependencies>
 ```
+
+### Directory Structure
+```shell
+└── src
+    └── main
+        └── java
+            └── config
+            └── controller
+            └── domain
+            └── error
+            └── repository
+            └── service
+            └── util
+            └── CarpoolApplication
+        └── resources
+            └── static
+            └── templates
+            └── application.properties
+     └── test
+├── pom.xml
+└── .gitignore
+
+```
+
+## ScreenShots
+
+### Login and Signup
+
+### Home Page
+
+### Booking Reference List
+
+
+## Building the Project
+    $ ./gradlew jar
+
+    # Run the tests
+    $ ./gradlew test
+
+    # Generate documentation
+    $ ./gradlew javadoc
+
+    # Publish documentation
+    $ git checkout $VERSION
+    $ ./gradlew javadoc
+    $ git checkout gh-pages
+    $ mkdir $VERSION
+    $ mv build/docs/javadoc $VERSION
+    $ git add $VERSION/javadoc
+    $ rm latest
+    $ ln -s $VERSION latest
+    $ git add latest
+    $ git commit -m "Javadoc for $VERSION"
+    $ git push origin gh-pages
