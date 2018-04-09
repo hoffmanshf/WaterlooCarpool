@@ -11,6 +11,8 @@ import com.hoffman.carpool.service.CarService;
 import com.hoffman.carpool.service.NotificationService;
 import com.hoffman.carpool.service.UserService;
 import com.hoffman.carpool.util.BookingReferenceUtil;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -46,6 +48,8 @@ public class UserController {
 
     @Autowired
     private BookingReferenceUtil bookingReferenceUtil;
+
+    private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 
     @RequestMapping(value = "/profile", method = RequestMethod.GET)
     public String profile(Principal principal, Model model) {
