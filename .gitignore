@@ -1,11 +1,18 @@
-target/
-.idea
+# Eclipse
+.classpath
 .project
 .settings/
-.classpath
-.springBeans
-bin/
+
+# Intellij
+.idea/
+*.iml
+*.iws
+.idea
+
+# Mac
 .metadata
 .DS_Store
-.iml
 
+# Maven
+log/
+target/
