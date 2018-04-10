@@ -136,25 +136,21 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ### Login and Signup
 
-![image](https://user-images.githubusercontent.com/24725550/38515631-c4fb3a00-3c02-11e8-87b9-20e070329a0e.png)
+![image](https://user-images.githubusercontent.com/24725550/38531147-8ef1a1f8-3c3c-11e8-9bf1-817680fde30c.png)
 
-![image](https://user-images.githubusercontent.com/24725550/38515791-3f981472-3c03-11e8-9249-49d884f9e94e.png)
+![image](https://user-images.githubusercontent.com/24725550/38531168-a1fc4654-3c3c-11e8-8a25-5385c52a7bee.png)
 
 ### Home Page
 
-![image](https://user-images.githubusercontent.com/24725550/38515815-51df52f8-3c03-11e8-951c-64eb8e1e6d80.png)
+![image](https://user-images.githubusercontent.com/24725550/38531056-1a55f18c-3c3c-11e8-8a87-36ded20b6be2.png)
 
 ### Booking Reference List
 
-![image](https://user-images.githubusercontent.com/24725550/38515941-c41b8fe4-3c03-11e8-8c53-4b2a1b486342.png)
-
-### Booking Search Sidebar
-
-![image](https://user-images.githubusercontent.com/24725550/38516398-0fc2b8b8-3c05-11e8-9e4a-2db46a590f6e.png)
+![image](https://user-images.githubusercontent.com/24725550/38531262-f5e453c4-3c3c-11e8-84a1-6d3ccc3dc570.png)
 
 ### Itineary Detail
 
-![image](https://user-images.githubusercontent.com/24725550/38516147-4f32a3ec-3c04-11e8-96c7-e758ec7a46d7.png)
+![image](https://user-images.githubusercontent.com/24725550/38531232-dc0646c4-3c3c-11e8-8761-19896c44349b.png)
 
 ### Booking Submit Page
 
@@ -166,7 +162,7 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ### In-Progress Booking
 
-![image](https://user-images.githubusercontent.com/24725550/38516197-71879a38-3c04-11e8-9426-ff45115ff7ee.png)
+![image](https://user-images.githubusercontent.com/24725550/38531108-5cd9448c-3c3c-11e8-8b20-e53b5b3c3381.png)
 
 ### Booking Success Page
 
