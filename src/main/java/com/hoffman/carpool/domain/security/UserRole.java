@@ -9,7 +9,7 @@ import javax.persistence.*;
 @Table(name="user_role")
 public class UserRole {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long userRoleId;
 
     public UserRole(User user, Role role) {
