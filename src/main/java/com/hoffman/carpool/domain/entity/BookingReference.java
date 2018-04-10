@@ -11,7 +11,7 @@ import java.util.List;
 public class BookingReference {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long bookingReferenceId;
     private String bookingStatus;
 
