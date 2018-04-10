@@ -25,6 +25,7 @@ The application was based on **Spring Framework** and server-side Java template 
  - You can also import the code straight into your IDE:
    - Spring Tool Suite (STS)
    - IntelliJ IDEA
+   - Eclipse
    
 ### Create database
 
