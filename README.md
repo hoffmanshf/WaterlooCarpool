@@ -28,9 +28,14 @@ The application was based on **Spring Framework** and server-side Java template 
    
 ### Create database
 
-    $ mysql> create database WaterlooCarpool;
+    $ mysql> create database waterloocarpool;
     $ mysql> create user 'root'@'localhost' identified by 'passw0rd!';
-    $ mysql> grant all on WaterlooCarpool.* to 'root'@'localhost';
+    $ mysql> grant all on waterloocarpool.* to 'root'@'localhost';
+    
+    # If you are running the application for the first time, after Hibernate created the tables from entities
+    # Execute the following script:
+    $ INSERT INTO `waterloocarpool`.`role` (`role_id`, `name`) VALUES ('1', 'ROLE_USER');
+    $ INSERT INTO `waterloocarpool`.`role` (`role_id`, `name`) VALUES ('2', 'ROLE_ADMIN');
 
 ### Dependencies
 ```xml
