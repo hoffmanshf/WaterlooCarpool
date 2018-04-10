@@ -135,7 +135,7 @@ The application was based on **Spring Framework** and server-side Java template 
             └── repository
             └── service
             └── util
-            └── CarpoolApplication
+            └── CarpoolApplication.java
         └── resources
             └── static
             └── templates
