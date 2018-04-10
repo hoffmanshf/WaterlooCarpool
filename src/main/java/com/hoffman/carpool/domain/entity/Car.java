@@ -8,18 +8,18 @@ public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id", unique = true)
-    private int id;
+    private long id;
     private String carManufacturer;
     private String carModel;
     private String carColour;
     private String carYear;
     private String carLicensePlateNumber;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
