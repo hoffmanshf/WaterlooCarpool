@@ -65,6 +65,15 @@ The application was based on **Spring Framework** and server-side Java template 
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-web</artifactId>
   </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-test</artifactId>
+    <scope>test</scope>
+  </dependency>
+  <dependency>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-mail</artifactId>
+  </dependency>
 
   <dependency>
     <groupId>com.h2database</groupId>
@@ -75,11 +84,6 @@ The application was based on **Spring Framework** and server-side Java template 
     <groupId>mysql</groupId>
     <artifactId>mysql-connector-java</artifactId>
     <scope>runtime</scope>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-test</artifactId>
-    <scope>test</scope>
   </dependency>
   <dependency>
     <groupId>org.springframework.security</groupId>
@@ -105,10 +109,6 @@ The application was based on **Spring Framework** and server-side Java template 
     <groupId>org.slf4j</groupId>
     <artifactId>slf4j-nop</artifactId>
     <version>1.7.25</version>
-  </dependency>
-  <dependency>
-    <groupId>org.springframework.boot</groupId>
-    <artifactId>spring-boot-starter-mail</artifactId>
   </dependency>
   <dependency>
     <groupId>org.springframework</groupId>
