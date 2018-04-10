@@ -25,6 +25,12 @@ The application was based on **Spring Framework** and server-side Java template 
  - You can also import the code straight into your IDE:
    - Spring Tool Suite (STS)
    - IntelliJ IDEA
+   
+### Create database
+
+    $ mysql> create database WaterlooCarpool;
+    $ mysql> create user 'root'@'localhost' identified by 'passw0rd!';
+    $ mysql> grant all on WaterlooCarpool.* to 'root'@'localhost';
 
 ### Dependencies
 ```xml
@@ -174,7 +180,7 @@ The application was based on **Spring Framework** and server-side Java template 
     # Run the application
     $ mvn spring-boot:run
     
-    # Run as a packaged application
+    # You can also run as a packaged application
     $ mvn clean install
     $ java -jar target/demo-0.0.1-SNAPSHOT.jar
 
