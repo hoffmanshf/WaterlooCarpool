@@ -29,7 +29,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home() {
-        return "redirect:/index";
+        return "redirect:/userFront";
     }
 
     @RequestMapping("/index")
