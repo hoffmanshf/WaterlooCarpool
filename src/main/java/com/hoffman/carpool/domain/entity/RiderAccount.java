@@ -9,7 +9,7 @@ import java.util.List;
 public class RiderAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "riderAccountId")
     private Long riderAccountId;
     private String username;

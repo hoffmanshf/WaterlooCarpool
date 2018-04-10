@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class DriverAccount {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "driverAccountId")
     private Long driverAccountId;
     private String username;
