@@ -106,7 +106,7 @@
                                 </tr>
                                 <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
                                     <div class="panel-footer text-sm">
-                                        <a th:href="@{/user/booking/rider}">See all the booking history</a>
+                                        <a th:href="@{/user/booking}">See all the booking history</a>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
@@ -130,7 +130,7 @@
                         <a th:href="@{/user/profile}">Profile</a>
                     </li>
                     <li>
-                        <a th:href="@{/user/booking/rider}">Booking</a>
+                        <a th:href="@{/user/booking}">Booking</a>
                     </li>
                     <li>
                         <a href="#">Help</a>

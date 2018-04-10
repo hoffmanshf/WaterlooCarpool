@@ -49,6 +49,7 @@ public class BookingReferenceUtil {
             if (accounts != null) {
                 for (RiderAccount account : accounts) {
                     if (account.getUsername().equalsIgnoreCase(user.getUsername()) && !cancelledAccounts.contains(account)) {
+                        reference.setAccountType("Rider");
                         bookingReferences.add(reference);
                         break;
                     }
@@ -58,6 +59,7 @@ public class BookingReferenceUtil {
             if (cancelledAccounts != null) {
                 for (RiderAccount cancelledAccount : cancelledAccounts) {
                     if (cancelledAccount.getUsername().equalsIgnoreCase(user.getUsername())) {
+                        reference.setAccountType("Rider");
                         bookingReferences.add(reference);
                         break;
                     }
@@ -75,6 +77,7 @@ public class BookingReferenceUtil {
             }
             if (reference.getDriverAccount() != null) {
                 if (reference.getDriverAccount().getUsername().equalsIgnoreCase(user.getUsername())) {
+                    reference.setAccountType("Driver");
                     bookingReferences.add(reference);
                     continue;
                 }

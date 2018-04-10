@@ -109,7 +109,7 @@ public class BookingController {
             return "riderBookingAcceptPage";
         }
 
-        return "redirect:/user/booking/rider";
+        return "redirect:/user/booking";
     }
 
     @RequestMapping(value= "/riderBooking/accept", method = RequestMethod.POST)
@@ -161,7 +161,7 @@ public class BookingController {
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
             return "riderBookingExpiredPage";
         }
-        return "redirect:/user/booking/rider";
+        return "redirect:/user/booking";
     }
 
     @RequestMapping(value= "/riderBooking/cancel", method = RequestMethod.POST)
@@ -267,7 +267,7 @@ public class BookingController {
             return "driverBookingAcceptPage";
         }
 
-        return "redirect:/user/booking/driver";
+        return "redirect:/user/booking";
     }
 
     @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
@@ -321,7 +321,7 @@ public class BookingController {
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
             return "driverBookingExpiredPage";
         }
-        return "redirect:/user/booking/driver";
+        return "redirect:/user/booking";
     }
 
     @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.GET)
