@@ -64,6 +64,8 @@ public class AccountController {
         final URI sortingURI = uriBuilderUtil.getAccountURI(AccountBaseURL.riderAccountBaseURL);
         final List<BookingReference> bookingReferences = accountService.getAccountBookingReference(sort, AccountType.riderAccountType, user);
 
+        model.addAttribute("user", user);
+
         if (bookingReferences.size() == 0) {
             return "riderAccountNoResult";
         }
@@ -100,6 +102,8 @@ public class AccountController {
 
         final URI sortingURI = uriBuilderUtil.getAccountURI(AccountBaseURL.driverAccountBaseURL);
         final List<BookingReference> bookingReferences = accountService.getAccountBookingReference(sort, AccountType.driverAccountType, user);
+
+        model.addAttribute("user", user);
 
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
@@ -139,6 +143,8 @@ public class AccountController {
         final URI sortingURI = uriBuilderUtil.getAccountSearchURI(AccountBaseURL.driverAccountSearchBaseURL, arrival, departure, date);
         final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.driverAccountType, date, arrival, departure, user);
 
+        model.addAttribute("user", user);
+
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
         }
@@ -150,7 +156,6 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -178,6 +183,8 @@ public class AccountController {
         final URI sortingURI = uriBuilderUtil.getAccountSearchURI(AccountBaseURL.riderAccountSearchBaseURL, arrival, departure, date);
         final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.riderAccountType, date, arrival, departure, user);
 
+        model.addAttribute("user", user);
+
         if (bookingReferences.size() == 0) {
             return "riderAccountNoResult";
         }
@@ -189,7 +196,6 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("user", user);
 
         return "riderAccount";
     }
@@ -218,6 +224,8 @@ public class AccountController {
         final URI sortingURI = uriBuilderUtil.getAccountSearchPassengerURI(AccountBaseURL.driverAccountSearchPassengerBaseURL, arrival, departure, date, passengerNumber);
         final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.driverAccountType, date, arrival, departure, user, passengerNumber);
 
+        model.addAttribute("user", user);
+
         if (bookingReferences.size() == 0) {
             return "driverAccountNoResult";
         }
@@ -229,7 +237,6 @@ public class AccountController {
         model.addAttribute("driverAccount", driverAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("user", user);
 
         return "driverAccount";
     }
@@ -258,6 +265,8 @@ public class AccountController {
         final URI sortingURI = uriBuilderUtil.getAccountSearchPassengerURI(AccountBaseURL.riderAccountSearchPassengerBaseURL, arrival, departure, date, passengerNumber);
         final List<BookingReference> bookingReferences = accountService.getAccountSearchResult(sort, AccountType.riderAccountType, date, arrival, departure, user, passengerNumber);
 
+        model.addAttribute("user", user);
+
         if (bookingReferences.size() == 0) {
             return "riderAccountNoResult";
         }
@@ -269,7 +278,6 @@ public class AccountController {
         model.addAttribute("riderAccount", riderAccount);
         model.addAttribute("bookingReferences", pagedReferences);
         model.addAttribute("wrapper", wrapper);
-        model.addAttribute("user", user);
 
         return "riderAccount";
     }
