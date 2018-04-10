@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.Set;
 
 @Entity
+@Table(name="\"User\"")
 public class User implements UserDetails{
 
     @Id
