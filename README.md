@@ -20,9 +20,11 @@ The application was based on **Spring Framework** and server-side Java template 
 ### System requirements
 
  - Java 7 or later
- - Maven 3.5.0
- - Spring Boot 1.5.10
- - MySQL 5.7.21
+ - Maven 3.2+
+ - MySQL 5.6 or better
+ - You can also import the code straight into your IDE:
+   - Spring Tool Suite (STS)
+   - IntelliJ IDEA
 
 ### Dependencies
 ```xml
@@ -169,23 +171,17 @@ The application was based on **Spring Framework** and server-side Java template 
 ![image](https://user-images.githubusercontent.com/24725550/38531361-6fd62c2a-3c3d-11e8-9385-b11da4fa3cf5.png)
 
 ## Building the Project
-    $ ./gradlew jar
+    $ cd ./WaterlooCarpool
 
-    # Run the tests
-    $ ./gradlew test
+    # Run the application
+    $ mvn spring-boot:run
+    
+    # If you use the Spring Boot Maven plugins to create an executable jar, you can run your application using java -jar:
+    $ mvn clean install
+    $ java -jar target/demo-0.0.1-SNAPSHOT.jar
 
-    # Generate documentation
-    $ ./gradlew javadoc
+    # You might also want to use the MAVEN_OPTS operating system environment variable:
+    $ export MAVEN_OPTS=-Xmx1024m
 
-    # Publish documentation
-    $ git checkout $VERSION
-    $ ./gradlew javadoc
-    $ git checkout gh-pages
-    $ mkdir $VERSION
-    $ mv build/docs/javadoc $VERSION
-    $ git add $VERSION/javadoc
-    $ rm latest
-    $ ln -s $VERSION latest
-    $ git add latest
-    $ git commit -m "Javadoc for $VERSION"
-    $ git push origin gh-pages
+
+
