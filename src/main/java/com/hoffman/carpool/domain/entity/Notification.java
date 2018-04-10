@@ -6,7 +6,7 @@ import javax.persistence.*;
 public class Notification {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "notificationId")
     private Long notificationId;
     private String content;
