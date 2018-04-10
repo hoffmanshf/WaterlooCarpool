@@ -15,7 +15,7 @@ The application was based on **Spring Framework** and server-side Java template 
  - Thymeleaf Template Engine
  - Twitter Bootstrap
  - jQuery, HTML, CSS, JavaScript
- - JS Plugins: typeahead, datetimepicker, datatable, slider and etc.
+ - JS Plugins: geobytes, datetimepicker, datatable, slider and etc.
 
 ## Setup
 
