@@ -170,6 +170,10 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ![image](https://user-images.githubusercontent.com/24725550/38531406-aad740ac-3c3d-11e8-86c0-25a9c4bb865a.png)
 
+### Account Profile
+
+![image](https://user-images.githubusercontent.com/24725550/38533000-3f4be574-3c45-11e8-8a2d-c24ac580deb7.png)
+
 ### Booking History
 
 ![image](https://user-images.githubusercontent.com/24725550/38531367-7b1198ae-3c3d-11e8-8f8b-70c5e2d81ce8.png)
