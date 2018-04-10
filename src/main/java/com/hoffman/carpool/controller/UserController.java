@@ -28,6 +28,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -149,26 +150,20 @@ public class UserController {
         return "redirect:/userFront";
     }
 
-    @RequestMapping(value = "/booking/rider", method = RequestMethod.GET)
-    public String getRiderBookingHistory(Principal principal, Model model) {
+    @RequestMapping(value = "/booking", method = RequestMethod.GET)
+    public String getUserBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
+        List<BookingReference> userBookingReferences = new ArrayList<BookingReference>();
         List<BookingReference> bookingReferences = bookingService.findAll();
         bookingReferenceUtil.BookingReferenceStatusProcessor(bookingReferences);
-        bookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
-        model.addAttribute("user", user);
-        model.addAttribute("bookingReferences", bookingReferences);
-        return "riderBookingHistory";
-    }
+        List<BookingReference> riderBookingReferences = bookingReferenceUtil.RiderBookingReferenceProcessor(user, bookingReferences);
+        List<BookingReference> driverBookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
+        userBookingReferences.addAll(riderBookingReferences);
+        userBookingReferences.addAll(driverBookingReferences);
 
-    @RequestMapping(value = "/booking/driver", method = RequestMethod.GET)
-    public String getDriverBookingHistory(Principal principal, Model model) {
-        User user = userService.findByUsername(principal.getName());
-        List<BookingReference> bookingReferences = bookingService.findAll();
-        bookingReferenceUtil.BookingReferenceStatusProcessor(bookingReferences);
-        bookingReferences = bookingReferenceUtil.DriverBookingReferenceProcessor(user, bookingReferences);
         model.addAttribute("user", user);
-        model.addAttribute("bookingReferences", bookingReferences);
-        return "driverBookingHistory";
+        model.addAttribute("bookingReferences", userBookingReferences);
+        return "bookingHistory";
     }
 
 }
