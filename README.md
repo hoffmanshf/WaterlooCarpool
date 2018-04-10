@@ -171,17 +171,12 @@ The application was based on **Spring Framework** and server-side Java template 
 ![image](https://user-images.githubusercontent.com/24725550/38531361-6fd62c2a-3c3d-11e8-9385-b11da4fa3cf5.png)
 
 ## Building the Project
-    $ cd ./WaterlooCarpool
-
     # Run the application
     $ mvn spring-boot:run
     
-    # If you use the Spring Boot Maven plugins to create an executable jar, you can run your application using java -jar:
+    # Run as a packaged application
     $ mvn clean install
     $ java -jar target/demo-0.0.1-SNAPSHOT.jar
 
     # You might also want to use the MAVEN_OPTS operating system environment variable:
     $ export MAVEN_OPTS=-Xmx1024m
-
-
-
