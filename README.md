@@ -146,7 +146,7 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ### Booking Reference List
 
-![image](https://user-images.githubusercontent.com/24725550/38531262-f5e453c4-3c3c-11e8-84a1-6d3ccc3dc570.png)
+![image](https://user-images.githubusercontent.com/24725550/38531431-c38af60c-3c3d-11e8-9782-93156852f89f.png)
 
 ### Itineary Detail
 
@@ -154,7 +154,7 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ### Booking Submit Page
 
-![image](https://user-images.githubusercontent.com/24725550/38516256-a5519954-3c04-11e8-8253-0abc630211a3.png)
+![image](https://user-images.githubusercontent.com/24725550/38531406-aad740ac-3c3d-11e8-86c0-25a9c4bb865a.png)
 
 ### Booking History
 
