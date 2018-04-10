@@ -83,7 +83,7 @@
                                 <tr data-th-each="notification : ${user.notificationList}">
                                     <a th:if="${notification.bookingReference.accountType} == driverAccount" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
                                         <span class="thumb-sm pull-left">
-                                            <img src="/images/defaultUser.png" class="img-circle" style="margin: 5px"/>
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
                                             </span>
                                             <div class="col-xs-2">
                                                 <span class="media-body block m-b-none">
@@ -94,7 +94,7 @@
                                         </a>
                                     <a th:if="${notification.bookingReference.accountType} == riderAccount" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
                                         <span class="thumb-sm pull-left">
-                                            <img src="/images/defaultUser.png" class="img-circle" style="margin: 5px"/>
+                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
                                             </span>
                                         <div class="col-xs-2">
                                                 <span class="media-body block m-b-none">
@@ -119,7 +119,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
                     <span class="thumb-sm avatar pull-left">
-                        <img src="/images/defaultUser.png" />
+                        <img th:src="@{/user/photo/viewByUsername?username=}+${user.username}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                     </span>
                     <span>&nbsp;<td data-th-text="${user.firstName}">...</td></span>
                     <b class="caret"></b>

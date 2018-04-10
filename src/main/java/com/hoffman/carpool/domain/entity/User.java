@@ -31,6 +31,7 @@ public class User implements UserDetails{
     private String phone;
 
     @Lob
+    @Basic(fetch = FetchType.LAZY)
     private byte[] userPhoto;
 
     private boolean enabled=true;
