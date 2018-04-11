@@ -639,7 +639,7 @@ $('.typeahead').typeahead({
         return $.ajax({
             dataType: 'json',
             type: 'get',
-            url: 'http://gd.geobytes.com/AutoCompleteCity?callback=?&filter=CA&q=' + q,
+            url: 'http://gd.geobytes.com/AutoCompleteCity?callback=?&filter=CA&q=' + q + '&key=7e00ec0f0d4125f4831fc0528064cc66',
             chache: false,
             success: function(data) {
                 var result = [];
