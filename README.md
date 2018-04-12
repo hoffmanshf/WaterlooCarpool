@@ -37,8 +37,8 @@ The application was based on **Spring Framework** and server-side Java template 
     
     # If you are running the application for the first time, after Hibernate created the tables from entities
     # Execute the following script:
-    $ INSERT INTO `waterloocarpool`.`role` (`role_id`, `name`) VALUES ('1', 'ROLE_USER');
-    $ INSERT INTO `waterloocarpool`.`role` (`role_id`, `name`) VALUES ('2', 'ROLE_ADMIN');
+    $ INSERT INTO role (role_id, name) VALUES ('1', 'ROLE_USER');
+    $ INSERT INTO role (role_id, name) VALUES ('2', 'ROLE_ADMIN');
 
 ### Dependencies
 ```xml
@@ -148,6 +148,21 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ```
 
+### Domain Model UML
+
+![image](https://user-images.githubusercontent.com/24725550/38652447-051ab548-3dd4-11e8-9e05-5b569c783cf5.png)
+
+## Building the Project
+    # Run the application
+    $ mvn spring-boot:run
+    
+    # You can also run as a packaged application
+    $ mvn clean install
+    $ java -jar target/demo-0.0.1-SNAPSHOT.jar
+
+    # You might also want to use the MAVEN_OPTS operating system environment variable:
+    $ export MAVEN_OPTS=-Xmx1024m
+
 ## ScreenShots
 
 ### Login and Signup
@@ -188,13 +203,3 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ![image](https://user-images.githubusercontent.com/24725550/38531361-6fd62c2a-3c3d-11e8-9385-b11da4fa3cf5.png)
 
-## Building the Project
-    # Run the application
-    $ mvn spring-boot:run
-    
-    # You can also run as a packaged application
-    $ mvn clean install
-    $ java -jar target/demo-0.0.1-SNAPSHOT.jar
-
-    # You might also want to use the MAVEN_OPTS operating system environment variable:
-    $ export MAVEN_OPTS=-Xmx1024m
