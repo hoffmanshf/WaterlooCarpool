@@ -35,20 +35,24 @@ import java.util.List;
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private CarService carService;
 
-    @Autowired
     private BookingService bookingService;
 
-    @Autowired
     private NotificationService notificationService;
 
-    @Autowired
     private BookingReferenceUtil bookingReferenceUtil;
+
+    @Autowired
+    public UserController(UserService userService, CarService carService, BookingService bookingService, NotificationService notificationService, BookingReferenceUtil bookingReferenceUtil) {
+        this.userService = userService;
+        this.carService = carService;
+        this.bookingService = bookingService;
+        this.notificationService = notificationService;
+        this.bookingReferenceUtil = bookingReferenceUtil;
+    }
 
     private static final Logger LOG = LoggerFactory.getLogger(UserController.class);
 

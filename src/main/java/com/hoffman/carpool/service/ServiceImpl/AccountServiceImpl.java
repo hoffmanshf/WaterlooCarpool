@@ -19,23 +19,27 @@ import java.util.List;
 @Service
 public class AccountServiceImpl implements AccountService {
 
-    @Autowired
     private DriverAccountRepository driverAccountRepository;
 
-    @Autowired
     private RiderAccountRepository riderAccountRepository;
 
-    @Autowired
     private CarRepository carRepository;
 
-    @Autowired
     private BookingReferenceRepository bookingReferenceRepository;
 
-    @Autowired
     private BookingReferenceUtil bookingReferenceUtil;
 
-    @Autowired
     private SortingUtil sortingUtil;
+
+    @Autowired
+    public AccountServiceImpl(DriverAccountRepository driverAccountRepository, RiderAccountRepository riderAccountRepository, CarRepository carRepository, BookingReferenceRepository bookingReferenceRepository, BookingReferenceUtil bookingReferenceUtil, SortingUtil sortingUtil) {
+        this.driverAccountRepository = driverAccountRepository;
+        this.riderAccountRepository = riderAccountRepository;
+        this.carRepository = carRepository;
+        this.bookingReferenceRepository = bookingReferenceRepository;
+        this.bookingReferenceUtil = bookingReferenceUtil;
+        this.sortingUtil = sortingUtil;
+    }
 
     @Override
     public DriverAccount createDriverAccount(final User user) {

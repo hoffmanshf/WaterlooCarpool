@@ -21,11 +21,15 @@ import java.util.Set;
 @Controller
 public class HomeController {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private RoleRepository roleRepository;
+
+    @Autowired
+    public HomeController(UserService userService, RoleRepository roleRepository) {
+        this.userService = userService;
+        this.roleRepository = roleRepository;
+    }
 
     @RequestMapping("/")
     public String home() {

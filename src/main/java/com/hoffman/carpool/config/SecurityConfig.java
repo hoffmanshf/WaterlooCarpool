@@ -21,13 +21,14 @@ import java.security.SecureRandom;
 @EnableGlobalMethodSecurity(prePostEnabled=true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
-    private Environment env;
-
-    @Autowired
     private UserDetailsService userDetailsService;
 
     private static final String SALT = KeyGenerators.string().generateKey();
+
+    @Autowired
+    public SecurityConfig(UserDetailsService userDetailsService) {
+        this.userDetailsService = userDetailsService;
+    }
 
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
