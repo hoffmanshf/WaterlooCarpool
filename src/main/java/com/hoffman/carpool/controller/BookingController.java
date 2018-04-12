@@ -25,20 +25,24 @@ import java.util.*;
 @RequestMapping("booking")
 public class BookingController {
 
-    @Autowired
     private BookingService bookingService;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private NotificationService notificationService;
 
-    @Autowired
     private GoogleDistanceMatrixUtil googleDistanceMatrixUtil;
 
-    @Autowired
     private ReservationUtil reservationUtil;
+
+    @Autowired
+    public BookingController(BookingService bookingService, UserService userService, NotificationService notificationService, GoogleDistanceMatrixUtil googleDistanceMatrixUtil, ReservationUtil reservationUtil) {
+        this.bookingService = bookingService;
+        this.userService = userService;
+        this.notificationService = notificationService;
+        this.googleDistanceMatrixUtil = googleDistanceMatrixUtil;
+        this.reservationUtil = reservationUtil;
+    }
 
     @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
     public String createRiderBooking(Model model, Principal principal) {

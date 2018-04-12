@@ -23,11 +23,15 @@ import java.util.GregorianCalendar;
 @Component
 public class EmailNotificationUtil {
 
-    @Autowired
     private JavaMailSender sender;
 
-    @Autowired
     private CalendarEventUtil calendarEventUtil;
+
+    @Autowired
+    public EmailNotificationUtil(JavaMailSender sender, CalendarEventUtil calendarEventUtil) {
+        this.sender = sender;
+        this.calendarEventUtil = calendarEventUtil;
+    }
 
     @Async("emailNotificationExecutor")
     public void sendNotification (final String[] toAddress, final BookingReference bookingReference) throws MailException {

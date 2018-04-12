@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CarServiceImpl implements CarService{
 
-    @Autowired
     private CarRepository carRepository;
+
+    @Autowired
+    public CarServiceImpl(CarRepository carRepository) {
+        this.carRepository = carRepository;
+    }
 
     @Override
     public Car createCar(Car car) {

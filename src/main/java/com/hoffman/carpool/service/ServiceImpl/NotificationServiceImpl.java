@@ -16,11 +16,15 @@ import javax.transaction.Transactional;
 @Transactional
 public class NotificationServiceImpl implements NotificationService {
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private NotificationRepository notificationRepository;
+
+    @Autowired
+    public NotificationServiceImpl(UserService userService, NotificationRepository notificationRepository) {
+        this.userService = userService;
+        this.notificationRepository = notificationRepository;
+    }
 
     @Override
     public void sendAcceptedNotification(BookingReference bookingReference, User user) {

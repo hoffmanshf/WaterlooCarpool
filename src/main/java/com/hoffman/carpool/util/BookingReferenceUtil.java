@@ -16,8 +16,12 @@ import java.util.List;
 @Component
 public class BookingReferenceUtil {
 
-    @Autowired
     private BookingService bookingService;
+
+    @Autowired
+    public BookingReferenceUtil(BookingService bookingService) {
+        this.bookingService = bookingService;
+    }
 
     public static List<BookingReference> BookingReferenceProcessor(final User user, List<BookingReference> UserBookingReferences) {
         List<BookingReference> bookingReferences = new ArrayList<BookingReference>();

@@ -30,17 +30,21 @@ public class AccountController {
 
     private static final int BUTTONS_TO_SHOW = 5;
 
-    @Autowired
     private UserService userService;
 
-    @Autowired
     private AccountService accountService;
 
-    @Autowired
     private PaginationUtil paginationUtil;
 
-    @Autowired
     private URIBuilderUtil uriBuilderUtil;
+
+    @Autowired
+    public AccountController(UserService userService, AccountService accountService, PaginationUtil paginationUtil, URIBuilderUtil uriBuilderUtil) {
+        this.userService = userService;
+        this.accountService = accountService;
+        this.paginationUtil = paginationUtil;
+        this.uriBuilderUtil = uriBuilderUtil;
+    }
 
     @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
     public String riderAccount(Model model, Principal principal,

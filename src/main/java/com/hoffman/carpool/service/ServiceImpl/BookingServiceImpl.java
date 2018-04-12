@@ -24,17 +24,21 @@ public class BookingServiceImpl implements BookingService {
     private static final String[] monthNames = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sept", "Oct", "Nov", "Dec"};
     private static final String[] dayNames = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
 
-    @Autowired
-    BookingReferenceRepository bookingReferenceRepository;
+    private BookingReferenceRepository bookingReferenceRepository;
+
+    private UserRepository userRepository;
+
+    private DateTimeConverterUtil dateTimeConverterUtil;
+
+    private EmailNotificationUtil emailNotificationUtil;
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
-    DateTimeConverterUtil dateTimeConverterUtil;
-
-    @Autowired
-    EmailNotificationUtil emailNotificationUtil;
+    public BookingServiceImpl(BookingReferenceRepository bookingReferenceRepository, UserRepository userRepository, DateTimeConverterUtil dateTimeConverterUtil, EmailNotificationUtil emailNotificationUtil) {
+        this.bookingReferenceRepository = bookingReferenceRepository;
+        this.userRepository = userRepository;
+        this.dateTimeConverterUtil = dateTimeConverterUtil;
+        this.emailNotificationUtil = emailNotificationUtil;
+    }
 
     @Override
     public void createBooking(final BookingReference bookingReference, final String source, final String accountType, final Principal principal) {

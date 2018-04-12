@@ -26,11 +26,15 @@ public class GoogleDistanceMatrixUtil {
     private static final String API_KEY = "AIzaSyACQSMkZbQvQwPw-dp-HcRI88mvxNMyaSQ";
     private static final GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
 
-    @Autowired
     private BookingService bookingService;
 
-    @Autowired
     private DateTimeConverterUtil dateTimeConverterUtil;
+
+    @Autowired
+    public GoogleDistanceMatrixUtil(BookingService bookingService, DateTimeConverterUtil dateTimeConverterUtil) {
+        this.bookingService = bookingService;
+        this.dateTimeConverterUtil = dateTimeConverterUtil;
+    }
 
     @Async("googleServiceExecutor")
     public void estimateRouteTime(String departure, String arrival, String source, BookingReference bookingReference) {
