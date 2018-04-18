@@ -18,7 +18,7 @@
             <div class="col-md-3">
                 <aside class="user-profile-sidebar">
                     <div class="user-profile-avatar text-center">
-                        <img th:src="@{/user/photo/view}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                        <img th:src="@{/user/photo/principal}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                         <h5><td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td></h5>
                         <!--<br/>-->
                         <!--<p>Member Since May 2017</p>-->
@@ -28,7 +28,7 @@
                         </li>
                         <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
                         </li>
-                        <li><a th:href="@{/user/booking}"><i class="fa fa-clock-o"></i>Booking History</a>
+                        <li><a th:href="@{/user/booking-history}"><i class="fa fa-clock-o"></i>Booking History</a>
                         </li>
                         <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
                         </li>
@@ -43,7 +43,6 @@
                             <tr>
                                 <th>Type</th>
                                 <th>Travel Date</th>
-                                <!--<th>User</th>-->
                                 <th>Departure</th>
                                 <th>Arrival</th>
                                 <!--<th>Passenger</th>-->
@@ -56,13 +55,12 @@
                             <tr data-th-each="bookingReference : ${bookingReferences}">
                                 <td data-th-text="${bookingReference.accountType}">...</td>
                                 <td data-th-text="${bookingReference.date}">...</td>
-                                <!--<th><a data-th-text="${bookingReference.author}" th:href="@{/booking/info?author=}+${bookingReference.author}">...</a></th>-->
                                 <td data-th-text="${bookingReference.departure}">...</td>
                                 <td data-th-text="${bookingReference.arrival}">...</td>
                                 <!--<td data-th-text="${bookingReference.passengerNumber}">...</td>-->
                                 <!--<td data-th-text="${bookingReference.paymentMethod}">...</td>-->
                                 <!--<td data-th-text="${bookingReference.notes}">...</td>-->
-                                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}">...</a></th>
+                                <th><a data-th-text="${bookingReference.bookingStatus}" th:href="@{/bookings/driver-offer/authors/details?bookingReferenceId=}+${bookingReference.bookingReferenceId}">...</a></th>
                             </tr>
                             </tbody>
                         </table>

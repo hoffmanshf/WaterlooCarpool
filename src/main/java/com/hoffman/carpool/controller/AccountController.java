@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/account")
+@RequestMapping("/postings")
 public class AccountController {
 
     private static final int BUTTONS_TO_SHOW = 5;
@@ -46,7 +46,7 @@ public class AccountController {
         this.uriBuilderUtil = uriBuilderUtil;
     }
 
-    @RequestMapping(value = "/riderAccount", method = RequestMethod.GET)
+    @RequestMapping(value = "/rider-request", method = RequestMethod.GET)
     public String riderAccount(Model model, Principal principal,
                                @RequestParam(value = "sort", required = false) String sort,
                                @RequestParam(value = "page") Optional<Integer> page) {
@@ -85,7 +85,7 @@ public class AccountController {
         return "riderAccount";
     }
 
-    @RequestMapping(value = "/driverAccount", method = RequestMethod.GET)
+    @RequestMapping(value = "/driver-offer", method = RequestMethod.GET)
     public String driverAccount(Model model, Principal principal,
                                 @RequestParam(value = "sort", required = false) String sort,
                                 @RequestParam(value = "page") Optional<Integer> page) {
@@ -124,10 +124,10 @@ public class AccountController {
         return "driverAccount";
     }
 
-    @RequestMapping(value = "/driverAccount/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/driver-offer/search", method = RequestMethod.GET)
     public String searchDriverBooking(@RequestParam(value = "arrival") String arrival,
                                       @RequestParam(value = "departure") String departure,
-                                      @RequestParam(value = "date") String date,
+                                      @RequestParam(value = "date", required = false) String date,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "page") Optional<Integer> page,
                                       Model model, Principal principal) {
@@ -164,10 +164,10 @@ public class AccountController {
         return "driverAccount";
     }
 
-    @RequestMapping(value = "/riderAccount/search", method = RequestMethod.GET)
+    @RequestMapping(value = "/rider-request/search", method = RequestMethod.GET)
     public String searchRiderBooking(@RequestParam(value = "arrival") String arrival,
                                       @RequestParam(value = "departure") String departure,
-                                      @RequestParam(value = "date") String date,
+                                      @RequestParam(value = "date", required = false) String date,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "page") Optional<Integer> page,
                                       Model model, Principal principal) {
@@ -204,11 +204,11 @@ public class AccountController {
         return "riderAccount";
     }
 
-    @RequestMapping(value = "/driverAccount/searchPassenger", method = RequestMethod.GET)
+    @RequestMapping(value = "/driver-offer/search-passenger", method = RequestMethod.GET)
     public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival,
                                                @RequestParam(value = "departure") String departure,
-                                               @RequestParam(value = "date") String date,
-                                               @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam(value = "date", required = false) String date,
+                                               @RequestParam(value = "passengerNumber", required = false) String passengerNumber,
                                                @RequestParam(value = "sort", required = false) String sort,
                                                @RequestParam(value = "page") Optional<Integer> page,
                                                Model model, Principal principal) {
@@ -245,11 +245,11 @@ public class AccountController {
         return "driverAccount";
     }
 
-    @RequestMapping(value = "/riderAccount/searchPassenger", method = RequestMethod.GET)
+    @RequestMapping(value = "/rider-request/search-passenger", method = RequestMethod.GET)
     public String searchPassengerRiderBooking(@RequestParam(value = "arrival") String arrival,
                                                @RequestParam(value = "departure") String departure,
-                                               @RequestParam(value = "date") String date,
-                                               @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam(value = "date", required = false) String date,
+                                               @RequestParam(value = "passengerNumber", required = false) String passengerNumber,
                                                @RequestParam(value = "sort", required = false) String sort,
                                                @RequestParam(value = "page") Optional<Integer> page,
                                                Model model, Principal principal) {

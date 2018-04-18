@@ -64,7 +64,7 @@
                 <i class="fa fa-bars"></i>
             </a>
             <div class="gap gap-header"></div>
-            <a th:href="@{/userFront}">
+            <a th:href="@{/home}">
                 <img src="/images/banner.png" class="m-r-sm"/>
             </a>
         </div>
@@ -81,9 +81,9 @@
                         </div>
                         <div class="list-group list-group-alt">
                                 <tr data-th-each="notification : ${user.notificationList}">
-                                    <a th:if="${notification.bookingReference.accountType} == driverAccount" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
+                                    <a th:if="${notification.bookingReference.accountType} == driverAccount" th:href="@{/bookings/driver-offer/authors/details?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
                                         <span class="thumb-sm pull-left">
-                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
+                                            <img th:src="@{/user/photo?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
                                             </span>
                                             <div class="col-xs-2">
                                                 <span class="media-body block m-b-none">
@@ -92,9 +92,9 @@
                                                 </span>
                                             </div>
                                         </a>
-                                    <a th:if="${notification.bookingReference.accountType} == riderAccount" th:href="@{/booking/riderBooking/author/view?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
+                                    <a th:if="${notification.bookingReference.accountType} == riderAccount" th:href="@{/bookings/rider-request/authors/details?bookingReferenceId=}+${notification.bookingReference.bookingReferenceId}" class="media list-group-item">
                                         <span class="thumb-sm pull-left">
-                                            <img th:src="@{/user/photo/viewByUsername?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
+                                            <img th:src="@{/user/photo?username=}+${notification.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" class="img-circle" style="margin: 5px"/>
                                             </span>
                                         <div class="col-xs-2">
                                                 <span class="media-body block m-b-none">
@@ -104,9 +104,9 @@
                                         </div>
                                     </a>
                                 </tr>
-                                <form th:action="@{/user/notification}" id="clear-notification" th:method="delete">
+                                <form th:action="@{/user/notifications}" id="clear-notification" th:method="delete">
                                     <div class="panel-footer text-sm">
-                                        <a th:href="@{/user/booking}">See all the booking history</a>
+                                        <a th:href="@{/user/booking-history}">See all the booking history</a>
                                         <input type="hidden" name="_method" value="delete" />
                                         <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <span class="pull-right"><a href="#" onclick="document.getElementById('clear-notification').submit();"><i class="fa fa-trash"></i>&nbsp;clear</a></span>
@@ -119,7 +119,7 @@
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color: white;">
                     <span class="thumb-sm avatar pull-left">
-                        <img th:src="@{/user/photo/viewByUsername?username=}+${user.username}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                        <img th:src="@{/user/photo?username=}+${user.username}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                     </span>
                     <span>&nbsp;<td data-th-text="${user.firstName}">...</td></span>
                     <b class="caret"></b>
@@ -130,7 +130,7 @@
                         <a th:href="@{/user/profile}">Profile</a>
                     </li>
                     <li>
-                        <a th:href="@{/user/booking}">Booking</a>
+                        <a th:href="@{/user/booking-history}">Booking</a>
                     </li>
                     <li>
                         <a href="#">Help</a>
@@ -147,20 +147,20 @@
     <div class="container">
         <div class="nav">
             <ul class="slimmenu" id="slimmenu">
-                <li class="active"><a th:href="@{/userFront}">Home</a>
+                <li class="active"><a th:href="@{/home}">Home</a>
                 </li>
                 <li><a>Find Ride</a>
                     <ul>
-                        <li><a th:href="@{/account/riderAccount}">Request</a></li>
+                        <li><a th:href="@{/postings/rider-request}">Request</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/account/driverAccount}">Offer</a></li>
+                        <li><a th:href="@{/postings/driver-offer}">Offer</a></li>
                     </ul>
                 </li>
                 <li><a>Create New</a>
                     <ul>
-                        <li><a th:href="@{/booking/riderCreate}">Rider</a></li>
+                        <li><a th:href="@{/bookings/rider-request}">Rider</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a th:href="@{/booking/driverCreate}">Driver</a></li>
+                        <li><a th:href="@{/bookings/driver-offer}">Driver</a></li>
                         <!--<li role="separator" class="divider"></li>-->
                         <!--<li><a href="#">Edit Trip</a></li>-->
                     </ul>

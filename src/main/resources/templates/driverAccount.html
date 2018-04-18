@@ -19,7 +19,7 @@
         <br/>
         <div class="col-md-6">
             <ul id="userInfo" class="breadcrumb">
-                <li><a th:href="@{/userFront}"><i class="fa fa-home"></i> Home</a></li>
+                <li><a th:href="@{/home}"><i class="fa fa-home"></i> Home</a></li>
                 <li class="active"><i class="fa fa-list-ul"></i> Find Post</li>
                 <li class="active">Ride Offer</li>
             </ul>
@@ -49,7 +49,7 @@
     </div>
     <div class="row">
         <div class="col-md-3">
-            <form class="booking-item-dates-change mb30" th:action="@{/account/driverAccount/searchPassenger}" method="get">
+            <form class="booking-item-dates-change mb30" th:action="@{/postings/driver-offer/search-passenger}" method="get">
                 <div class="form-group form-group-icon-left"><i class="fa fa-map-marker input-icon input-icon-hightlight"></i>
                     <label>Pick-up Location</label>
                     <input class="typeahead form-control" placeholder="City, Province, Country" type="text" name="departure" required="required"/>
@@ -84,7 +84,7 @@
                                 <div class="row">
                                     <div class="col-md-2">
                                         <div class="pull-left thumb-md avatar b-3x m-r booking-item-airline-logo">
-                                            <span>&nbsp;</span><img th:src="@{/user/photo/viewByUsername?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                                            <span>&nbsp;</span><img th:src="@{/user/photo?username=}+${bookingReference.author}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                                             <div class="p m-t-xs m-b-xs m-l-xs text-center">
                                                 <td data-th-text="${bookingReference.author}">...</td>
                                             </div>
@@ -112,8 +112,8 @@
                                         <span th:if="${bookingReference.passengerNumber} == 1">seat</span>
                                         <span th:if="${bookingReference.passengerNumber} != 1">seats</span>
                                         left</p>
-                                        <a class="btn btn-primary" th:href="@{/booking/driverBooking/author/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">Select</a>
-                                        <a class="btn btn-primary" th:href="@{/booking/driverBooking/view?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">Select</a>
+                                        <a class="btn btn-primary" th:href="@{/bookings/driver-offer/authors/details?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:if="${bookingReference.owner}">Select</a>
+                                        <a class="btn btn-primary" th:href="@{/bookings/driver-offer/details?bookingReferenceId=}+${bookingReference.bookingReferenceId}" th:unless="${bookingReference.owner}">Select</a>
                                     </div>
                                 </div>
                             </div>

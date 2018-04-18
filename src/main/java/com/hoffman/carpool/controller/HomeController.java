@@ -33,7 +33,7 @@ public class HomeController {
 
     @RequestMapping("/")
     public String home() {
-        return "redirect:/userFront";
+        return "redirect:/home";
     }
 
     @RequestMapping("/index")
@@ -74,7 +74,7 @@ public class HomeController {
         }
     }
 
-    @RequestMapping("/userFront")
+    @RequestMapping("/home")
     public String userFront(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         DriverAccount driverAccount = user.getDriverAccount();

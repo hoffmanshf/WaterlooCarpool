@@ -12,7 +12,7 @@
 
 <div class="container main">
     <div class="gap gap-mini"></div>
-    <form th:action="@{/booking/driverBooking/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
+    <form th:action="@{/bookings/driver-offer/cancel?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
         <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
         <div class="booking-item-details">
             <header>

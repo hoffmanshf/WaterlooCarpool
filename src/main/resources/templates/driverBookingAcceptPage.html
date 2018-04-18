@@ -11,7 +11,7 @@
 <head th:replace="common/header :: navbar"/>
 
 <div class="container">
-    <form th:action="@{/booking/driverBooking/accept?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
+    <form th:action="@{/bookings/driver-offer/accept?bookingReferenceId=}+${bookingReference.bookingReferenceId}" method="post" id="bookingForm">
         <input type="hidden" name="id" th:value="${bookingReference.bookingReferenceId}"/>
         <div class="booking-item-details">
             <header class="booking-item-header">
