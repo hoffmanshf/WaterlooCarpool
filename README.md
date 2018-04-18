@@ -10,6 +10,7 @@ The application was based on **Spring Framework** and server-side Java template 
 ### Technologies
  - Spring Framework: Spring Boot, Spring MVC, Spring Data, Spring Security, and Spring Test
  - Google API: Google Map, Google Direction, Google Distance Matrix and Google Autocomplete
+ - Docker
  - Hibernate
  - MySQL Database
  - Thymeleaf Template Engine
