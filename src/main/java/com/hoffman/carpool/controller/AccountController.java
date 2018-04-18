@@ -127,7 +127,7 @@ public class AccountController {
     @RequestMapping(value = "/driver-offer/search", method = RequestMethod.GET)
     public String searchDriverBooking(@RequestParam(value = "arrival") String arrival,
                                       @RequestParam(value = "departure") String departure,
-                                      @RequestParam(value = "date") String date,
+                                      @RequestParam(value = "date", required = false) String date,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "page") Optional<Integer> page,
                                       Model model, Principal principal) {
@@ -167,7 +167,7 @@ public class AccountController {
     @RequestMapping(value = "/rider-request/search", method = RequestMethod.GET)
     public String searchRiderBooking(@RequestParam(value = "arrival") String arrival,
                                       @RequestParam(value = "departure") String departure,
-                                      @RequestParam(value = "date") String date,
+                                      @RequestParam(value = "date", required = false) String date,
                                       @RequestParam(value = "sort", required = false) String sort,
                                       @RequestParam(value = "page") Optional<Integer> page,
                                       Model model, Principal principal) {
@@ -207,8 +207,8 @@ public class AccountController {
     @RequestMapping(value = "/driver-offer/search-passenger", method = RequestMethod.GET)
     public String searchPassengerDriverBooking(@RequestParam(value = "arrival") String arrival,
                                                @RequestParam(value = "departure") String departure,
-                                               @RequestParam(value = "date") String date,
-                                               @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam(value = "date", required = false) String date,
+                                               @RequestParam(value = "passengerNumber", required = false) String passengerNumber,
                                                @RequestParam(value = "sort", required = false) String sort,
                                                @RequestParam(value = "page") Optional<Integer> page,
                                                Model model, Principal principal) {
@@ -248,8 +248,8 @@ public class AccountController {
     @RequestMapping(value = "/rider-request/search-passenger", method = RequestMethod.GET)
     public String searchPassengerRiderBooking(@RequestParam(value = "arrival") String arrival,
                                                @RequestParam(value = "departure") String departure,
-                                               @RequestParam(value = "date") String date,
-                                               @RequestParam(value = "passengerNumber") String passengerNumber,
+                                               @RequestParam(value = "date", required = false) String date,
+                                               @RequestParam(value = "passengerNumber", required = false) String passengerNumber,
                                                @RequestParam(value = "sort", required = false) String sort,
                                                @RequestParam(value = "page") Optional<Integer> page,
                                                Model model, Principal principal) {
