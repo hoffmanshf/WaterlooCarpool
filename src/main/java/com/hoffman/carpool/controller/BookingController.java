@@ -22,7 +22,7 @@ import java.security.Principal;
 import java.util.*;
 
 @Controller
-@RequestMapping("booking")
+@RequestMapping("bookings")
 public class BookingController {
 
     private BookingService bookingService;
@@ -44,7 +44,7 @@ public class BookingController {
         this.reservationUtil = reservationUtil;
     }
 
-    @RequestMapping(value = "/riderCreate",method = RequestMethod.GET)
+    @RequestMapping(value = "/rider-request",method = RequestMethod.GET)
     public String createRiderBooking(Model model, Principal principal) {
         final User user = userService.findByUsername(principal.getName());
         final BookingReference bookingReference = new BookingReference();
@@ -55,7 +55,7 @@ public class BookingController {
         return "riderBooking";
     }
 
-    @RequestMapping(value = "/riderCreate",method = RequestMethod.POST)
+    @RequestMapping(value = "/rider-request",method = RequestMethod.POST)
     public String createRiderBookingPost(@ModelAttribute("bookingReference") BookingReference bookingReference,
                                          @ModelAttribute("dateString") String dateSource,
                                          @ModelAttribute("backDateString") String backDateSource,
@@ -80,10 +80,10 @@ public class BookingController {
             redirectAttributes.addAttribute("bookingReferenceId2", secondBookingReference.getBookingReferenceId());
         }
 
-        return "redirect:/booking/riderBooking/submitted";
+        return "redirect:/bookings/rider-request/submitted";
     }
 
-    @RequestMapping(value = "/riderBooking/submitted",method = RequestMethod.GET)
+    @RequestMapping(value = "/rider-request/submitted",method = RequestMethod.GET)
     public String riderBookingSubmitted(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId,
                                         @RequestParam(value = "bookingReferenceId2", required = false) Long bookingReferenceId2,
                                         Model model, Principal principal) {
@@ -99,7 +99,7 @@ public class BookingController {
         return "riderBookingSubmittedPage";
     }
 
-    @RequestMapping(value= "/riderBooking/view", method = RequestMethod.GET)
+    @RequestMapping(value= "/rider-request/details", method = RequestMethod.GET)
     public String getRiderBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         User user = userService.findByUsername(principal.getName());
@@ -113,10 +113,10 @@ public class BookingController {
             return "riderBookingAcceptPage";
         }
 
-        return "redirect:/user/booking";
+        return "redirect:/user/booking-history";
     }
 
-    @RequestMapping(value= "/riderBooking/accept", method = RequestMethod.POST)
+    @RequestMapping(value= "/rider-request/accept", method = RequestMethod.POST)
     public String acceptRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model,
                                      RedirectAttributes redirectAttributes, Principal principal) {
 
@@ -128,10 +128,10 @@ public class BookingController {
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
         notificationService.sendAcceptedNotification(bookingReference, user);
 
-        return "redirect:/booking/riderBooking/success";
+        return "redirect:/bookings/rider-request/success";
     }
 
-    @RequestMapping(value= "/riderBooking/success", method = RequestMethod.GET)
+    @RequestMapping(value= "/rider-request/success", method = RequestMethod.GET)
     public String riderBookingSuccess(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final User user = userService.findByUsername(principal.getName());
@@ -142,7 +142,7 @@ public class BookingController {
         return "riderBookingSuccessPage";
     }
 
-    @RequestMapping(value= "/riderBooking/author/view", method = RequestMethod.GET)
+    @RequestMapping(value= "/rider-request/authors/details", method = RequestMethod.GET)
     public String getRiderBookingAuthorView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
@@ -165,10 +165,10 @@ public class BookingController {
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
             return "riderBookingExpiredPage";
         }
-        return "redirect:/user/booking";
+        return "redirect:/user/booking-history";
     }
 
-    @RequestMapping(value= "/riderBooking/cancel", method = RequestMethod.POST)
+    @RequestMapping(value= "/rider-request/cancel", method = RequestMethod.POST)
     public String cancelRiderBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         final User user = userService.findByUsername(principal.getName());
@@ -184,7 +184,7 @@ public class BookingController {
         return "riderBookingCancelledPage";
     }
 
-    @RequestMapping(value= "/riderBooking/passenger/cancel", method = RequestMethod.POST)
+    @RequestMapping(value= "/rider-request/passenger-cancel", method = RequestMethod.POST)
     public String cancelPassengerBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         final User user = userService.findByUsername(principal.getName());
@@ -213,7 +213,7 @@ public class BookingController {
         return "riderBookingCancelledPage";
     }
 
-    @RequestMapping(value = "/driverCreate",method = RequestMethod.GET)
+    @RequestMapping(value = "/driver-offer",method = RequestMethod.GET)
     public String createDriverBooking(Model model, Principal principal) {
         final BookingReference bookingReference = new BookingReference();
         final User user = userService.findByUsername(principal.getName());
@@ -224,7 +224,7 @@ public class BookingController {
         return "driverBooking";
     }
 
-    @RequestMapping(value = "/driverCreate",method = RequestMethod.POST)
+    @RequestMapping(value = "/driver-offer",method = RequestMethod.POST)
     public String createDriverBookingPost(@ModelAttribute("bookingReference") BookingReference bookingReference, @ModelAttribute("dateString") String source,
                                           @RequestParam(value = "passengerNumber", required = false) int passengerNumber,
                                           @RequestParam(value = "price", required = false) int price,
@@ -237,10 +237,10 @@ public class BookingController {
         googleDistanceMatrixUtil.estimateRouteTime(departure, arrival, source, bookingReference);
         redirectAttributes.addAttribute("bookingReferenceId", bookingReference.getBookingReferenceId());
 
-        return "redirect:/booking/driverBooking/submitted";
+        return "redirect:/bookings/driver-offer/submitted";
     }
 
-    @RequestMapping(value = "/driverBooking/submitted", method = RequestMethod.GET)
+    @RequestMapping(value = "/driver-offer/submitted", method = RequestMethod.GET)
     public String driverBookingSubmitted(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final User user = userService.findByUsername(principal.getName());
@@ -250,7 +250,7 @@ public class BookingController {
         return "driverBookingSubmittedPage";
     }
 
-    @RequestMapping(value= "/driverBooking/view", method = RequestMethod.GET)
+    @RequestMapping(value= "/driver-offer/details", method = RequestMethod.GET)
     public String getDriverBookingView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
@@ -271,10 +271,10 @@ public class BookingController {
             return "driverBookingAcceptPage";
         }
 
-        return "redirect:/user/booking";
+        return "redirect:/user/booking-history";
     }
 
-    @RequestMapping(value= "/driverBooking/accept", method = RequestMethod.POST)
+    @RequestMapping(value= "/driver-offer/accept", method = RequestMethod.POST)
     public String acceptDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal,
                                       @RequestParam(value = "seatsReserved") Integer seatsReserved, RedirectAttributes redirectAttributes) {
 
@@ -286,10 +286,10 @@ public class BookingController {
         redirectAttributes.addAttribute("bookingReferenceId", bookingReferenceId);
         notificationService.sendAcceptedNotification(bookingReference, user);
 
-        return "redirect:/booking/driverBooking/success";
+        return "redirect:/bookings/driver-offer/success";
     }
 
-    @RequestMapping(value= "/driverBooking/success", method = RequestMethod.GET)
+    @RequestMapping(value= "/driver-offer/success", method = RequestMethod.GET)
     public String driverBookingSuccess(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final User user = userService.findByUsername(principal.getName());
@@ -300,7 +300,7 @@ public class BookingController {
         return "driverBookingSuccessPage";
     }
 
-    @RequestMapping(value= "/driverBooking/author/view", method = RequestMethod.GET)
+    @RequestMapping(value= "/driver-offer/authors/details", method = RequestMethod.GET)
     public String getDriverBookingAuthorView(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
@@ -325,10 +325,10 @@ public class BookingController {
         } else if (bookingReference.getBookingStatus().equalsIgnoreCase(BookingReferenceStatus.EXPIRED)) {
             return "driverBookingExpiredPage";
         }
-        return "redirect:/user/booking";
+        return "redirect:/user/booking-history";
     }
 
-    @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.GET)
+    @RequestMapping(value= "/driver-offer/cancel", method = RequestMethod.GET)
     public String getDriverBookingBackPending(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
 
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
@@ -339,7 +339,7 @@ public class BookingController {
         return "driverBookingCancelPendingPage";
     }
 
-    @RequestMapping(value= "/driverBooking/cancel", method = RequestMethod.POST)
+    @RequestMapping(value= "/driver-offer/cancel", method = RequestMethod.POST)
     public String cancelDriverBooking(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
         final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
         final User user = userService.findByUsername(principal.getName());
@@ -354,16 +354,5 @@ public class BookingController {
         }
 
         return "driverBookingCancelledPage";
-    }
-
-    @RequestMapping(value= "/driverBooking/update", method = RequestMethod.GET)
-    public String updateDriverBookingForm(@RequestParam(value = "bookingReferenceId") Long bookingReferenceId, Model model, Principal principal) {
-
-        final BookingReference bookingReference = bookingService.findBookingReference(bookingReferenceId);
-        final User user = userService.findByUsername(principal.getName());
-        model.addAttribute("bookingReference", bookingReference);
-        model.addAttribute("user", user);
-
-        return "driverBookingUpdatePage";
     }
 }

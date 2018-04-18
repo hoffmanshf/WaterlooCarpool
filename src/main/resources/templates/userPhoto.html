@@ -15,7 +15,7 @@
             <div class="col-md-3">
                 <aside class="user-profile-sidebar">
                     <div class="user-profile-avatar text-center">
-                        <img th:src="@{/user/photo/view}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
+                        <img th:src="@{/user/photo/principal}" onError="this.onerror=null;this.src='/images/defaultUser.png'" />
                         <h5><td data-th-text="${user.firstName}">...</td>&nbsp;<td data-th-text="${user.lastName}">...</td></h5>
                         <!--<br/>-->
                         <!--<p>Member Since May 2017</p>-->
@@ -25,7 +25,7 @@
                         </li>
                         <li><a th:href="@{/user/photo}"><i class="fa fa-camera"></i>User Photo</a>
                         </li>
-                        <li><a th:href="@{/user/booking}"><i class="fa fa-clock-o"></i>Booking History</a>
+                        <li><a th:href="@{/user/booking-history}"><i class="fa fa-clock-o"></i>Booking History</a>
                         </li>
                         <li><a href="#"><i class="fa fa-credit-card"></i>Credit/Debit Cards</a>
                         </li>

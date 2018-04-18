@@ -122,7 +122,7 @@ public class UserController {
         return "userPhoto";
     }
 
-    @RequestMapping(value = "/photo/viewByUsername", produces = MediaType.IMAGE_PNG_VALUE)
+    @RequestMapping(value = "/photo", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> getImageByUserName(@RequestParam(value = "username") String username) {
 
         User user = userService.findByUsername(username);
@@ -132,7 +132,7 @@ public class UserController {
         return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/photo/view", produces = MediaType.IMAGE_PNG_VALUE)
+    @RequestMapping(value = "/photo/principal", produces = MediaType.IMAGE_PNG_VALUE)
     public ResponseEntity<byte[]> getImage(Principal principal) {
 
         User user = userService.findByUsername(principal.getName());
@@ -142,7 +142,7 @@ public class UserController {
         return new ResponseEntity<byte[]>(imageContent, headers, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/notification", method = RequestMethod.DELETE)
+    @RequestMapping(value = "/notifications", method = RequestMethod.DELETE)
     public String deleteNotification(Principal principal) {
         User user = userService.findByUsername(principal.getName());
         List<Notification> notificationList = user.getNotificationList();
@@ -151,10 +151,10 @@ public class UserController {
                 notificationService.deleteNotification(notification.getNotificationId());
             }
         }
-        return "redirect:/userFront";
+        return "redirect:/home";
     }
 
-    @RequestMapping(value = "/booking", method = RequestMethod.GET)
+    @RequestMapping(value = "/booking-history", method = RequestMethod.GET)
     public String getUserBookingHistory(Principal principal, Model model) {
         User user = userService.findByUsername(principal.getName());
         List<BookingReference> userBookingReferences = new ArrayList<BookingReference>();
