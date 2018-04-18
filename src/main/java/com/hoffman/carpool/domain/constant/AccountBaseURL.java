@@ -9,7 +9,7 @@ public class AccountBaseURL {
     public static final String riderAccountSearchBaseURL = "https://waterloocarpool-demo.herokuapp.com/account/riderAccount/search";
     public static final String riderAccountSearchPassengerBaseURL = "https://waterloocarpool-demo.herokuapp.com/account/riderAccount/searchPassenger";
   
-  public AccountBaseURL() {
+    public AccountBaseURL() {
         // empty to avoid instantiating this constant class
     }
 }
