@@ -9,7 +9,7 @@
 	<packaging>jar</packaging>
 
 	<name>demo</name>
-	<description>Waterloo Carpool Application</description>
+	<description>Waterloo Carpool Platform</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
