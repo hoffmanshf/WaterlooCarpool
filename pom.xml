@@ -115,9 +115,6 @@
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
-				<configuration>
-					<finalName>waterloo-carpool-demo</finalName>
-				</configuration>
 			</plugin>
 		</plugins>
 	</build>
