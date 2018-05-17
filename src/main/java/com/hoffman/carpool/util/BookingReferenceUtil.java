@@ -8,6 +8,7 @@ import com.hoffman.carpool.domain.entity.User;
 import com.hoffman.carpool.service.BookingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -50,7 +51,7 @@ public class BookingReferenceUtil {
             }
             List<RiderAccount> accounts = reference.getPassengerList();
             List<RiderAccount> cancelledAccounts = reference.getCancelledPassengerList();
-            if (accounts != null) {
+            if (!CollectionUtils.isEmpty(accounts)) {
                 for (RiderAccount account : accounts) {
                     if (account.getUsername().equalsIgnoreCase(user.getUsername()) && !cancelledAccounts.contains(account)) {
                         reference.setAccountType("Rider");
@@ -60,7 +61,7 @@ public class BookingReferenceUtil {
                 }
             }
 
-            if (cancelledAccounts != null) {
+            if (!CollectionUtils.isEmpty(cancelledAccounts)) {
                 for (RiderAccount cancelledAccount : cancelledAccounts) {
                     if (cancelledAccount.getUsername().equalsIgnoreCase(user.getUsername())) {
                         reference.setAccountType("Rider");

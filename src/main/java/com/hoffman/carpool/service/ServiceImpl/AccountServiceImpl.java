@@ -86,7 +86,7 @@ public class AccountServiceImpl implements AccountService {
 
         final Sort sortType = sortingUtil.getSortType(sort);
 
-        if (date != null && StringUtils.isNotEmpty(date)) {
+        if (StringUtils.isNotEmpty(date)) {
             bookingReferences = bookingReferenceRepository.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndDateForSearchAndAccountType(arrivalCity, departureCity, date, accountType, sortType);
         } else {
             bookingReferences = bookingReferenceRepository.findByArrivalIgnoreCaseContainingAndDepartureIgnoreCaseContainingAndAccountType(arrivalCity, departureCity, accountType, sortType);
@@ -96,7 +96,7 @@ public class AccountServiceImpl implements AccountService {
         bookingReferences = bookingReferenceUtil.BookingReferenceProcessor(user, bookingReferences);
 
         if (passengerNumber.length > 0) {
-            if (passengerNumber != null && StringUtils.isNotEmpty(passengerNumber[0])) {
+            if (StringUtils.isNotEmpty(passengerNumber[0])) {
                 final int seats = Integer.valueOf(passengerNumber[0]);
                 List<BookingReference> filteredBookingReferences = new ArrayList<BookingReference>();
                 for (final BookingReference reference : bookingReferences) {

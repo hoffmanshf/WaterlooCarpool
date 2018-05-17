@@ -1,6 +1,7 @@
 package com.hoffman.carpool.util;
 
 import com.hoffman.carpool.error.UServiceException;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Component;
 
 import java.text.DateFormat;
@@ -16,7 +17,7 @@ public class DateTimeConverterUtil {
         Date date = null;
 
         try {
-            if (!source.isEmpty() && source != null) {
+            if (StringUtils.isNotEmpty(source)) {
                 date = format.parse(source);
             }
         } catch (ParseException e) {

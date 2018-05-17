@@ -34,7 +34,7 @@ public class CalendarEventUtil {
         Uid uid = new Uid(calendarEvent.getCanonicalHandleUUID());
         vEvent.getProperties().add(uid);
 
-        if (StringUtils.isNotBlank(calendarEvent.getSummary())) {
+        if (StringUtils.isNotEmpty(calendarEvent.getSummary())) {
             vEvent.getProperties().add(new Description(calendarEvent.getSummary()));
         }
 
