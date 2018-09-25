@@ -149,10 +149,6 @@ The application was based on **Spring Framework** and server-side Java template 
 
 ```
 
-### Domain Model UML
-
-![image](https://user-images.githubusercontent.com/24725550/38653314-1f6fc4ca-3dd8-11e8-9148-4feab961cc22.png)
-
 ## Building the Project
     # Run the application
     $ mvn spring-boot:run
