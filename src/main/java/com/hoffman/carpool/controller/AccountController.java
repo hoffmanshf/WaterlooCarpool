@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("/postings")
+@RequestMapping("/account")
 public class AccountController {
 
     private static final int BUTTONS_TO_SHOW = 5;
