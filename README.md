@@ -5,8 +5,6 @@
 
 The application was based on **Spring Framework** and server-side Java template engine **Thymeleaf**. User registration and login page were secured by CSRF protection using **Spring Security**. User can manage booking reference through booking history page or notification service. The booking service was supported by **Google API**, **iCalendar integration** and **Spring Boot Mail**. The booking reference listing page implemented **PagingAndSortingRepository** and **Search Functionality**.
 
-### [View the demo](https://waterloocarpool-demo.herokuapp.com)
-
 ### Technologies
  - Spring Framework: Spring Boot, Spring MVC, Spring Data, Spring Security, and Spring Test
  - Google API: Google Map, Google Direction, Google Distance Matrix and Google Autocomplete
