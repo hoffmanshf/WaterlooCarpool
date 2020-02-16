@@ -23,7 +23,7 @@ import static java.lang.Math.toIntExact;
 @Component
 public class GoogleDistanceMatrixUtil {
 
-    private static final String API_KEY = "AIzaSyACQSMkZbQvQwPw-dp-HcRI88mvxNMyaSQ";
+    private static final String API_KEY = "AIzaSyDy3AhiOW3Z4C3GZptz5bMLWoXsL6KjyAM";
     private static final GeoApiContext context = new GeoApiContext.Builder().apiKey(API_KEY).build();
 
     private BookingService bookingService;
